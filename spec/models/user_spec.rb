@@ -64,7 +64,7 @@ RSpec.describe User, type: :model do
     u.username = valid_username.concat(': @\ ') 
     u.save()
     expect(u).not_to be_valid
-    expect(u.errors[:username]).to include('Usernames can only use letters, numbers, underscores and periods')
+    expect(u.errors[:username]).to include('can only use letters, numbers, underscores and periods')
   end
 
   it 'bio can be null' do 

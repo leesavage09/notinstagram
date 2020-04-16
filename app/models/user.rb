@@ -20,7 +20,7 @@ class User < ApplicationRecord
                 presence: true, 
                 uniqueness: true, 
                 length: {maximum: 30},
-                format: { with: /\A[\w.]+\z/, message: "Usernames can only use letters, numbers, underscores and periods" }
+                format: { with: /\A[\w.]+\z/, message: "can only use letters, numbers, underscores and periods" }
     validates :bio, 
                 length: {maximum: 150}
     validates :email, 
