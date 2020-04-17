@@ -1,23 +1,33 @@
-import * as Signup_actions from './signup_actions'
+import * as Actions from './signup_actions'
 
-const _defaultState = {
-    newUser: {
-        name: 'name',
-        email: 'email@address',
-        username: 'username',
-        password: 'password'
-    }
+const _state = {
+    loading: false,
+    user: [],
+    errors: []
 };
 
-const signupReducer = (state = _defaultState, action) => {
+const signupReducer = (state = _state, action) => {
     Object.freeze(state)
-    let nextState = {}
-
 
     switch (action.type) {
-        case Signup_actions.CREATE_USER:
-            nextState['newUser'] = action.user
-            return nextState;
+        case Actions.CREATE_USER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                errors: []
+            }
+        case Actions.CREATE_USER_SUCCESS:
+            return {
+                loading: false,
+                user: action.user,
+                errors: []
+            }
+        case Actions.CREATE_USER_FAILURE:
+            return {
+                loading: false,
+                user: [],
+                errors: action.error
+            }
         default:
             return state;
     }

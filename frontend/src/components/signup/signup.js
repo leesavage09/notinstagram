@@ -1,12 +1,18 @@
 import { connect } from 'react-redux'
 import React from 'react';
 import { createUser } from './signup_actions'
+import { errorTypes, loading, signedUpUser, errorsMessages } from './signup_selectors'
 
 class Signup extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = props.user
+        this.state = {
+            name: '',
+            email: '',
+            username: '',
+            password: ''
+        }
     }
 
     emailChange = (e) => {
@@ -36,23 +42,37 @@ class Signup extends React.Component {
     }
 
     render() {
+        // console.log("err types", this.props.errorTypes)
+
+        const errorListItems = []
+        this.props.errorsMessages.forEach( (message, idx) => {
+            errorListItems.push(<li key={idx}>{message}</li>)
+        });
         return (
             <div>
-                <h1>Store State "{this.props.user.name} {this.props.user.username} {this.props.user.email} {this.props.user.password}"</h1>
+                <div className="logo" ></div>
+                <h1>props "{this.props.user.name} {this.props.user.username} {this.props.user.email} {this.props.user.password}"</h1>
 
-                <input type="text" value={this.state.email} onChange={this.emailChange} />
-                <input type="text" value={this.state.name} onChange={this.nameChange} />
-                <input type="text" value={this.state.username} onChange={this.usernameChange} />
-                <input type="text" value={this.state.password} onChange={this.passwordChange} />
+                <input type="text" placeholder='email' value={this.state.email} onChange={this.emailChange} />
+                <input type="text" placeholder='name' value={this.state.name} onChange={this.nameChange} />
+                <input type="text" placeholder='username' value={this.state.username} onChange={this.usernameChange} />
+                <input type="password" placeholder='password' value={this.state.password} onChange={this.passwordChange} />
 
-                <button onClick={this.signup}>Sign-up</button>
+                <button disabled={this.props.loading} onClick={this.signup}>Sign-up</button>
+
+                <ul>
+                    {errorListItems}
+                </ul>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    user: state.signupReducer.newUser
+    loading: loading(state),
+    user: signedUpUser(state),
+    errorsMessages: errorsMessages(state),
+    errorTypes: errorTypes(state)
 });
 
 
