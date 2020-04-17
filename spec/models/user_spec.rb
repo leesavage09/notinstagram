@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
     u.save()
     expect(u).not_to be_valid
 
-    expect(u.errors[:name]).to include('is too long (maximum is 30 characters)')
+    expect(u.errors[:name]).to include('Name must be less than 30 characters.')
   end
 
   it 'name can be null' do 
@@ -51,10 +51,10 @@ RSpec.describe User, type: :model do
     u.save()
     expect(u).not_to be_valid
 
-    expect(u.errors[:username]).to include('is too long (maximum is 30 characters)')
+    expect(u.errors[:username]).to include('Username must be less than 30 characters.')
   end
 
-  it 'Usernames can only use letters, numbers, underscores and periods' do
+  it 'Username can only use letters, numbers, underscores and periods' do
     u = build(:user)
     u.username = valid_username
     u.save()
@@ -64,7 +64,7 @@ RSpec.describe User, type: :model do
     u.username = valid_username.concat(': @\ ') 
     u.save()
     expect(u).not_to be_valid
-    expect(u.errors[:username]).to include('can only use letters, numbers, underscores and periods')
+    expect(u.errors[:username]).to include('Username can only use letters, numbers, underscores and periods')
   end
 
   it 'bio can be null' do 
@@ -85,7 +85,7 @@ RSpec.describe User, type: :model do
     u.save()
     expect(u).not_to be_valid
 
-    expect(u.errors[:bio]).to include('is too long (maximum is 150 characters)')
+    expect(u.errors[:bio]).to include('Bio must be under 150 characters.')
   end
 
   it 'email cant be blank' do
@@ -106,7 +106,7 @@ RSpec.describe User, type: :model do
     u.save()
     expect(u).not_to be_valid
    
-    expect(u.errors[:email]).to include('is too long (maximum is 254 characters)')
+    expect(u.errors[:email]).to include('Email is not valid')
   end
 
   it 'email address is valid' do
@@ -131,7 +131,7 @@ RSpec.describe User, type: :model do
     u2.save()
     expect(u2).not_to be_valid
 
-    expect(u2.errors[:username]).to include('has already been taken')
+    expect(u2.errors[:username]).to include('This username has already been taken.')
   end
 
   it 'email is unique' do
@@ -144,7 +144,7 @@ RSpec.describe User, type: :model do
     u2.save()
     expect(u2).not_to be_valid
 
-    expect(u2.errors[:email]).to include('has already been taken')
+    expect(u2.errors[:email]).to include('Email address has already signed up')
   end
 
 end
