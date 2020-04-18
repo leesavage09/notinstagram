@@ -21,11 +21,11 @@ export const createUser = (user) => {
                 dispatch(createUserSuccess(user))
             })
             .catch(error => {
-                if (error.response && error.response.data && error.response.data) {
+                if (error.response && error.response.data && error.response.data.errors) {
                     dispatch(createUserFailure(error.response.data.errors))
                 }
                 else {
-                    dispatch(createUserFailure({noResponce: [error.message]}))
+                    dispatch(createUserFailure({unknown: [error.message]}))
                 }
             })
     }

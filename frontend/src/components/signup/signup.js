@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
+import { Link } from "react-router-dom";
 import * as Actions from './signup_actions'
 import * as Selectors from './signup_selectors'
 
@@ -66,7 +67,7 @@ export default function Signup() {
             </ul>
 
             <div>
-                <p>Have an account? <a href="#">Log in</a></p>
+                <p>Have an account? <Link to="/login">Log in</Link></p>
             </div>
         </div >
     );
