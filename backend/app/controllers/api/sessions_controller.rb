@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
         if user 
             render json: login(user) #TODO render secure JSON 
         else
-            render json: "{errors: ['username or password incorect']}", status: 401
+            render json: {errors: {auth: ['username or password incorect']}}, status: 401
         end 
     end
 
@@ -15,7 +15,7 @@ class Api::SessionsController < ApplicationController
             logout
             render json: user  #TODO render secure JSON
         else 
-            render json:  "{errors: ['already logged out']}", status: 404
+            render json:  {errors: {auth: ['already logged out']}}, status: 404
         end
     end
 
