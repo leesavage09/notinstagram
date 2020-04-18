@@ -1,86 +1,73 @@
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import { createUser } from './signup_actions'
-import { errorTypes, loading, signedUpUser, errorsMessages } from './signup_selectors'
+import * as Actions from './signup_actions'
+import * as Selectors from './signup_selectors'
 
-class Signup extends React.Component {
+export default function Signup() {
+    const dispatch = useDispatch()
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            email: '',
-            username: '',
-            password: ''
-        }
+    const loading = useSelector(state => Selectors.loading(state))
+    const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
+    const errorTypes = useSelector(state => Selectors.errorTypes(state))
+
+    const usernameInput = React.createRef();
+    const passwordInput = React.createRef();
+    const nameInput = React.createRef();
+    const emailInput = React.createRef();
+
+    function signUpClicked() {
+        dispatch(Actions.createUser({
+            username: usernameInput.current.value,
+            password: passwordInput.current.value,
+            name: nameInput.current.value,
+            email: emailInput.current.value
+        }))
     }
 
-    emailChange = (e) => {
-        this.setState({ email: e.target.value })
-    }
+    const errorListItems = []
+    errorsMessages.forEach((message, idx) => {
+        errorListItems.push(<li key={idx}>{message}</li>)
+    });
 
-    nameChange = (e) => {
-        this.setState({ name: e.target.value })
-    }
+    return (
+        <div>
+            <h1 className="logo" >notinstagram</h1>
+            <h2>Sign up to see photos and videos from your friends.</h2>
 
-    usernameChange = (e) => {
-        this.setState({ username: e.target.value })
-    }
+            <input ref={emailInput}
+                type="email"
+                className={errorTypes.includes("email") ? "error" : ""}
+                placeholder='email'
+                autoComplete="email" 
+            />
+            <input ref={nameInput}
+                type="text"
+                className={errorTypes.includes("name") ? "error" : ""}
+                placeholder='name'
+                autoComplete="name"
+            />
+            <input ref={usernameInput}
+                type="username"
+                className={errorTypes.includes("username") ? "error" : ""}
+                placeholder='username'
+                autoComplete="username"
+            />
+            <input ref={passwordInput}
+                type="password"
+                className={errorTypes.includes("password") ? "error" : ""}
+                placeholder='password'
+                autoComplete="new-password"
+            />
 
-    passwordChange = (e) => {
-        this.setState({ password: e.target.value })
-    }
+            <button disabled={loading} onClick={signUpClicked}>Sign-up</button>
 
-    signup = (e) => {
-        const user = {
-            email: this.state.email,
-            name: this.state.name,
-            username: this.state.username,
-            password: this.state.password,
-        }
-        this.props.signupUser(user)
-    }
+            <ul>
+                {errorListItems}
+            </ul>
 
-    render() {
-        // console.log("err types", this.props.errorTypes)
-
-        const errorListItems = []
-        this.props.errorsMessages.forEach( (message, idx) => {
-            errorListItems.push(<li key={idx}>{message}</li>)
-        });
-        return (
             <div>
-                <div className="logo" ></div>
-                <h1>props "{this.props.user.name} {this.props.user.username} {this.props.user.email} {this.props.user.password}"</h1>
-
-                <input type="text" placeholder='email' value={this.state.email} onChange={this.emailChange} />
-                <input type="text" placeholder='name' value={this.state.name} onChange={this.nameChange} />
-                <input type="text" placeholder='username' value={this.state.username} onChange={this.usernameChange} />
-                <input type="password" placeholder='password' value={this.state.password} onChange={this.passwordChange} />
-
-                <button disabled={this.props.loading} onClick={this.signup}>Sign-up</button>
-
-                <ul>
-                    {errorListItems}
-                </ul>
+                <p>Have an account? <a href="#">Log in</a></p>
             </div>
-        );
-    }
+        </div >
+    );
 }
-
-const mapStateToProps = state => ({
-    loading: loading(state),
-    user: signedUpUser(state),
-    errorsMessages: errorsMessages(state),
-    errorTypes: errorTypes(state)
-});
-
-
-const mapDispatchToProps = dispatch => ({
-    signupUser: user => dispatch(createUser(user))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Signup);
