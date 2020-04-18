@@ -1,9 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Backend
+* ruby
+* rails
+* jbuilder
+* bcrypt
+* rack-cors
 
-Things you may want to cover:
+### Test Driven Development Of Modles With 
+* rspec-rails
+* factory_bot_rails
+* faker
+
+## Frontend
+* react
+* react-router
+* redux
+* redux-thunk
+* axios
+
+
+##TODOS
 
 * Ruby version
 
@@ -20,5 +37,3 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
