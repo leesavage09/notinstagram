@@ -14,7 +14,6 @@ export default function Signup() {
     const passwordInput = React.createRef();
 
     function loginClicked() {
-        console.log("Login user!")
         dispatch(Actions.loginUser({
             username: usernameInput.current.value,
             password: passwordInput.current.value

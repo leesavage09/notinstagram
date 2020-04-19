@@ -13,9 +13,14 @@ export const loginUser = (user) => {
                     username: user.username,
                     password: user.password
                 }
-            })
+            },{
+                withCredentials: true
+            }
+            )
             .then(response => {
                 const user = response.data
+                console.log("login thunk", response)
+                console.log("responce set-cookie", response.headers['set-cookie'])
                 dispatch(loginUserSuccess(user))
             })
             .catch(error => {
