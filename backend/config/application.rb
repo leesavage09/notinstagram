@@ -37,12 +37,5 @@ module Notinstagram
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins 'http://penguin.linux.test:3001', 'http://localhost:3001', 'http://penguin.linux.test', 'http://localhost'
-        resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
-      end
-    end
-
   end
 end
