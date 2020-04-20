@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
  
+    helper_method :logged_in_user, :logged_in?
+
     def login(user)
         user.reset_session_token!
         session[:session_token] = user.session_token

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import Signup from './views/signup/signup'
 import Login from './views/login/login'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { AuthRoute, ProtectedRoute } from './util/routes'
 import { Link } from "react-router-dom";
 
 function App({ store }) {
@@ -11,15 +12,9 @@ function App({ store }) {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/login">
-              <Login></Login>
-            </Route>
-            <Route path="/home">
-              <Home store={store}></Home>
-            </Route>
+            <AuthRoute path="/signup" component={Signup} />
+            <AuthRoute exact path="/login" component={Login} />
+            <ProtectedRoute path="/" component={Home} />
           </Switch>
         </BrowserRouter>
       </div>
@@ -29,13 +24,16 @@ function App({ store }) {
 
 export default App;
 
-function Home({store}) {
+function Home() {
+  const user = useSelector(state => state.session.user)
   return (
     <div>
       <h1>Home page!</h1>
+      <p>Hi {user.name}<br/>
+      Your email is {user.email} and your username is {user.username}<br/>
+      Your Bio is {user.bio}</p>
       <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       <p>Have an account? <Link to="/login">Log in</Link></p>
-      <p>{console.log(store.getState())}</p>
     </div>
   );
 }

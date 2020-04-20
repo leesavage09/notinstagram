@@ -1,2 +1,24 @@
-<%= javascript_pack_tag "application" %>
-<%= react_component("Index") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> notInstagram</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="notinstagram is a clone of instagram" />
+    
+    <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="logo192.png" />
+    <link rel="manifest" href="manifest.json" />
+    
+    <%= javascript_pack_tag "application" %>
+    <%= react_component("Index") %>
+    <% if logged_in? %>
+      <script type="text/javascript">
+          window.logged_in_user =
+            <%= render("api/users/user.json.jbuilder", user: logged_in_user).html_safe %>
+      </script>
+    <% end %>
+  </head>
+  <body></body>
+</html>
