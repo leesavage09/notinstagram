@@ -1,8 +1,9 @@
-import * as ActionTypes from '../action_types'
+import * as ActionTypes from '../actions/action_types'
 
 const _nullErrors = {
     login: [],
-    signup: []
+    signup: [],
+    logout: []
 };
 
 const SessionErrorsReducer = (state = _nullErrors, action) => {
@@ -12,6 +13,8 @@ const SessionErrorsReducer = (state = _nullErrors, action) => {
             return { ...state, signup: action.error }
         case ActionTypes.LOGIN_USER_FAILURE:
             return { ...state, login: action.error }
+        case ActionTypes.LOGOUT_FAILURE:
+            return { ...state, logout: action.error }
         case ActionTypes.CLEAR_ERRORS:
             return _nullErrors;
         default:

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as Types from '../../redux/action_types'
+import * as Types from '../../redux/actions/action_types'
 
 export const loginUser = (user) => {
     return (dispatch) => {

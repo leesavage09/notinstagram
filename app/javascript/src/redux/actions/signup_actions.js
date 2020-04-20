@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as ActionTypes from '../../redux/action_types'
+import * as ActionTypes from '../../redux/actions/action_types'
 
 export const createUser = (user) => {
     return (dispatch) => {

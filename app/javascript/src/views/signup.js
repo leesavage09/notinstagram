@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { Link } from "react-router-dom";
-import * as Actions from './signup_actions'
-import * as Selectors from './signup_selectors'
+import * as Actions from '../redux/actions/signup_actions'
+import * as Selectors from '../redux/selectors/signup_selectors'
 
 export default function Signup() {
     const dispatch = useDispatch()

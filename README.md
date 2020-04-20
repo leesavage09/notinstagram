@@ -5,7 +5,6 @@
 * rails
 * jbuilder
 * bcrypt
-* rack-cors
 
 ### Test Driven Development Of Modles With 
 * rspec-rails
@@ -21,8 +20,6 @@
 
 
 ##TODOS
-
-* Ruby version
 
 * System dependencies
 
