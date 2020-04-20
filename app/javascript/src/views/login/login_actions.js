@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
-export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
-export const LOGIN_USER_FAILURE = "LOGIN_USER_FAILURE";
+import * as Types from '../../redux/action_types'
 
 export const loginUser = (user) => {
     return (dispatch) => {
@@ -19,12 +16,9 @@ export const loginUser = (user) => {
             )
             .then(response => {
                 const user = response.data
-                console.log("login thunk", response)
-                console.log("responce set-cookie", response.headers['set-cookie'])
                 dispatch(loginUserSuccess(user))
             })
             .catch(error => {
-                console.log("catch error", error.response.data)
                 if (error.response && error.response.data && error.response.data.errors) {
                     dispatch(loginUserFailure(error.response.data.errors))
                 }
@@ -37,21 +31,20 @@ export const loginUser = (user) => {
 
 const loginUserRequest = () => {
     return {
-        type: LOGIN_USER_REQUEST
+        type: Types.LOGIN_USER_REQUEST
     }
 }
 
 const loginUserSuccess = (user) => {
     return {
-        type: LOGIN_USER_SUCCESS,
+        type: Types.LOGIN_USER_SUCCESS,
         user: user
     }
 }
 
 const loginUserFailure = (errors) => {
-    console.log("loginUserFailure", errors)
     return {
-        type: LOGIN_USER_FAILURE,
+        type: Types.LOGIN_USER_FAILURE,
         error: errors
     }
 }

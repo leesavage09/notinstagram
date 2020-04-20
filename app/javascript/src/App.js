@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Signup from './components/signup/signup'
-import Login from './components/login/login'
+import Signup from './views/signup/signup'
+import Login from './views/login/login'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -17,8 +17,8 @@ function App({ store }) {
             <Route path="/login">
               <Login></Login>
             </Route>
-            <Route path="/">
-              <Home></Home>
+            <Route path="/home">
+              <Home store={store}></Home>
             </Route>
           </Switch>
         </BrowserRouter>
@@ -29,12 +29,13 @@ function App({ store }) {
 
 export default App;
 
-function Home() {
+function Home({store}) {
   return (
     <div>
       <h1>Home page!</h1>
       <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       <p>Have an account? <Link to="/login">Log in</Link></p>
+      <p>{console.log(store.getState())}</p>
     </div>
   );
 }

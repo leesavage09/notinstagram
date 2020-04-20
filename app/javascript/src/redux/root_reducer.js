@@ -1,10 +1,16 @@
 import { combineReducers } from 'redux';
-import signup from '../components/signup/signup_reducer'
-import login from '../components/login/login_reducer'
+import SessionReducer from '../redux/reducers/session_reducer'
+import SessionErrorsReducer from '../redux/reducers/session_errors_reducer';
+import LoadingReducer from '../redux/reducers/loading_reducer'
+
+const errorsReducer = combineReducers({
+    session: SessionErrorsReducer
+  });
 
 const rootReducer = combineReducers({
-    signup,
-    login
+    session: SessionReducer, 
+    loading: LoadingReducer,
+    errors: errorsReducer
 });
 
 export default rootReducer;

@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
-export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
-export const CREATE_USER_FAILURE = "CREATE_USER_FAILURE";
+import * as ActionTypes from '../../redux/action_types'
 
 export const createUser = (user) => {
     return (dispatch) => {
@@ -33,20 +30,20 @@ export const createUser = (user) => {
 
 const createUserRequest = () => {
     return {
-        type: CREATE_USER_REQUEST
+        type: ActionTypes.CREATE_USER_REQUEST
     }
 }
 
 const createUserSuccess = (user) => {
     return {
-        type: CREATE_USER_SUCCESS,
+        type: ActionTypes.CREATE_USER_SUCCESS,
         user: user
     }
 }
 
 const createUserFailure = (errors) => {
     return {
-        type: CREATE_USER_FAILURE,
+        type: ActionTypes.CREATE_USER_FAILURE,
         error: errors
     }
 }

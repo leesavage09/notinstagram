@@ -7,7 +7,7 @@ import * as Selectors from './signup_selectors'
 export default function Signup() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(state => Selectors.loading(state))
+    const loading = useSelector(state => state.loading)
     const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
     const errorTypes = useSelector(state => Selectors.errorTypes(state))
 
