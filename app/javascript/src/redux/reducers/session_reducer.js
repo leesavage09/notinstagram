@@ -10,6 +10,8 @@ const SessionReducer = (state = _nullUser, action) => {
       return Object.assign({}, { user: action.user });
     case ActionTypes.CREATE_USER_SUCCESS:
       return Object.assign({}, { user: action.user });
+    case ActionTypes.UPDATE_USER_SUCCESS:
+      return Object.assign({}, { user: action.user });
     case ActionTypes.LOGOUT_SUCCESS:
       return _nullUser;
     default:

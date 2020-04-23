@@ -20,6 +20,12 @@ const LoadingReducer = (state = false, action) => {
       return false;
     case ActionTypes.CREATE_USER_FAILURE:
       return false;
+    case ActionTypes.UPDATE_USER_REQUEST:
+      return true
+    case ActionTypes.UPDATE_USER_SUCCESS:
+      return false;
+    case ActionTypes.UPDATE_USER_FAILURE:
+      return false;
     default:
       return false;
   }

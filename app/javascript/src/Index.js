@@ -11,6 +11,7 @@ class Index extends React.Component {
       store = configureStore({
         session: {
           user: {
+            id: window.logged_in_user.id,
             bio: window.logged_in_user.bio,
             email: window.logged_in_user.email,
             name: window.logged_in_user.name,

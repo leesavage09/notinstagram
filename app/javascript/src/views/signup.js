@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
-import * as Actions from '../redux/actions/signup_actions'
+import * as Actions from '../redux/actions/user_actions'
 import * as Selectors from '../redux/selectors/user_selectors'
 
 
