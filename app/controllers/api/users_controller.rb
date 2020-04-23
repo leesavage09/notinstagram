@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
   
   def update
       if !logged_in? || logged_in_user.id != params.require(:id).to_i
-        render json: {errors: ['forbidden']} , status: :forbidden
+        render json: {errors: {auth: ['You must be logged in']}} , status: :forbidden
       else
         logged_in_user.update(user_params)
         if logged_in_user.save

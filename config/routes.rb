@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:create, :update]
     resource :session, only: [:create, :destroy]
+    resources :jpg_uploads, only: [:index]
   end
 
   get '*page', to: 'static#index', constraints: ->(req) do
