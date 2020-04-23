@@ -1,15 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import * as Actions from '../redux/actions/signup_actions'
-import * as Selectors from '../redux/selectors/signup_selectors'
+import * as Selectors from '../redux/selectors/user_selectors'
+
 
 export default function Signup() {
-    const dispatch = useDispatch()
+    const loggedInUser = useSelector(state => Selectors.loggedInUser)
+    if (loggedInUser) {
+        <Redirect to="/" /> 
+    }
 
     const loading = useSelector(state => state.loading)
-    const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
-    const errorTypes = useSelector(state => Selectors.errorTypes(state))
+    const errorsMessages = useSelector(state => Selectors.signupErrorsMessages(state))
+    const errorTypes = useSelector(state => Selectors.signupErrorTypes(state))
+    const dispatch = useDispatch()
 
     const usernameInput = React.createRef();
     const passwordInput = React.createRef();

@@ -1,4 +1,6 @@
-export const errorsMessages = (state) => {
+export const loggedInUser = state => state.session.user
+
+export const signupErrorsMessages = state => {
     const errors = []
     Object.keys(state.errors.session.signup).forEach(key => {
         state.errors.session.signup[key].forEach(message => {
@@ -8,6 +10,6 @@ export const errorsMessages = (state) => {
     return errors;
 }
 
-export const errorTypes = (state) => {
+export const signupErrorTypes = state => {
     return Object.keys(state.errors.session.signup)
 }

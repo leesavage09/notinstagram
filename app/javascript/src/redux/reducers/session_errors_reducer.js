@@ -15,10 +15,8 @@ const SessionErrorsReducer = (state = _nullErrors, action) => {
             return { ...state, login: action.error }
         case ActionTypes.LOGOUT_FAILURE:
             return { ...state, logout: action.error }
-        case ActionTypes.CLEAR_ERRORS:
-            return _nullErrors;
         default:
-            return state;
+            return _nullErrors;
     }
 };
 
