@@ -4,7 +4,7 @@ import Signup from './views/signup'
 import Login from './views/login'
 import { logout } from './redux/actions/session_actions'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { AuthRoute, ProtectedRoute } from './util/routes'
+import { AuthRoute, ProtectedRoute } from './routes'
 import { Link } from "react-router-dom";
 import { post } from 'axios';
 import EditUser from './views/edit_user'

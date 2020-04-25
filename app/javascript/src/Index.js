@@ -2,26 +2,13 @@ import React from 'react';
 import configureStore from './redux/store'
 import App from './App';
 import './index'
-
+import * as Actions from './redux/actions/session_actions'
 
 class Index extends React.Component {
   render() {
-    let store
+    const store = configureStore()
     if (window.logged_in_user) {
-      store = configureStore({
-        session: {
-          user: {
-            id: window.logged_in_user.id,
-            bio: window.logged_in_user.bio,
-            email: window.logged_in_user.email,
-            name: window.logged_in_user.name,
-            username: window.logged_in_user.username
-          }
-        }
-      })
-      delete window.logged_in_user
-    } else {
-      store = configureStore()
+      store.dispatch(Actions.loginUserSuccess(window.logged_in_user))
     }
     return (
       <React.StrictMode>

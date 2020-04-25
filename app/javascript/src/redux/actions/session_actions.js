@@ -35,7 +35,7 @@ const loginUserRequest = () => {
     }
 }
 
-const loginUserSuccess = (user) => {
+export const loginUserSuccess = (user) => {
     return {
         type: Types.LOGIN_USER_SUCCESS,
         user: user
