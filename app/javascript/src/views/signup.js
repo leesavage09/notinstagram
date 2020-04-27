@@ -12,8 +12,8 @@ export default function Signup() {
     }
 
     const loading = useSelector(state => state.loading)
-    const errorsMessages = useSelector(state => Selectors.signupErrorsMessages(state))
-    const errorTypes = useSelector(state => Selectors.signupErrorTypes(state))
+    const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
+    const errorTypes = useSelector(state => Selectors.errorTypes(state))
     const dispatch = useDispatch()
 
     const usernameInput = React.createRef();

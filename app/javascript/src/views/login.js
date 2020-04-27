@@ -8,7 +8,7 @@ export default function Signup() {
 
     const loading = useSelector(state => state.loading)
     const errorsMessages = useSelector(state => {
-        return state.errors.session.login.auth ? state.errors.session.login.auth : []
+        return state.errors.session.auth ? state.errors.session.auth : []
     })
 
     const usernameInput = React.createRef();

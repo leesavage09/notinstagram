@@ -6,30 +6,16 @@ export const loggedInUser = state => {
     }
 }
 
-export const signupErrorsMessages = state => {
+export const errorsMessages = state => {
     const errors = []
-    Object.keys(state.errors.user.signup).forEach(key => {
-        state.errors.user.signup[key].forEach(message => {
+    Object.keys(state.errors.user).forEach(key => {
+        state.errors.user[key].forEach(message => {
             errors.push(message)
         })
     })
     return errors;
 }
 
-export const signupErrorTypes = state => {
-    return Object.keys(state.errors.user.signup)
-}
-
-export const updateErrorsMessages = state => {
-    const errors = []
-    Object.keys(state.errors.user.update).forEach(key => {
-        state.errors.user.update[key].forEach(message => {
-            errors.push(message)
-        })
-    })
-    return errors;
-}
-
-export const updateErrorTypes = state => {
-    return Object.keys(state.errors.user.update)
+export const errorTypes = state => {
+    return Object.keys(state.errors.user)
 }
