@@ -6,7 +6,6 @@ import { logout } from './redux/actions/session_actions'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthRoute, ProtectedRoute } from './routes'
 import { Link } from "react-router-dom";
-import { post } from 'axios';
 import EditUser from './views/edit_user'
 
 function App({ store }) {
@@ -18,7 +17,6 @@ function App({ store }) {
             <AuthRoute path="/signup" component={Signup} />
             <AuthRoute exact path="/login" component={Login} />
             <ProtectedRoute path="/edit" component={EditUser} />
-            <ProtectedRoute path="/upload" component={SimpleReactFileUpload} />
             <ProtectedRoute path="/" component={Home} />
           </Switch>
         </BrowserRouter>

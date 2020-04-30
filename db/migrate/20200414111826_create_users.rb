@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email, limit: 254, null: false
       t.string :password_digest, null: false
       t.string :session_token, null: false
-      t.string :profile_url, null: true
+      t.string :image_url, null: true
 
       t.timestamps
     end

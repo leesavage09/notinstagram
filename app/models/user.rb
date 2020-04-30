@@ -1,18 +1,3 @@
-    # has_many :artwork_shares,
-    # foreign_key: :viewer_id,
-    # dependent: :destroy
-
-    # has_many :shared_artworks, 
-    # through: :artwork_shares, 
-    # source: :artwork
-
-    # has_many :artworks, 
-    # foreign_key: :artist_id,
-    # dependent: :destroy
-
-    # has_many :comments, 
-    # dependent: :destroy
-
 class User < ApplicationRecord
     validates :name, 
                 length: { maximum: 30, message: "Name must be less than 30 characters." }

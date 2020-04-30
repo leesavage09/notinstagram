@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_111826) do
     t.string "email", limit: 254, null: false
     t.string "password_digest", null: false
     t.string "session_token", null: false
-    t.string "profile_url"
+    t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

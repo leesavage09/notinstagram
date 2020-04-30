@@ -3,4 +3,4 @@ json.email user.email
 json.username user.username
 json.name user.name
 json.bio user.bio
-json.profile_url user.profile_url
+json.image_url user.image_url

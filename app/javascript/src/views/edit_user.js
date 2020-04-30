@@ -22,15 +22,6 @@ export default function Signup(props) {
 
     let photoInput;
 
-    if (!loadedImg) {
-        const imgOri = new Image();
-        imgOri.src = "wide.png"
-        imgOri.onload = () => {
-            setLoadedImg(imgOri)
-        }
-    }
-
-
 
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
