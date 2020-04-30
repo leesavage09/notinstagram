@@ -1,19 +1,25 @@
-$bgcolor: pink;
-$textcolor: darkblue;
-$fontsize: 18px;
 
 
-body {
-    background-color: $bgcolor;
+button {
+    outline: none;
+    border:none;
+    background-color: white;
+    border:none;
 }
 
-.App h2 {
+body {
+    margin: 0px;
+}
+
+
+
+h2 {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size:17px;
     color: #8e8e8e;
 }
 
-.logo {
+h1.logo {
     background-image: url(/notinstagram.png);
     background-repeat: no-repeat;
     background-position: -98px 0;
@@ -25,7 +31,7 @@ body {
     overflow: hidden;
     text-indent: 110%;
     white-space: nowrap;
-}
+}x
 
 .error {
     border-color: red;
@@ -38,3 +44,8 @@ body {
 .imageEditor {
     background-color: black;    
 }
+
+
+@import 'scss/normalize.scss';
+@import 'scss/components/mobile_header';
+@import 'scss/components/mobile_footer';

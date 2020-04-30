@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { logout } from './redux/actions/session_actions'
+import { Link, BrowserRouter, Switch, Route } from "react-router-dom";
+import { AuthRoute, ProtectedRoute } from './routes'
 import Signup from './views/signup'
 import Login from './views/login'
-import { logout } from './redux/actions/session_actions'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { AuthRoute, ProtectedRoute } from './routes'
-import { Link } from "react-router-dom";
 import EditUser from './views/edit_user'
+import Home from './views/home'
 
 function App({ store }) {
   return (
@@ -17,6 +17,7 @@ function App({ store }) {
             <AuthRoute path="/signup" component={Signup} />
             <AuthRoute exact path="/login" component={Login} />
             <ProtectedRoute path="/edit" component={EditUser} />
+            <ProtectedRoute path="/test" component={Test} />
             <ProtectedRoute path="/" component={Home} />
           </Switch>
         </BrowserRouter>
@@ -27,7 +28,7 @@ function App({ store }) {
 
 export default App;
 
-function Home() {
+function Test() {
   const user = useSelector(state => state.session.user)
   const dispatch = useDispatch();
 
