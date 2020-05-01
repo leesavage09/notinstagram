@@ -1,0 +1,11 @@
+@import '../base';
+
+.error-list {
+    color: $error_red;
+    text-align: left;
+    font-weight: 400;
+
+    li {
+        list-style-type: none;
+    }
+}

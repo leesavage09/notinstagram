@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 import * as Actions from '../redux/actions/user_actions'
 import * as Selectors from '../redux/selectors/user_selectors'
+import NoAuthContainer from '../components/auth_container'
 
 
 export default function Signup() {
@@ -30,15 +31,29 @@ export default function Signup() {
         }))
     }
 
+    function loginGuest() {
+        alert("login guest")
+    }
+
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
         errorListItems.push(<li key={idx}>{message}</li>)
     });
 
     return (
-        <div>
-            <h1 className="logo" >notinstagram</h1>
+        <NoAuthContainer>
             <h2>Sign up to see photos and videos from your friends.</h2>
+
+            <button className='cta'
+                disabled={loading}
+                onClick={loginGuest}
+            >Continue as guest</button>
+
+            <div className='spacer-text'>
+                <div className='spacer'></div>
+                <div className='text' >OR</div>
+                <div className='spacer'></div>
+            </div>
 
             <input ref={emailInput}
                 type="email"
@@ -65,15 +80,15 @@ export default function Signup() {
                 autoComplete="new-password"
             />
 
-            <button disabled={loading} onClick={signUpClicked}>Sign-up</button>
+            <button className='cta' disabled={loading} onClick={signUpClicked}>Sign-up</button>
 
-            <ul>
+            <ul className='error-list' >
                 {errorListItems}
             </ul>
 
             <div>
                 <p>Have an account? <Link to="/login">Log in</Link></p>
             </div>
-        </div >
+        </NoAuthContainer>
     );
 }

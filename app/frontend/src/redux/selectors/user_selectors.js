@@ -9,9 +9,11 @@ export const loggedInUser = state => {
 export const errorsMessages = state => {
     const errors = []
     Object.keys(state.errors.user).forEach(key => {
-        state.errors.user[key].forEach(message => {
-            errors.push(message)
-        })
+        // state.errors.user[key].forEach(message => {
+        //     errors.push(message)
+        // })
+        // just the first error
+        errors.push( state.errors.user[key][0] )
     })
     return errors;
 }

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { Link } from "react-router-dom";
 import * as Actions from '../redux/actions/session_actions'
+import NoAuthContainer from '../components/auth_container'
 
 export default function Signup() {
     const dispatch = useDispatch()
@@ -21,14 +22,29 @@ export default function Signup() {
         }))
     }
 
+    function loginGuest() {
+        alert('guest login')
+    }
+
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
         errorListItems.push(<li key={idx}>{message}</li>)
     });
 
     return (
-        <div>
-            <h1 className="logo" >notinstagram</h1>
+        <NoAuthContainer>
+
+            <button className='cta'
+                disabled={loading}
+                onClick={loginGuest}
+            >Continue as guest</button>
+
+            <div className='spacer-text'>
+                <div className='spacer'></div>
+                <div className='text' >OR</div>
+                <div className='spacer'></div>
+            </div>
+
 
             <input ref={usernameInput}
                 type="username"
@@ -41,18 +57,18 @@ export default function Signup() {
                 autoComplete="new-password"
             />
 
-            <button
+            <button className='cta'
                 disabled={loading}
                 onClick={loginClicked}
             >Log In</button>
 
-            <ul>
+            <ul className='error-list' >
                 {errorListItems}
             </ul>
 
             <div>
                 <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
             </div>
-        </div >
+        </NoAuthContainer >
     );
 }

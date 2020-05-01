@@ -1,51 +1,82 @@
+//import mixins and functions TODO
+@import 'scss/base';
 
 
+// Normalise the css
+@import 'scss/normalize';
+
+// Global styles buttons etc
 button {
     outline: none;
     border:none;
-    background-color: white;
-    border:none;
+    background-color: $white;
+}
+
+button.cta {
+    padding: 5px 9px;
+    background-color: $blue;
+    color: $white;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    border-radius: 4px;
+    margin: 6px 0px 6px 0px;
+    height:30px;
+}
+
+a {
+    color: $blue;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 body {
     margin: 0px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 300;
+    color: $dark_grey;
 }
-
 
 
 h2 {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size:17px;
-    color: #8e8e8e;
+    color: $dark_grey;
 }
 
-h1.logo {
-    background-image: url(/notinstagram.png);
-    background-repeat: no-repeat;
-    background-position: -98px 0;
-    height: 51px;
-    width: 175px;
-    margin: auto;
-
-    display: block;
-    overflow: hidden;
-    text-indent: 110%;
-    white-space: nowrap;
-}x
 
 .error {
-    border-color: red;
+    border-color: $error_red;
 }
 
 .hidden {
     display:none;
 }
 
-.imageEditor {
-    background-color: black;    
+input {
+    background-color: $off_white;
+    @include thin-border;
+    padding: 9px 0px 7px 8px;
+    margin: 6px 0px 6px 0px;
+    font-size: 14px;
+    line-height: 18px;
+    color: $off_black;
+    flex: 1 1 auto;
+    // width: 100%;
+}
+
+input::placeholder {
+    color:$dark_grey;
 }
 
 
-@import 'scss/normalize.scss';
+
+// Component styles
 @import 'scss/components/mobile_header';
-@import 'scss/components/mobile_footer';
+@import 'scss/components/no_auth_container';
+@import 'scss/components/image_editor';
+
+// Page Styles
+@import 'scss/pages/login';
+@import 'scss/pages/signup';

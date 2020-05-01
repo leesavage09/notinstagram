@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transformations } from '../util/image_util'
+import { Transformations } from '../util/image'
 
 export default function ImageEditor(props) {
     const myCanvas = React.useRef();
