@@ -10,8 +10,8 @@ export default function Home() {
     return (
         <div>
             <MobileHeader/>
-
-            <MobileFooter/>
+Home
+            <MobileFooter page="home"/>
         </div >
     );
 }
