@@ -1,25 +1,2 @@
 @import '../base';
 
-.spacer-text {
-    display: flex;
-    flex-direction: row;
-    margin: 18px 0px;
-
-
-    .spacer {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        background-color: $light_grey;
-        height: 1px;
-        position: relative;
-        top: 0.45em;
-    }
-
-    .text {
-        color: $dark_grey;
-        font-weight: 600;
-        margin: 0px 18px;
-
-    }
-}

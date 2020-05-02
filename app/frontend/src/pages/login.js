@@ -23,7 +23,10 @@ export default function Signup() {
     }
 
     function loginGuest() {
-        alert('guest login')
+        dispatch(Actions.loginUser({
+            username: 'guest',
+            password: 'guestaccount'
+        }))
     }
 
     const errorListItems = []

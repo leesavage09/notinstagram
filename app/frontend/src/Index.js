@@ -13,6 +13,7 @@ import Explore from './pages/explore'
 import CreateImage from './pages/create_image'
 import Activity from './pages/activity'
 import Account from './pages/account'
+import Options from './pages/options'
 
 class Index extends React.Component {
   render() {
@@ -33,6 +34,7 @@ class Index extends React.Component {
                 <ProtectedRoute path="/create-image" component={CreateImage} />
                 <ProtectedRoute path="/activity" component={Activity} />
                 <ProtectedRoute path="/account" component={Account} />
+                <ProtectedRoute path="/options" component={Options} />
                 <ProtectedRoute path="/" component={Home} />
               </Switch>
             </BrowserRouter>

@@ -13,7 +13,6 @@ export default function Signup(props) {
     const loading = useSelector(state => state.loading)
     const user = useSelector(state => Selectors.loggedInUser(state))
     const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
-    const errorTypes = useSelector(state => Selectors.errorTypes(state))
 
     const nameInput = React.createRef();
     const usernameInput = React.createRef();
@@ -78,7 +77,6 @@ export default function Signup(props) {
                 <label>Name</label>
                 <input ref={nameInput}
                     type="name"
-                    className={errorTypes.includes("name") ? "error" : ""}
                     defaultValue={user.name}
                     autoComplete="name"
                 /></div>
@@ -87,7 +85,6 @@ export default function Signup(props) {
                 <label>Username</label>
                 <input ref={usernameInput}
                     type="username"
-                    className={errorTypes.includes("username") ? "error" : ""}
                     defaultValue={user.username}
                     autoComplete="username"
                 /></div>
@@ -96,7 +93,6 @@ export default function Signup(props) {
                 <label>Email</label>
                 <input ref={emailInput}
                     type="email"
-                    className={errorTypes.includes("email") ? "error" : ""}
                     defaultValue={user.email}
                     autoComplete="email"
                 /></div>
@@ -106,7 +102,6 @@ export default function Signup(props) {
                 <textarea ref={bioInput}
                     type="text"
                     defaultValue={user.bio}
-                    className={errorTypes.includes("bio") ? "error" : ""}
                 />
             </div>
 

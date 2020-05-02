@@ -18,6 +18,6 @@ export const errorsMessages = state => {
     return errors;
 }
 
-export const errorTypes = state => {
-    return Object.keys(state.errors.user)
-}
+// export const errorTypes = state => {
+//     return Object.keys(state.errors.user)
+// }

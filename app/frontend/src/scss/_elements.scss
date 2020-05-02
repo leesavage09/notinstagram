@@ -1,0 +1,90 @@
+@import "base";
+
+// Containers
+body {
+  @include base-font;
+  margin: 0px;
+  background-color: $white;
+}
+
+// Titles
+h1 {
+  font-size: 16px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 17px;
+  color: $dark_grey;
+}
+
+// Buttons
+button {
+  outline: none;
+  border: none;
+  background-color: $white;
+}
+
+button.cta {
+  font-weight: 600;
+  padding: 5px 9px;
+  background-color: $blue;
+  color: $white;
+  border-radius: 4px;
+  margin: 6px 0px 6px 0px;
+  height: 30px;
+}
+
+// Links
+a {
+  font-weight: 600;
+  color: $blue;
+  text-decoration: none;
+}
+
+// Inputs
+input {
+  @include thin-border;
+  outline: none;
+  background-color: $off_white;
+  padding: 9px 0px 7px 8px;
+  margin: 6px 0px 6px 0px;
+}
+
+input::placeholder {
+  color: $dark_grey;
+}
+
+// Unordered lists
+ul.error-list {
+  color: $error_red;
+  text-align: left;
+  font-weight: 400;
+
+  li {
+    list-style-type: none;
+    padding-bottom: 8px;
+  }
+}
+
+// Horizontal spacer
+.spacer-text {
+  display: flex;
+  flex-direction: row;
+  margin: 18px 0px;
+
+  .spacer {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: $light_grey;
+    height: 1px;
+    position: relative;
+    top: 0.45em;
+  }
+
+  .text {
+    color: $dark_grey;
+    font-weight: 600;
+    margin: 0px 18px;
+  }
+}

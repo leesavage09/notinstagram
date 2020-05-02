@@ -1,0 +1,74 @@
+@import "../base";
+
+.no-auth-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background-color: $white;
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px 70px 40px;
+    width: 100%;
+
+    h1.logo {
+      background-image: url(/notinstagram.png);
+      background-repeat: no-repeat;
+      background-position: -98px 0;
+      height: 51px;
+      width: 175px;
+      margin: 33px auto 33px auto;
+
+      @include hide-text;
+    }
+  }
+
+  .footer {
+    background-color: $off_white;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid $light_grey;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    font-weight: 400;
+    p {
+      .from {
+        color: $dark_grey;
+        display: block;
+      }
+      .facebook {
+        font-weight: 500;
+        color: $off_black;
+        letter-spacing: 2px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .no-auth-container {
+    min-height: 100vh;
+  }
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .no-auth-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh;
+    padding-bottom: 120px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: $off_white;
+  }
+
+  .no-auth-container {
+    width: $breakpoint-mobile;
+    @include thin-border;
+  }
+}
