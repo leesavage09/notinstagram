@@ -40,46 +40,60 @@ export default function Signup() {
 
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
-        errorListItems.push(<li key={idx}>{message}</li>)
+        errorListItems.push(
+            <li
+                className='error-list__item'
+                key={idx}>
+                {message}
+            </li>
+        )
     });
 
     return (
         <NoAuthContainer>
             <h2>Sign up to see photos and videos from your friends.</h2>
 
-            <button className='cta'
+            <button
+                className='call-to-action'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
 
             <div className='spacer-text'>
-                <div className='spacer'></div>
-                <div className='text' >OR</div>
-                <div className='spacer'></div>
+                <div className='spacer-text__spacer'></div>
+                <div className='spacer-text__text' >OR</div>
+                <div className='spacer-text__spacer'></div>
             </div>
 
-            <input ref={emailInput}
+            <input
+                ref={emailInput}
                 type="email"
                 placeholder='email'
                 autoComplete="email"
             />
-            <input ref={nameInput}
+            <input
+                ref={nameInput}
                 type="text"
                 placeholder='name'
                 autoComplete="name"
             />
-            <input ref={usernameInput}
+            <input
+                ref={usernameInput}
                 type="username"
                 placeholder='username'
                 autoComplete="username"
             />
-            <input ref={passwordInput}
+            <input
+                ref={passwordInput}
                 type="password"
                 placeholder='password'
                 autoComplete="new-password"
             />
 
-            <button className='cta' disabled={loading} onClick={signUpClicked}>Sign-up</button>
+            <button
+                className='call-to-action'
+                disabled={loading}
+                onClick={signUpClicked}>Sign-up</button>
 
             <ul className='error-list' >
                 {errorListItems}

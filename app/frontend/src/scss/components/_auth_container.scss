@@ -1,61 +1,58 @@
 @import "../base";
 
-.no-auth-container {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  background-color: $white;
+.auth-container {
+  &__box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: $white;
+    min-height: 100vh;
+  }
 
-  .body {
+  &__body {
     display: flex;
     flex-direction: column;
     padding: 0px 40px 70px 40px;
     width: 100%;
-
-    h1.logo {
-      background-image: url(/notinstagram.png);
-      background-repeat: no-repeat;
-      background-position: -98px 0;
-      height: 51px;
-      width: 175px;
-      margin: 33px auto 33px auto;
-
-      @include hide-text;
-    }
   }
 
-  .footer {
-    background-color: $off_white;
-    height: 60px;
-    width: 100%;
-    border-top: 1px solid $light_grey;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    font-size: 14px;
-    font-weight: 400;
-    p {
-      .from {
-        color: $dark_grey;
-        display: block;
-      }
-      .facebook {
-        font-weight: 500;
-        color: $off_black;
-        letter-spacing: 2px;
-      }
-    }
+  &__logo {
+    background-image: url(/notinstagram.png);
+    background-repeat: no-repeat;
+    background-position: -98px 0;
+    height: 51px;
+    width: 175px;
+    margin: 33px auto 33px auto;
+
+    @include hide-text;
   }
 }
 
-@media (max-width: $breakpoint-mobile) {
-  .no-auth-container {
-    min-height: 100vh;
+.auth-footer {
+  background-color: $off_white;
+  height: 60px;
+  width: 100%;
+  border-top: 1px solid $light_grey;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+
+  &__from {
+    color: $dark_grey;
+    display: block;
+  }
+  &__facebook {
+    font-weight: 500;
+    color: $off_black;
+    letter-spacing: 2px;
   }
 }
 
 @media (min-width: $breakpoint-mobile) {
-  .no-auth-body {
+  .auth-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -65,10 +62,12 @@
     min-height: 100vh;
     box-sizing: border-box;
     background-color: $off_white;
+
+    &__box {
+      width: $breakpoint-mobile;
+      min-height: 0vh;
+      @include thin-border;
+    }
   }
 
-  .no-auth-container {
-    width: $breakpoint-mobile;
-    @include thin-border;
-  }
 }

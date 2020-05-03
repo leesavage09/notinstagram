@@ -1,0 +1,64 @@
+@import "../base";
+
+.top-nav {
+  height: 46px;
+  width: 100vw;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-bottom-width: 1.5px;
+  border-bottom-style: solid;
+  border-bottom-color: $light_grey;
+
+  &__icon {
+    padding: 0;
+    margin-top: 4px;
+  }
+
+  &__svg {
+    fill: $off-black;
+    height: 24px;
+    width: 24px;
+  }
+
+  &__icon-spacer {
+    height: 24px;
+    width: 24px;
+  }
+
+  &__logo {
+    background-image: url(/notinstagram.png);
+    background-repeat: no-repeat;
+    background-position: 0px -288px;
+    height: 29px;
+    width: 103px;
+    margin-top: 2px;
+  }
+
+  &__link {
+    font-size: 16px;
+  }
+
+  &__search-input {
+    flex: 1 1 auto;
+    border-radius: 6px;
+    background-color: $white;
+    text-align: center;
+
+    &--has-text {
+      text-align: left;
+    }
+  }
+
+  &__search-cancel {
+    display: inline-block;
+    margin-left: 12px;
+    font-weight: 600;
+    &--hide {
+      display: none;
+    }
+  }
+}

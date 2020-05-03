@@ -1,14 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import { Link } from "react-router-dom";
-import * as Actions from '../redux/actions/session_actions'
-import MobileHeader from '../components/protected_container'
+import TopNav from '../components/top_nav/top_nav_explore'
+import BottomNav from '../components/mobile_footer'
 
-export default function Home() {
+export default function Explore() {
 
     return (
-        <MobileHeader>
+        <div>
+            <TopNav />
             Explore
-        </MobileHeader>
+            <BottomNav />
+        </div>
     );
 }

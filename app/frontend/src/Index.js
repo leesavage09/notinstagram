@@ -11,6 +11,7 @@ import EditUser from './pages/edit_user'
 import Home from './pages/home'
 import Explore from './pages/explore'
 import CreateImage from './pages/create_image'
+import CreatePost from './pages/create_post'
 import Activity from './pages/activity'
 import Account from './pages/account'
 import Options from './pages/options'
@@ -32,6 +33,7 @@ class Index extends React.Component {
                 <ProtectedRoute path="/edit" component={EditUser} />
                 <ProtectedRoute path="/explore" component={Explore} />
                 <ProtectedRoute path="/create-image" component={CreateImage} />
+                <ProtectedRoute path="/create-post" component={CreatePost} />
                 <ProtectedRoute path="/activity" component={Activity} />
                 <ProtectedRoute path="/account" component={Account} />
                 <ProtectedRoute path="/options" component={Options} />

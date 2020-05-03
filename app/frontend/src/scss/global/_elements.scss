@@ -1,4 +1,4 @@
-@import "base";
+@import "../base";
 
 // Containers
 body {
@@ -24,7 +24,7 @@ button {
   background-color: $white;
 }
 
-button.cta {
+button.call-to-action {
   font-weight: 600;
   padding: 5px 9px;
   background-color: $blue;
@@ -48,19 +48,19 @@ input {
   background-color: $off_white;
   padding: 9px 0px 7px 8px;
   margin: 6px 0px 6px 0px;
-}
 
-input::placeholder {
-  color: $dark_grey;
+  &::placeholder {
+    color: $dark_grey;
+  }
 }
 
 // Unordered lists
-ul.error-list {
+.error-list {
   color: $error_red;
   text-align: left;
   font-weight: 400;
 
-  li {
+  &__item {
     list-style-type: none;
     padding-bottom: 8px;
   }
@@ -72,7 +72,7 @@ ul.error-list {
   flex-direction: row;
   margin: 18px 0px;
 
-  .spacer {
+  &__spacer {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -82,7 +82,7 @@ ul.error-list {
     top: 0.45em;
   }
 
-  .text {
+  &__text {
     color: $dark_grey;
     font-weight: 600;
     margin: 0px 18px;

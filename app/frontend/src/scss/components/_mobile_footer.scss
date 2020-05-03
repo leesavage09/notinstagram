@@ -1,0 +1,43 @@
+@import "../base";
+
+.mobile-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  border-top-width: 1.5px;
+  border-top-style: solid;
+  border-top-color: $light_grey;
+
+  &__button {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__svg {
+    width: 24px;
+    height: 24px;
+    fill: $off-black;
+  }
+  
+  &__account-image {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  &__account-border {
+    position: absolute;
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: $off-black;
+  }
+}

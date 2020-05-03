@@ -4,14 +4,17 @@
 // Normalise the css
 @import "scss/normalize";
 
-// HTML element styles
-@import 'scss/elements';
+// HTML Global styles
+@import 'scss/global/elements';
+@import 'scss/global/svg_icons';
 
-// Component styles
-@import "scss/components/protected_container";
+// BEM component styles
+@import "scss/components/mobile_footer";
+@import "scss/components/top_nav";
 @import "scss/components/auth_container";
 @import "scss/components/image_editor";
 
 // Page Styles
 @import "scss/pages/login";
 @import "scss/pages/signup";
+@import "scss/pages/account";

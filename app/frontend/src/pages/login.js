@@ -31,21 +31,27 @@ export default function Signup() {
 
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
-        errorListItems.push(<li key={idx}>{message}</li>)
+        errorListItems.push(
+            <li
+                className="error-list__item"
+                key={idx}>
+                {message}
+            </li>
+        )
     });
 
     return (
         <NoAuthContainer>
 
-            <button className='cta'
+            <button className='call-to-action'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
 
             <div className='spacer-text'>
-                <div className='spacer'></div>
-                <div className='text' >OR</div>
-                <div className='spacer'></div>
+                <div className='spacer-text__spacer'></div>
+                <div className='spacer-text__text' >OR</div>
+                <div className='spacer-text__spacer'></div>
             </div>
 
 
@@ -60,7 +66,7 @@ export default function Signup() {
                 autoComplete="new-password"
             />
 
-            <button className='cta'
+            <button className='call-to-action'
                 disabled={loading}
                 onClick={loginClicked}
             >Log In</button>
