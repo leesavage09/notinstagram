@@ -6,13 +6,13 @@
 
 // HTML Global styles
 @import 'scss/global/elements';
-@import 'scss/global/svg_icons';
 
 // BEM component styles
 @import "scss/components/mobile_footer";
 @import "scss/components/top_nav";
 @import "scss/components/auth_container";
 @import "scss/components/image_editor";
+@import 'scss/components/svg_icon';
 
 // Page Styles
 @import "scss/pages/login";

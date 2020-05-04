@@ -28,16 +28,16 @@ class Index extends React.Component {
           <div className="App">
             <BrowserRouter>
               <Switch>
-                <AuthRoute path="/signup" component={Signup} />
+                <AuthRoute exact path="/signup" component={Signup} />
                 <AuthRoute exact path="/login" component={Login} />
-                <ProtectedRoute path="/edit" component={EditUser} />
-                <ProtectedRoute path="/explore" component={Explore} />
-                <ProtectedRoute path="/create-image" component={CreateImage} />
-                <ProtectedRoute path="/create-post" component={CreatePost} />
-                <ProtectedRoute path="/activity" component={Activity} />
-                <ProtectedRoute path="/account" component={Account} />
-                <ProtectedRoute path="/options" component={Options} />
-                <ProtectedRoute path="/" component={Home} />
+                <ProtectedRoute exact path="/explore" component={Explore} />
+                <ProtectedRoute exact path="/create-image" component={CreateImage} />
+                <ProtectedRoute exact path="/create-post" component={CreatePost} />
+                <ProtectedRoute exact path="/activity" component={Activity} />
+                <ProtectedRoute exact path="/accounts/edit" component={EditUser} />
+                <ProtectedRoute exact path="/accounts" component={Account} />
+                <ProtectedRoute exact path="/options" component={Options} />
+                <ProtectedRoute exact path="/" component={Home} />
               </Switch>
             </BrowserRouter>
           </div>

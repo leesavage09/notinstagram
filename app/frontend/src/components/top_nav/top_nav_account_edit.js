@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import SVGIcon from '../../components/svg_icon';
+import SVGIcon from '../svg_icon';
 
 export default function CreatePost() {
     let history = useHistory();
@@ -12,8 +12,8 @@ export default function CreatePost() {
             <button onClick={history.goBack} className='top-nav__icon' style={rotate} >
                 <SVGIcon iconName='svg-back-icon' />
             </button>
-            <h1>New Post</h1>
-            <a className='top-nav__link' >Share</a>
+            <h1>Edit Profile</h1>
+            <div className='top-nav__icon-spacer'></div>
         </div>
     );
 }

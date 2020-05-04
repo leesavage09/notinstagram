@@ -1,4 +1,5 @@
 @import "../base";
+@import "../global/sprites";
 
 .auth-container {
   &__box {
@@ -17,14 +18,9 @@
   }
 
   &__logo {
-    background-image: url(/notinstagram.png);
-    background-repeat: no-repeat;
-    background-position: -98px 0;
-    height: 51px;
-    width: 175px;
-    margin: 33px auto 33px auto;
-
+    @include big-logo;
     @include hide-text;
+    margin: 33px auto 33px auto;
   }
 }
 

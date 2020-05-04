@@ -1,0 +1,34 @@
+@mixin small-logo {
+    background-image: url(/sprites1.png);
+    background-repeat: no-repeat;
+    background-position: 0px -288px;
+    height: 29px;
+    width: 103px;
+}
+
+@mixin big-logo {
+    background-image: url(/sprites1.png);
+    background-repeat: no-repeat;
+    background-position: -98px 0px;
+    height: 51px;
+    width: 175px;
+}
+
+@mixin feed-logo--dark-grey {
+    background-image: url(/sprites2.png);
+    background-repeat: no-repeat;
+    background-size: 456px 413px;
+    background-position: -200px -389px;
+    height: 24px;
+    width: 24px;
+}
+
+@mixin feed-logo--blue {
+    background-image: url(/sprites2.png);
+    background-repeat: no-repeat;
+    background-size: 456px 413px;
+    background-position: -175px -389px;
+    height: 24px;
+    width: 24px;
+}
+

@@ -3,6 +3,7 @@ import React from 'react';
 import * as Actions from '../redux/actions/user_actions'
 import * as Selectors from '../redux/selectors/user_selectors'
 import ImageEditor from '../components/image_editor'
+import TopNav from '../components/top_nav/top_nav_account_edit'
 
 export default function Signup(props) {
     const [loadedImg, setLoadedImg] = React.useState(null);
@@ -67,6 +68,7 @@ export default function Signup(props) {
 
     return (
         <div>
+            <TopNav/>
             <h1>Edit User!</h1>
             <div>
                 <input className="hidden" ref={i => photoInput = i} type='file' accept="image" onChange={uploadPhotoSelected} />

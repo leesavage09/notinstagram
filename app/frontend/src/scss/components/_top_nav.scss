@@ -1,4 +1,5 @@
 @import "../base";
+@import "../global/sprites";
 
 .top-nav {
   height: 46px;
@@ -18,23 +19,13 @@
     margin-top: 4px;
   }
 
-  &__svg {
-    fill: $off-black;
-    height: 24px;
-    width: 24px;
-  }
-
   &__icon-spacer {
     height: 24px;
     width: 24px;
   }
 
   &__logo {
-    background-image: url(/notinstagram.png);
-    background-repeat: no-repeat;
-    background-position: 0px -288px;
-    height: 29px;
-    width: 103px;
+    @include small-logo;
     margin-top: 2px;
   }
 
