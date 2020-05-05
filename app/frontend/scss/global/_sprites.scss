@@ -1,4 +1,4 @@
-@mixin small-logo {
+.small-logo {
     background-image: url(/sprites1.png);
     background-repeat: no-repeat;
     background-position: 0px -288px;
@@ -6,7 +6,7 @@
     width: 103px;
 }
 
-@mixin big-logo {
+.big-logo {
     background-image: url(/sprites1.png);
     background-repeat: no-repeat;
     background-position: -98px 0px;
@@ -14,7 +14,7 @@
     width: 175px;
 }
 
-@mixin feed-logo--dark-grey {
+.feed-logo--dark-grey {
     background-image: url(/sprites2.png);
     background-repeat: no-repeat;
     background-size: 456px 413px;
@@ -23,7 +23,7 @@
     width: 24px;
 }
 
-@mixin feed-logo--blue {
+.feed-logo--blue {
     background-image: url(/sprites2.png);
     background-repeat: no-repeat;
     background-size: 456px 413px;

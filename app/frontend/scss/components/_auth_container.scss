@@ -1,6 +1,3 @@
-@import "../base";
-@import "../global/sprites";
-
 .auth-container {
   &__box {
     text-align: center;
@@ -18,7 +15,6 @@
   }
 
   &__logo {
-    @include big-logo;
     @include hide-text;
     margin: 33px auto 33px auto;
   }

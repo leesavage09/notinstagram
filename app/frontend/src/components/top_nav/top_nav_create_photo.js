@@ -7,7 +7,7 @@ export default function CreatePhoto() {
     let history = useHistory();
     return (
         <div className='top-nav'>
-            <button onClick={history.goBack} className='top-nav__icon'>
+            <button onClick={history.goBack} className='text-button top-nav__icon'>
                 <SVGIcon iconName='svg-close-icon' />
             </button>
             <h1>New Photo Post</h1>

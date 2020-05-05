@@ -17,7 +17,7 @@ export default function Account() {
                 <SVGIcon iconName='svg-options-icon' />
             </Link>
             <h1>{user.username}</h1>
-            <button className='top-nav__icon' onClick={discoverPeople}>
+            <button className='text-button top-nav__icon' onClick={discoverPeople}>
                 <SVGIcon iconName='svg-plus-people-icon' />
             </button>
         </div>

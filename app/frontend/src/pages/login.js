@@ -43,7 +43,7 @@ export default function Signup() {
     return (
         <NoAuthContainer>
 
-            <button className='call-to-action'
+            <button className='colour-button'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
@@ -55,18 +55,22 @@ export default function Signup() {
             </div>
 
 
-            <input ref={usernameInput}
+            <input
+                className='grey-input'
+                ref={usernameInput}
                 type="username"
                 placeholder='username'
                 autoComplete="username"
             />
-            <input ref={passwordInput}
+            <input
+                className='grey-input'
+                ref={passwordInput}
                 type="password"
                 placeholder='password'
                 autoComplete="new-password"
             />
 
-            <button className='call-to-action'
+            <button className='colour-button'
                 disabled={loading}
                 onClick={loginClicked}
             >Log In</button>

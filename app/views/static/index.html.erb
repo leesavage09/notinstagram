@@ -12,6 +12,7 @@
     <link rel="manifest" href="manifest.json" />
     
     <%= javascript_pack_tag "application" %>
+    <%= stylesheet_pack_tag 'style' %>
     <%= react_component("Index") %>
     <% if logged_in? %>
       <script type="text/javascript">

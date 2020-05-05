@@ -4,11 +4,9 @@ import * as Actions from '../redux/actions/user_actions'
 import * as Selectors from '../redux/selectors/user_selectors'
 import ImageEditor from '../components/image_editor'
 import TopNav from '../components/top_nav/top_nav_account_edit'
+import BottomNav from '../components/mobile_footer'
 
 export default function Signup(props) {
-    const [loadedImg, setLoadedImg] = React.useState(null);
-    const [newImg, newLoadedImg] = React.useState('');
-
     const dispatch = useDispatch()
 
     const loading = useSelector(state => state.loading)
@@ -20,12 +18,15 @@ export default function Signup(props) {
     const emailInput = React.createRef();
     const bioInput = React.createRef();
 
-    let photoInput;
-
-
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
-        errorListItems.push(<li key={idx}>{message}</li>)
+        errorListItems.push(
+            <li
+                className="error-list__item"
+                key={idx}>
+                {message}
+            </li>
+        )
     });
 
     const updateClicked = () => {
@@ -38,88 +39,51 @@ export default function Signup(props) {
         dispatch(Actions.updateUser(newUser))
     }
 
-    const removePhoto = (e) => {
-        e.preventDefault()
-    }
-
-    const uploadPhoto = (e) => {
-        e.preventDefault()
-        photoInput.click()
-    }
-
-    const uploadPhotoSelected = (e) => {
-        const file = e.target.files[0]
-        const img = new Image()
-        const fr = new FileReader();
-
-        fr.onload = () => {
-            img.onload = () => {
-                setLoadedImg(img)
-            }
-            img.src = fr.result;
-        }
-        fr.readAsDataURL(file);
-    }
-
-    const imageSaved = (img) => {
-        console.log("savge new imgaeg")
-        newLoadedImg(img)
-    }
-
     return (
         <div>
-            <TopNav/>
-            <h1>Edit User!</h1>
-            <div>
-                <input className="hidden" ref={i => photoInput = i} type='file' accept="image" onChange={uploadPhotoSelected} />
-                <p><a href='' onClick={uploadPhoto}>Upload Profile Photo</a></p>
-                <p><a href='' onClick={removePhoto}>Remove Profile Photo</a></p>
+            <TopNav />
+            <div className='edit-details'>
+                <img className="edit-details__image" alt="leesavage09's profile picture" src="https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/94246361_561658168093273_8809993563602419712_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&amp;_nc_ohc=jyjQkwhQAnUAX_LL1eY&amp;oh=708be17a299ed16157d1d4787986aacf&amp;oe=5ED3EA64"></img>
+                <div>
+                    <h2 className='edit-details__username'>{user.username}</h2>
+                    <a >Change Profile Photo</a>
+                </div>
             </div>
-            <div>
-                <label>Name</label>
-                <input ref={nameInput}
+            <div className='edit-form'>
+                <label className='edit-form__lable'>Name</label>
+                <input className='white-input edit-form__input' ref={nameInput}
                     type="name"
                     defaultValue={user.name}
                     autoComplete="name"
-                /></div>
-
-            <div>
-                <label>Username</label>
-                <input ref={usernameInput}
+                />
+                <label className='edit-form__lable'>Username</label>
+                <input className='white-input edit-form__input' ref={usernameInput}
                     type="username"
                     defaultValue={user.username}
                     autoComplete="username"
-                /></div>
-
-            <div>
-                <label>Email</label>
-                <input ref={emailInput}
+                />
+                <label className='edit-form__lable'>Email</label>
+                <input className='white-input edit-form__input' ref={emailInput}
                     type="email"
                     defaultValue={user.email}
                     autoComplete="email"
-                /></div>
-
-            <div>
-                <label>Bio</label>
-                <textarea ref={bioInput}
+                />
+                <label className='edit-form__lable'>Bio</label>
+                <textarea className='white-input edit-form__text-area' ref={bioInput}
                     type="text"
                     defaultValue={user.bio}
                 />
+                <button
+                    className='colour-button edit-form__button'
+                    disabled={loading}
+                    onClick={updateClicked}
+                >Submit</button>
             </div>
 
-            <button
-                disabled={loading}
-                onClick={updateClicked}
-            >Submit</button>
-
-            <ul>
+            <ul className='error-list' >
                 {errorListItems}
             </ul>
-
-            <ImageEditor img={loadedImg} saveImage={imageSaved} />
-
-
-            <img src={newImg}></img>
+            <BottomNav />
         </div>
     );
 }

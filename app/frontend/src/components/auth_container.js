@@ -5,7 +5,7 @@ export default function AuthContainer(props) {
         <div className="auth-container">
             <div className="auth-container__box">
                 <div className='auth-container__body'>
-                    <h1 className="auth-container__logo" >notinstagram</h1>
+                    <h1 className="big-logo auth-container__logo" >notinstagram</h1>
                     {props.children}
                 </div>
             </div>

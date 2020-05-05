@@ -1,6 +1,3 @@
-@import "../base";
-@import "../global/sprites";
-
 .top-nav {
   height: 46px;
   width: 100vw;
@@ -25,7 +22,6 @@
   }
 
   &__logo {
-    @include small-logo;
     margin-top: 2px;
   }
 
@@ -35,8 +31,6 @@
 
   &__search-input {
     flex: 1 1 auto;
-    border-radius: 6px;
-    background-color: $white;
     text-align: center;
 
     &--has-text {
@@ -46,8 +40,6 @@
 
   &__search-cancel {
     display: inline-block;
-    margin-left: 12px;
-    font-weight: 600;
     &--hide {
       display: none;
     }

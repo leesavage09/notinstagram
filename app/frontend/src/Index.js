@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store'
 import * as Actions from './redux/actions/session_actions'
 import { AuthRoute, ProtectedRoute } from './util/routes'
-import './index'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import EditUser from './pages/edit_user'

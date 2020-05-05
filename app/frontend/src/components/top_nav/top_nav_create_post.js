@@ -9,7 +9,7 @@ export default function CreatePost() {
     }
     return (
         <div className='top-nav'>
-            <button onClick={history.goBack} className='top-nav__icon' style={rotate} >
+            <button onClick={history.goBack} className='text-button top-nav__icon' style={rotate} >
                 <SVGIcon iconName='svg-back-icon' />
             </button>
             <h1>New Post</h1>

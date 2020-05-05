@@ -1,0 +1,24 @@
+// // Normalise the css
+@import "../scss/normalize";
+
+
+// //Variables Mixins & Functions & reusables
+@import "../scss/base";
+@import "../scss/global/sprites";
+
+
+// // HTML Global styles
+@import '../scss/global/elements';
+
+
+// // BEM component styles
+@import "../scss/components/mobile_footer";
+@import "../scss/components/top_nav";
+@import "../scss/components/auth_container";
+@import "../scss/components/image_editor";
+@import '../scss/components/svg_icon';
+
+
+// // Page Styles
+@import "../scss/pages/account";
+@import "../scss/pages/edit_user";

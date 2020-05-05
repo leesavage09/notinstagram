@@ -54,7 +54,7 @@ export default function Signup() {
             <h2>Sign up to see photos and videos from your friends.</h2>
 
             <button
-                className='call-to-action'
+                className='colour-button'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
@@ -66,24 +66,28 @@ export default function Signup() {
             </div>
 
             <input
+                className='grey-input'
                 ref={emailInput}
                 type="email"
                 placeholder='email'
                 autoComplete="email"
             />
             <input
+                className='grey-input'
                 ref={nameInput}
                 type="text"
                 placeholder='name'
                 autoComplete="name"
             />
             <input
+                className='grey-input'
                 ref={usernameInput}
                 type="username"
                 placeholder='username'
                 autoComplete="username"
             />
             <input
+                className='grey-input'
                 ref={passwordInput}
                 type="password"
                 placeholder='password'
@@ -91,7 +95,7 @@ export default function Signup() {
             />
 
             <button
-                className='call-to-action'
+                className='colour-button'
                 disabled={loading}
                 onClick={signUpClicked}>Sign-up</button>
 

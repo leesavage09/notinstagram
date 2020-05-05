@@ -14,9 +14,9 @@ export default function Feed() {
                 <SVGIcon iconName='svg-camera-icon' />
             </Link>
 
-            <div className='top-nav__logo'></div>
+            <div className='small-logo top-nav__logo'></div>
 
-            <button className='top-nav__icon' onClick={chat}>
+            <button className='text-button top-nav__icon' onClick={chat}>
                 <SVGIcon iconName='svg-chat-icon' />
             </button>
         </div>
