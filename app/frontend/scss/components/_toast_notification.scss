@@ -1,0 +1,25 @@
+.toast-notification {
+    height:44px;
+    width:100%;
+    position: fixed;
+    bottom:0px;
+    background-color: $off-black;
+    color: $white;
+    padding-left:20px;
+    line-height: 44px;
+    font-weight: 400;
+    
+    -webkit-transition: -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out;
+    transition: transform .2s ease-out,-webkit-transform .2s ease-out;
+  
+    &--show {
+      -webkit-transform: translateY(-45px);
+      transform: translateY(-45px);
+    }
+  
+    &--hide {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+    }
+  }

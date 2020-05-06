@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
-import React from 'react';
+import React, { useState } from 'react';
 import * as Actions from '../redux/actions/user_actions'
 import * as Selectors from '../redux/selectors/user_selectors'
 import ImageEditor from '../components/image_editor'
 import TopNav from '../components/top_nav/top_nav_account_edit'
 import BottomNav from '../components/mobile_footer'
+import Toast from '../components/toast_notification';
 
 export default function Signup(props) {
     const dispatch = useDispatch()
@@ -17,6 +18,8 @@ export default function Signup(props) {
     const usernameInput = React.createRef();
     const emailInput = React.createRef();
     const bioInput = React.createRef();
+
+    const [notification, setNotification] = useState('');
 
     const errorListItems = []
     errorsMessages.forEach((message, idx) => {
@@ -36,7 +39,13 @@ export default function Signup(props) {
             email: emailInput.current.value,
             bio: bioInput.current.value
         })
-        dispatch(Actions.updateUser(newUser))
+        const callback = () => {
+            setNotification(<Toast duration='4500' onComplete={() => {
+                setNotification('')
+            }} message="Profile Saved" />)
+        };
+        
+        dispatch(Actions.updateUser(newUser, callback))
     }
 
     return (
@@ -83,6 +92,8 @@ export default function Signup(props) {
             <ul className='error-list' >
                 {errorListItems}
             </ul>
+
+            {notification}
             <BottomNav />
         </div>
     );

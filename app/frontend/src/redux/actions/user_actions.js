@@ -28,8 +28,7 @@ export const createUser = (user) => {
 }
 
 
-export const updateUser = (user) => {
-    console.log("update User", user)
+export const updateUser = (user,successCallback) => {
     return (dispatch) => {
         dispatch(updateUserRequest())
         axios
@@ -43,6 +42,7 @@ export const updateUser = (user) => {
             })
             .then(response => {
                 dispatch(updateUserSuccess(response.data))
+                successCallback()
             })
             .catch(error => {
                 if (error.response && error.response.data && error.response.data.errors) {

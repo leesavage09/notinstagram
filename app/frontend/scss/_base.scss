@@ -9,6 +9,7 @@ $dark_grey: rgb(142, 142, 142);
 $off_black: rgb(38, 38, 38);
 $error_red: red;
 $blue: #0095f6;
+$light_blue: rgba(0, 149, 246, 0.3);
 
 // Borders
 @mixin thin-border {
@@ -20,8 +21,8 @@ $blue: #0095f6;
 
 // When using an image as text actual text can be pushed over for screen readers
 @mixin hide-text {
-    display: block;
-    overflow: hidden;
-    text-indent: 110%;
-    white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
 }

@@ -41,6 +41,10 @@ h2 {
   color: $white;
   border-radius: 4px;
   margin: 6px 0px 6px 0px;
+
+  &:disabled {
+    background-color: $light_blue
+  }
 }
 
 .ghost-button {
