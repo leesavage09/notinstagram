@@ -1,0 +1,46 @@
+.options {
+  background-color: $off-white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin: 20px 16px 8px 16px;
+  }
+
+  &__link {
+    background-color: $white;
+    flex: 1 1 auto;
+
+    height: 44px;
+    padding: 0 16px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid;
+    border-color: $light_grey;
+    border-radius: 0px;
+    border-width: 1px 0 0 0;
+
+    &:last-child {
+      border-width: 1px 0;
+    }
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    font-size: 16px;
+    font-weight: 400;
+    color: $off-black;
+  }
+
+  &__options__chevron {
+    flex: 0 0 auto;
+  }
+}
