@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useState } from 'react';
-import * as Actions from '../redux/actions/user_actions'
-import * as Selectors from '../redux/selectors/user_selectors'
-import ImageEditor from '../components/image_editor'
-import TopNav from '../components/top_nav/top_nav_account_edit'
-import BottomNav from '../components/mobile_footer'
-import Toast from '../components/toast_notification';
+import * as Actions from '../../redux/actions/user_actions'
+import * as Selectors from '../../redux/selectors/user_selectors'
+import ImageEditor from '../../components/image_editor'
+import TopNav from '../../components/top_nav/top_nav_back_with_title'
+import BottomNav from '../../components/mobile_footer'
+import Toast from '../../components/toast_notification';
 
-export default function Signup(props) {
+export default function Edit(props) {
     const dispatch = useDispatch()
 
     const loading = useSelector(state => state.loading)
@@ -33,24 +33,24 @@ export default function Signup(props) {
     });
 
     const updateClicked = () => {
-        const newUser = Object.assign(user, {
-            username: usernameInput.current.value,
-            name: nameInput.current.value,
-            email: emailInput.current.value,
-            bio: bioInput.current.value
-        })
-        const callback = () => {
+        const newUser = {
+                id: user.id,
+                username: usernameInput.current.value,
+                name: nameInput.current.value,
+                email: emailInput.current.value,
+                bio: bioInput.current.value
+        }
+
+        dispatch(Actions.updateUser(newUser)).then(() => {
             setNotification(<Toast duration='4500' onComplete={() => {
                 setNotification('')
             }} message="Profile Saved" />)
-        };
-        
-        dispatch(Actions.updateUser(newUser, callback))
+        })
     }
 
     return (
         <div>
-            <TopNav />
+            <TopNav title="Edit Profile" />
             <div className='edit-details'>
                 <img className="edit-details__image" alt="leesavage09's profile picture" src="https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/94246361_561658168093273_8809993563602419712_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&amp;_nc_ohc=jyjQkwhQAnUAX_LL1eY&amp;oh=708be17a299ed16157d1d4787986aacf&amp;oe=5ED3EA64"></img>
                 <div>
@@ -60,19 +60,25 @@ export default function Signup(props) {
             </div>
             <div className='edit-form'>
                 <label className='edit-form__lable'>Name</label>
-                <input className='white-input edit-form__input' ref={nameInput}
+                <input
+                    className='white-input edit-form__input'
+                    ref={nameInput}
                     type="name"
                     defaultValue={user.name}
                     autoComplete="name"
                 />
                 <label className='edit-form__lable'>Username</label>
-                <input className='white-input edit-form__input' ref={usernameInput}
+                <input
+                    className='white-input edit-form__input'
+                    ref={usernameInput}
                     type="username"
                     defaultValue={user.username}
                     autoComplete="username"
                 />
                 <label className='edit-form__lable'>Email</label>
-                <input className='white-input edit-form__input' ref={emailInput}
+                <input
+                    className='white-input edit-form__input'
+                    ref={emailInput}
                     type="email"
                     defaultValue={user.email}
                     autoComplete="email"

@@ -5,7 +5,7 @@ import SVGIcon from '../../components/svg_icon';
 export default function Options() {
     return (
         <div className='top-nav'>
-            <Link to="/accounts" className='top-nav__icon'>
+            <Link to="/account" className='top-nav__icon'>
                 <SVGIcon iconName='svg-close-icon' />
             </Link>
             <h1>Options</h1>

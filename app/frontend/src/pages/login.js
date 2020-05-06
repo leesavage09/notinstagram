@@ -67,7 +67,7 @@ export default function Signup() {
                 ref={passwordInput}
                 type="password"
                 placeholder='password'
-                autoComplete="new-password"
+                autoComplete="password"
             />
 
             <button className='colour-button'

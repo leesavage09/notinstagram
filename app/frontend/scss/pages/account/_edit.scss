@@ -10,13 +10,19 @@
     margin: 2px 20px 0px 0px;
   }
 
-
   &__username {
     color: $off_black;
     font-weight: 400;
     font-size: 20px;
     line-height: 22px;
     margin: 0px 0px 2px 0px;
+  }
+
+  &__h1-username {
+    font-size: 24px;
+    line-height: 38px;
+    margin: 0;
+    font-weight: 400;
   }
 }
 
@@ -35,8 +41,6 @@
   &__input {
     display: block;
     margin: 2px 0 2px 0;
-    font-size: 16px;
-    font-weight: 400;
   }
 
   &__text-area {

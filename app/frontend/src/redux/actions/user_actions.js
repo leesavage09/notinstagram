@@ -4,17 +4,11 @@ import * as ActionTypes from './action_types'
 export const createUser = (user) => {
     return (dispatch) => {
         dispatch(createUserRequest())
-        axios
-            .post('http://localhost:3000/api/users/', {
-                user: {
-                    username: user.username,
-                    password: user.password,
-                    email: user.email,
-                    name: user.name
-                }
-            })
+        return axios
+            .post('http://localhost:3000/api/users/', { user: user })
             .then(response => {
                 dispatch(createUserSuccess(response.data))
+                return Promise.resolve()
             })
             .catch(error => {
                 if (error.response && error.response.data && error.response.data.errors) {
@@ -23,26 +17,20 @@ export const createUser = (user) => {
                 else {
                     dispatch(createUserFailure({ unknown: [error.message] }))
                 }
+                return Promise.reject(error)
             })
     }
 }
 
 
-export const updateUser = (user,successCallback) => {
+export const updateUser = (user) => {
     return (dispatch) => {
         dispatch(updateUserRequest())
-        axios
-            .patch(`http://localhost:3000/api/users/${user.id}`, {
-                user: {
-                    username: user.username,
-                    bio: user.bio,
-                    email: user.email,
-                    name: user.name
-                }
-            })
+        return axios
+            .patch(`http://localhost:3000/api/users/${user.id}`, { user: user })
             .then(response => {
                 dispatch(updateUserSuccess(response.data))
-                successCallback()
+                return Promise.resolve()
             })
             .catch(error => {
                 if (error.response && error.response.data && error.response.data.errors) {
@@ -51,6 +39,7 @@ export const updateUser = (user,successCallback) => {
                 else {
                     dispatch(updateUserFailure({ unknown: [error.message] }))
                 }
+                return Promise.reject(error)
             })
     }
 }

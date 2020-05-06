@@ -22,5 +22,6 @@
 
 // // Page Styles
 @import "../scss/pages/account";
-@import "../scss/pages/edit_user";
-@import "../scss//pages/options";
+@import "../scss//pages/account/options";
+@import "../scss/pages/account/edit";
+@import "../scss/pages/account/password_change";

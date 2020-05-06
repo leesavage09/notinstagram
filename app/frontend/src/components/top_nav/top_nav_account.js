@@ -13,7 +13,7 @@ export default function Account() {
 
     return (
         <div className='top-nav'>
-            <Link to="/options" className='top-nav__icon'>
+            <Link to="/account/options" className='top-nav__icon'>
                 <SVGIcon iconName='svg-options-icon' />
             </Link>
             <h1>{user.username}</h1>
