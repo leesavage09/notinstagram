@@ -24,8 +24,10 @@ export default function Account() {
           <Link to='/account/edit' className='ghost-button account-details__action-button'>Edit Profile</Link>
         </div>
       </div>
-      <p className='account-details__name'>{user.name}</p>
-
+      <p className='account-details__bio'>
+        <span className='account-details__name'>{user.name}</span>
+        {user.bio}
+      </p>
       <ul className='account-activity'>
         <li className='account-activity__item'>
           <span className='account-activity__count'>

@@ -3,18 +3,19 @@ import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 import * as Actions from '../redux/actions/user_actions'
 import { loginUser } from '../redux/actions/session_actions'
-import * as Selectors from '../redux/selectors/user_selectors'
+import * as UserSelectors from '../redux/selectors/user_selectors'
+import * as MessageSelectors from '../redux/selectors/message_selector'
 import NoAuthContainer from '../components/auth_container'
 
 
 export default function Signup() {
-    const loggedInUser = useSelector(state => Selectors.loggedInUser)
+    const loggedInUser = useSelector(state => UserSelectors.loggedInUser)
     if (loggedInUser) {
         <Redirect to="/" />
     }
 
     const loading = useSelector(state => state.loading)
-    const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
+    const errorsMessages = useSelector(state => MessageSelectors.errorsMessages(state))
     const dispatch = useDispatch()
 
     const usernameInput = React.createRef();

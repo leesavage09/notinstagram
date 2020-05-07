@@ -26,13 +26,17 @@
     display: block;
   }
 
-  &__name {
+  &__bio {
     padding: 0px 16px 21px 16px;
     display: block;
     font-size: 14px;
     line-height: 20px;
-    font-weight: 600;
+    font-weight: 300;
     margin: 0;
+  }
+  &__name {
+    display: block;
+    font-weight: 600;
   }
 }
 

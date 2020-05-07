@@ -1,19 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useState } from 'react';
-import * as Actions from '../../redux/actions/user_actions'
-import * as Selectors from '../../redux/selectors/user_selectors'
+import * as UserActions from '../../redux/actions/user_actions'
+import * as UiActions from '../../redux/actions/ui_actions'
+import * as UserSelectors from '../../redux/selectors/user_selectors'
+import * as MessageSelectors from '../../redux/selectors/message_selector'
 import ImageEditor from '../../components/image_editor'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/mobile_footer'
 import Toast from '../../components/toast_notification';
-import OptionsModal, {STYLE_DANGER, STYLE_PRIMARY} from '../../components/options_modal'
+import OptionsModal, { STYLE_DANGER, STYLE_PRIMARY } from '../../components/options_modal'
 
-export default function Edit(props) {
+export default function Edit() {
     const dispatch = useDispatch()
 
     const loading = useSelector(state => state.loading)
-    const user = useSelector(state => Selectors.loggedInUser(state))
-    const errorsMessages = useSelector(state => Selectors.errorsMessages(state))
+    const user = useSelector(state => UserSelectors.loggedInUser(state))
+    const errorsMessages = useSelector(state => MessageSelectors.errorsMessages(state))
+    const sessionSaved = useSelector(state => MessageSelectors.sessionSaved(state))
 
     const nameInput = React.createRef();
     const usernameInput = React.createRef();
@@ -21,17 +24,19 @@ export default function Edit(props) {
     const bioInput = React.createRef();
 
     const [notification, setNotification] = useState('');
+    let toast;
 
-    const errorListItems = []
-    errorsMessages.forEach((message, idx) => {
-        errorListItems.push(
-            <li
-                className="error-list__item"
-                key={idx}>
-                {message}
-            </li>
-        )
-    });
+    if (errorsMessages.length > 0) {
+        toast = <Toast duration='4500' message={errorsMessages[0]} cleanup={() => {
+            dispatch(UiActions.clearMessages())
+        }} />
+    }
+
+    if (sessionSaved) {
+        toast = <Toast duration='4500' message={"Profile Saved"} cleanup={() => {
+            dispatch(UiActions.clearMessages())
+        }} />
+    }
 
     const updateClicked = () => {
         const newUser = {
@@ -42,18 +47,14 @@ export default function Edit(props) {
             bio: bioInput.current.value
         }
 
-        dispatch(Actions.updateUser(newUser)).then(() => {
-            setNotification(<Toast duration='4500' onComplete={() => {
-                setNotification('')
-            }} message="Profile Saved" />)
-        })
+        dispatch(UserActions.updateUser(newUser))
     }
 
     const showPhotoOptions = () => {
         setNotification(
             <OptionsModal
                 title='Change Profile Photo'
-                onClose={()=>{
+                onClose={() => {
                     setNotification('')
                 }}
                 options={[
@@ -120,11 +121,8 @@ export default function Edit(props) {
                 >Submit</button>
             </div>
 
-            <ul className='error-list' >
-                {errorListItems}
-            </ul>
-
             {notification}
+            {toast}
             <BottomNav />
         </div>
     );

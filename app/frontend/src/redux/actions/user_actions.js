@@ -26,7 +26,7 @@ export const createUser = (user) => {
 export const updateUser = (user) => {
     return (dispatch) => {
         dispatch(updateUserRequest())
-        return axios
+         return axios
             .patch(`http://localhost:3000/api/users/${user.id}`, { user: user })
             .then(response => {
                 dispatch(updateUserSuccess(response.data))
@@ -77,7 +77,7 @@ const updateUserSuccess = (user) => {
     }
 }
 
-const updateUserFailure = (errors) => {
+export const updateUserFailure = (errors) => {
     return {
         type: ActionTypes.UPDATE_USER_FAILURE,
         error: errors

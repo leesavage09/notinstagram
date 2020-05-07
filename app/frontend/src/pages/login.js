@@ -9,7 +9,7 @@ export default function Signup() {
 
     const loading = useSelector(state => state.loading)
     const errorsMessages = useSelector(state => {
-        return state.errors.session.auth ? state.errors.session.auth : []
+        return state.messages.messages.auth ? state.messages.messages.auth : []
     })
 
     const usernameInput = React.createRef();
