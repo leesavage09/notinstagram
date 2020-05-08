@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import SessionReducer from '../redux/reducers/session_reducer'
-import MessageReducer from './reducers/message_reducer';
-import LoadingReducer from '../redux/reducers/loading_reducer'
+import UIReducer from './reducers/ui_reducer';
 
 const rootReducer = combineReducers({
-    session: SessionReducer, 
-    loading: LoadingReducer,
-    messages: MessageReducer
+    session: SessionReducer,
+    ui: UIReducer
 });
 
 export default rootReducer;

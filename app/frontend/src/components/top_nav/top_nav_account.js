@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux'
-import { loggedInUser } from '../../redux/selectors/user_selectors'
+import { loggedInUser } from '../../redux/selectors/session_selector'
 import SVGIcon from '../../components/svg_icon';
 
 export default function Account() {

@@ -8,26 +8,11 @@ const configureStore = (preloadedState = {}) => {
         rootReducer,
         preloadedState,
         composeWithDevTools(
-            applyMiddleware(thunk)//, logger)
-
+            applyMiddleware(thunk)
         )
     );
 
     return store;
 }
-
-// const logger = store => next => action => {
-//     console.log('Action received:', action);
-//     console.log('State pre-dispatch:', store.getState());
-
-//     let result = next(action);
-//     // show toast
-
-//     console.log('State post-dispatch:', store.getState());
-
-//     return result;
-// };
-
-
 
 export default configureStore

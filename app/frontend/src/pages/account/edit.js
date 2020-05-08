@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import React, { useState } from 'react';
 import * as UserActions from '../../redux/actions/user_actions'
 import * as UiActions from '../../redux/actions/ui_actions'
-import * as UserSelectors from '../../redux/selectors/user_selectors'
-import * as MessageSelectors from '../../redux/selectors/message_selector'
+import * as SessionSelector from '../../redux/selectors/session_selector'
+import * as UISelector from '../../redux/selectors/ui_selector'
 import ImageEditor from '../../components/image_editor'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/mobile_footer'
@@ -13,10 +13,9 @@ import OptionsModal, { STYLE_DANGER, STYLE_PRIMARY } from '../../components/opti
 export default function Edit() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(state => state.loading)
-    const user = useSelector(state => UserSelectors.loggedInUser(state))
-    const errorsMessages = useSelector(state => MessageSelectors.errorsMessages(state))
-    const sessionSaved = useSelector(state => MessageSelectors.sessionSaved(state))
+    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
+    const user = useSelector(state => SessionSelector.loggedInUser(state))
+    const messages = useSelector(state => UISelector.allMessages(state))
 
     const nameInput = React.createRef();
     const usernameInput = React.createRef();
@@ -26,16 +25,8 @@ export default function Edit() {
     const [notification, setNotification] = useState('');
     let toast;
 
-    if (errorsMessages.length > 0) {
-        toast = <Toast duration='4500' message={errorsMessages[0]} cleanup={() => {
-            dispatch(UiActions.clearMessages())
-        }} />
-    }
-
-    if (sessionSaved) {
-        toast = <Toast duration='4500' message={"Profile Saved"} cleanup={() => {
-            dispatch(UiActions.clearMessages())
-        }} />
+    if (messages.length > 0) {
+        toast = <Toast duration='4500' message={messages[0]} />
     }
 
     const updateClicked = () => {
@@ -51,6 +42,7 @@ export default function Edit() {
     }
 
     const showPhotoOptions = () => {
+        dispatch(UiActions.clearMessages())
         setNotification(
             <OptionsModal
                 title='Change Profile Photo'
@@ -73,7 +65,7 @@ export default function Edit() {
         )
     }
 
-
+    
     return (
         <div>
             <TopNav title="Edit Profile" />

@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import * as UserActions from '../../redux/actions/user_actions'
 import * as SessionActions from '../../redux/actions/session_actions'
 import * as UiActions from '../../redux/actions/ui_actions'
-import * as UserSelectors from '../../redux/selectors/user_selectors'
-import * as MessageSelectors from '../../redux/selectors/message_selector'
+import * as SessionSelector from '../../redux/selectors/session_selector'
+import * as UISelector from '../../redux/selectors/ui_selector'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/mobile_footer'
 import Toast from '../../components/toast_notification';
@@ -12,10 +12,9 @@ import Toast from '../../components/toast_notification';
 export default function PasswordChange() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(state => state.loading)
-    const user = useSelector(state => UserSelectors.loggedInUser(state))
-    const errorsMessages = useSelector(state => MessageSelectors.errorsMessages(state))
-    const sessionSaved = useSelector(state => MessageSelectors.sessionSaved(state))
+    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
+    const user = useSelector(state => SessionSelector.loggedInUser(state))
+    const messages = useSelector(state => UISelector.allMessages(state))
 
     const oldPassword = React.createRef();
     const newPassword = React.createRef();
@@ -23,41 +22,25 @@ export default function PasswordChange() {
 
     let toast;
 
-    if (errorsMessages.length > 0) {
-        toast = <Toast duration='4500' message={errorsMessages[0]} cleanup={() => {
-            dispatch(UiActions.clearMessages())
-        }} />
-    }
-
-    if (sessionSaved) {
-        toast = <Toast duration='4500' message="Password Updated" cleanup={() => {
+    if (messages.length > 0) {
+        toast = <Toast duration='4500' message={messages[0]} cleanup={() => {
             dispatch(UiActions.clearMessages())
         }} />
     }
 
     const changePasswordClicked = () => {
-        if (newPassword.current.value !== confirmPassword.current.value) {
-            dispatch(UserActions.updateUserFailure({ unknown: ["Make sure both passwords match"] }))
+        const newUser = {
+            id: user.id,
+            username: user.username,
+            password: newPassword.current.value
         }
-        else {
-            const oldUser = {
-                username: user.username,
-                password: oldPassword.current.value
-            }
-            const newUser = {
-                id: user.id,
-                password: newPassword.current.value
-            }
-
-            dispatch(SessionActions.loginUser(oldUser))
-                .then(() => {
-                    dispatch(UserActions.updateUser(newUser))
-                })
-                .catch(() => {
-                    dispatch(UserActions.updateUserFailure({ unknown: ["Your old password was entered incorrectly"] }))
-                })
-        }
+        dispatch(UserActions.updatePassword(
+            newUser,
+            oldPassword.current.value,
+            newPassword.current.value,
+            confirmPassword.current.value))
     }
+
 
     return (
         <div>

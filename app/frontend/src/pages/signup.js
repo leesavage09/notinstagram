@@ -3,19 +3,19 @@ import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 import * as Actions from '../redux/actions/user_actions'
 import { loginUser } from '../redux/actions/session_actions'
-import * as UserSelectors from '../redux/selectors/user_selectors'
-import * as MessageSelectors from '../redux/selectors/message_selector'
+import * as SessionSelector from '../redux/selectors/session_selector'
+import * as UISelector from '../redux/selectors/ui_selector'
 import NoAuthContainer from '../components/auth_container'
 
 
 export default function Signup() {
-    const loggedInUser = useSelector(state => UserSelectors.loggedInUser)
+    const loggedInUser = useSelector(state => SessionSelector.loggedInUser)
     if (loggedInUser) {
         <Redirect to="/" />
     }
 
-    const loading = useSelector(state => state.loading)
-    const errorsMessages = useSelector(state => MessageSelectors.errorsMessages(state))
+    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
+    const errorMessages = useSelector(state=>UISelector.allErrors(state))
     const dispatch = useDispatch()
 
     const usernameInput = React.createRef();
@@ -40,7 +40,7 @@ export default function Signup() {
     }
 
     const errorListItems = []
-    errorsMessages.forEach((message, idx) => {
+    errorMessages.forEach((message, idx) => {
         errorListItems.push(
             <li
                 className='error-list__item'

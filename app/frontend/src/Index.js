@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Switch } from "react-router-dom";
+import { Router, Switch } from "react-router-dom";
+import {createBrowserHistory} from "history"
 import { Provider } from 'react-redux';
 import configureStore from './redux/store'
 import * as Actions from './redux/actions/session_actions'
 import { AuthRoute, ProtectedRoute } from './util/routes'
+import * as UiActions from './redux/actions/ui_actions'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import AccountEdit from './pages/account/edit'
@@ -22,12 +24,17 @@ class Index extends React.Component {
     if (window.logged_in_user) {
       store.dispatch(Actions.loginUserSuccess(window.logged_in_user))
     }
+
+    const history = createBrowserHistory()
+    history.listen((location, action) => {
+      store.dispatch(UiActions.clearMessages())
+    })
     return (
       <React.StrictMode>
         <Provider store={store}>
           <div className="App">
-            <BrowserRouter>
-              <Switch>
+            <Router history={history}>
+              <Switch >
                 <AuthRoute exact path="/signup" component={Signup} />
                 <AuthRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/explore" component={Explore} />
@@ -40,7 +47,7 @@ class Index extends React.Component {
                 <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
                 <ProtectedRoute exact path="/" component={Home} />
               </Switch>
-            </BrowserRouter>
+            </Router>
           </div>
         </Provider>
       </React.StrictMode>

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { logout } from '../redux/actions/session_actions'
-import { loggedInUser } from '../redux/selectors/user_selectors'
+import { loggedInUser } from '../redux/selectors/session_selector'
 import { Link } from 'react-router-dom';
 import BottomNav from '../components/mobile_footer'
 import TopNav from '../components/top_nav/top_nav_account'

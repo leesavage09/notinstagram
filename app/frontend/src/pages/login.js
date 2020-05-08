@@ -3,14 +3,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import * as Actions from '../redux/actions/session_actions'
 import NoAuthContainer from '../components/auth_container'
+import * as UISelector from '../redux/selectors/ui_selector'
 
 export default function Signup() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(state => state.loading)
-    const errorsMessages = useSelector(state => {
-        return state.messages.messages.auth ? state.messages.messages.auth : []
-    })
+    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
+    const errorsMessages = useSelector(state => UISelector.allErrors(state))
 
     const usernameInput = React.createRef();
     const passwordInput = React.createRef();

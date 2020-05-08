@@ -9,7 +9,6 @@ export default function toastNotification(props) {
         setTimeout(function () {
             if (notification.current) {
                 notification.current.className = "toast-notification toast-notification--hide"
-                props.cleanup()
             }
         }, props.duration);
     });

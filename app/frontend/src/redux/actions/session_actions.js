@@ -1,9 +1,10 @@
 import axios from 'axios'
 import * as Types from './action_types'
+import * as UiActions from './ui_actions'
 
 export const loginUser = (user) => {
     return (dispatch) => {
-        dispatch(loginUserRequest())
+        dispatch(UiActions.createAsyncRequest())
         return axios
             .post('http://localhost:3000/api/session/', {
                 user: {
@@ -31,29 +32,23 @@ export const loginUser = (user) => {
     }
 }
 
-const loginUserRequest = () => {
-    return {
-        type: Types.LOGIN_USER_REQUEST
-    }
-}
-
 export const loginUserSuccess = (user) => {
     return {
         type: Types.LOGIN_USER_SUCCESS,
-        user: user
+        payload: user
     }
 }
 
 const loginUserFailure = (errors) => {
     return {
         type: Types.LOGIN_USER_FAILURE,
-        error: errors
+        payload: errors
     }
 }
 
 export const logout = () => {
     return (dispatch) => {
-        dispatch(logoutRequest())
+        dispatch(UiActions.createAsyncRequest())
         return axios
             .delete('http://localhost:3000/api/session/', {}, {
                 withCredentials: true
@@ -75,22 +70,16 @@ export const logout = () => {
     }
 }
 
-const logoutRequest = () => {
-    return {
-        type: Types.LOGOUT_REQUEST
-    }
-}
-
 const logoutSuccess = (user) => {
     return {
         type: Types.LOGOUT_SUCCESS,
-        user: user
+        payload: user
     }
 }
 
 const logoutFailure = (errors) => {
     return {
         type: Types.LOGOUT_FAILURE,
-        error: errors
+        payload: errors
     }
 }
