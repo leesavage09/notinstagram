@@ -29,3 +29,26 @@ export function calcHeight(width, aspectRatio) {
 export function calcWidth(height, aspectRatio) {
     return height * aspectRatio
 }
+
+export function fetchImageFromFile(file) {
+    return new Promise((resolve, reject) => {
+        const fr = new FileReader();
+
+        fr.onload = () => {
+            const img = new Image()
+            img.onload = () => resolve(img)
+            img.onerror = () => reject({fileError: ["Upload failed only images can be posted"]})
+            img.src = fr.result;
+        }
+        fr.readAsDataURL(file);
+    });
+}
+
+export function createFileWithImage(img) {
+    return new Promise((resolve, reject) => {
+        img.toBlob((blob)=>{
+            resolve(blob)
+        }, "image/jpeg", 0.1);//0.75);
+    });
+
+}

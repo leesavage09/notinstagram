@@ -11,7 +11,8 @@ import Login from './pages/login'
 import AccountEdit from './pages/account/edit'
 import Home from './pages/home'
 import Explore from './pages/explore'
-import CreateImage from './pages/create_image'
+import CreateProfileImage from './pages/create_profile_image'
+import CreatePostImage from './pages/create_post_image'
 import CreatePost from './pages/create_post'
 import Activity from './pages/activity'
 import Account from './pages/account'
@@ -38,7 +39,8 @@ class Index extends React.Component {
                 <AuthRoute exact path="/signup" component={Signup} />
                 <AuthRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/explore" component={Explore} />
-                <ProtectedRoute exact path="/create-image" component={CreateImage} />
+                <ProtectedRoute exact path="/create-profile-image" component={CreateProfileImage} />
+                <ProtectedRoute exact path="/create-post-image" component={CreatePostImage} />
                 <ProtectedRoute exact path="/create-post" component={CreatePost} />
                 <ProtectedRoute exact path="/activity" component={Activity} />
                 <ProtectedRoute exact path="/account/edit" component={AccountEdit} />

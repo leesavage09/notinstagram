@@ -33,6 +33,7 @@ export default function OptionsModal(props) {
                         onClick={props.onClose}
                     >Cancel</button>
                 </div>
+                {props.children}
             </div>
         </div>
     );

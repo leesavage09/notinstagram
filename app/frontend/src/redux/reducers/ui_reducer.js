@@ -11,19 +11,21 @@ const UIReducer = (state = _default, action) => {
 
     switch (action.type) {
         case ActionTypes.ASYNC_REQUEST:
-            return Object.assign({}, _default, { is_awaiting_async: true })
+            return Object.assign({}, state, { is_awaiting_async: true })
         case ActionTypes.LOGIN_USER_FAILURE:
         case ActionTypes.LOGOUT_FAILURE:
         case ActionTypes.CREATE_USER_FAILURE:
         case ActionTypes.UPDATE_USER_FAILURE:
         case ActionTypes.UPDATE_PASSWORD_FAILURE:
-            return newError(action.payload)
+        case ActionTypes.IMAGE_SELECT_FAILURE:
+        case ActionTypes.UPLOAD_IMAGE_FAILURE:
+            return newError(state, action.payload)
         case ActionTypes.UPDATE_USER_SUCCESS:
-            return newMessage({ success: ["Profile Saved"] })
+            return newMessage(state, { success: ["Profile Saved"] })
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
-            return newMessage(action.payload)
+            return newMessage(state, action.payload)
         case ActionTypes.CLEAR_MESSAGES:
-            return _default
+            return clearMessage(state)
         default:
             return state;
     }
@@ -32,10 +34,22 @@ const UIReducer = (state = _default, action) => {
 export default UIReducer;
 
 
-function newError(newError) {
-    return Object.assign({}, _default, { errors: true, messages: newError })
+function newError(state, newError) {
+    return Object.assign({}, state, {
+        errors: true, messages: newError,
+        is_awaiting_async: false
+    })
 }
 
-function newMessage(newMessage) {
-    return Object.assign({}, _default, { errors: false, messages: newMessage })
+function newMessage(state, newMessage) {
+    return Object.assign({}, state, {
+        errors: false, messages: newMessage,
+        is_awaiting_async: false
+    })
+}
+
+function clearMessage(state) {
+    return Object.assign({}, state, {
+        errors: false, messages: newMessage
+    })
 }

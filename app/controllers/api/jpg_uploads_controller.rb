@@ -16,9 +16,10 @@ class Api::JpgUploadsController < ApplicationController
       ).bucket(ENV['S3_BUCKET'])
 
       presigned_url = s3_bucket.presigned_post(
-        key: SecureRandom::uuid+'.jpg',
+        key: logged_in_user.image_url,   #SecureRandom::uuid+'.jpg',
         success_action_status: '201',
         content_length_range: 1..2500000,
+        acl: 'public-read',
         signature_expiration: (Time.now.utc + 15.minutes)
       )
     

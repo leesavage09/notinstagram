@@ -8,7 +8,7 @@ import ImageEditor from '../../components/image_editor'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/mobile_footer'
 import Toast from '../../components/toast_notification';
-import OptionsModal, { STYLE_DANGER, STYLE_PRIMARY } from '../../components/options_modal'
+import ProfilePhotoModal from '../../components/options_modal/profile_photo_modal'
 
 export default function Edit() {
     const dispatch = useDispatch()
@@ -44,33 +44,20 @@ export default function Edit() {
     const showPhotoOptions = () => {
         dispatch(UiActions.clearMessages())
         setNotification(
-            <OptionsModal
-                title='Change Profile Photo'
+            <ProfilePhotoModal
                 onClose={() => {
                     setNotification('')
                 }}
-                options={[
-                    {
-                        text: 'Upload Photo',
-                        action: () => { console.log("upload photo!") },
-                        style: STYLE_PRIMARY
-                    },
-                    {
-                        text: 'Remove Current Photo',
-                        action: () => { console.log("remove photo!") },
-                        style: STYLE_DANGER
-                    }
-                ]}
             />
         )
     }
 
-    
+
     return (
         <div>
             <TopNav title="Edit Profile" />
             <div className='edit-details'>
-                <img className="edit-details__image" alt="leesavage09's profile picture" src="https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/94246361_561658168093273_8809993563602419712_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&amp;_nc_ohc=jyjQkwhQAnUAX_LL1eY&amp;oh=708be17a299ed16157d1d4787986aacf&amp;oe=5ED3EA64"></img>
+                <img className="edit-details__image" alt="leesavage09's profile picture" src={user.image_url}></img>
                 <div>
                     <h2 className='edit-details__username'>{user.username}</h2>
                     <a onClick={showPhotoOptions}>Change Profile Photo</a>

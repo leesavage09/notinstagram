@@ -18,7 +18,7 @@ export default function Account() {
     <div>
       <TopNav />
       <div className='account-details'>
-        <img className="account-details__image" alt="leesavage09's profile picture" src="https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/94246361_561658168093273_8809993563602419712_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&amp;_nc_ohc=jyjQkwhQAnUAX_LL1eY&amp;oh=708be17a299ed16157d1d4787986aacf&amp;oe=5ED3EA64"></img>
+        <img className="account-details__image" alt="leesavage09's profile picture" src={user.image_url}></img>
         <div className='account-details__info'>
           <h2 className='account-details__username'>{user.username}</h2>
           <Link to='/account/edit' className='ghost-button account-details__action-button'>Edit Profile</Link>

@@ -22,6 +22,7 @@ class User < ApplicationRecord
                 length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long" }
     
     before_validation :ensure_session_token
+    before_validation :ensure_image_url
   
     attr_reader :password
 
@@ -40,6 +41,10 @@ class User < ApplicationRecord
       self.session_token ||= User.generate_session_token
     end
 
+    def ensure_image_url
+      self.image_url ||= User.generate_image_url
+    end
+
     class << self
       
       def find_by_credentials(username, password)
@@ -55,5 +60,12 @@ class User < ApplicationRecord
         end
       end
     
+      def generate_image_url
+        loop do
+          url = "profile/"+SecureRandom::uuid+'.jpg'
+          break url unless User.where(image_url: url).exists?
+        end
+      end
+
     end
 end
