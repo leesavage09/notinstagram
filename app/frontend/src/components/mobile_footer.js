@@ -18,7 +18,7 @@ export default function MobileFooter() {
                 <SVGIcon iconName='svg-explore-icon' selected={path === '/explore'} />
             </Link>
 
-            <Link to="/create-image" className="mobile-footer__button" >
+            <Link to="/create-post-image" className="mobile-footer__button" >
                 <SVGIcon iconName='svg-create-icon' />
             </Link>
 

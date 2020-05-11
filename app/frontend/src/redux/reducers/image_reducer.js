@@ -5,7 +5,8 @@ const _default = {
     processed_image: null,
     image_processes: {
         fitWidth: false,
-        rotation: 0
+        rotation: 0,
+        filter: 'Normal'
     }
 };
 

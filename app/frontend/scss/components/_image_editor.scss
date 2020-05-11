@@ -1,3 +1,118 @@
-.imageEditor {
-    background-color: black;    
+.edit-mode {
+  .filter-buttons {
+    display: none;
+  }
+
+  .image-editor-options__edit {
+    color: $off-black;
+    border-color: $off-black;
+    font-weight: 600;
+  }
+}
+
+.filter-mode {
+  .image-editor__fit-button,
+  .image-editor__rotate-button {
+    display: none;
+  }
+
+  .image-editor-options__filter {
+    color: $off-black;
+    border-color: $off-black;
+    font-weight: 600;
+  }
+}
+
+.image-editor {
+  position: relative;
+  line-height: 0;
+  @include thin-border;
+  border-width: 0 0 1px 0;
+
+  &__canvas {
+    width: 100%;
+  }
+
+  &__fit-button,
+  &__rotate-button {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-style: none;
+  }
+
+  &__fit-button {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+  }
+
+  &__rotate-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+.filter-buttons {
+  padding: 16px 0px;
+  display: flex;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: scroll;
+
+  &__button:first-child {
+    padding-left: 16px;
+  }
+  
+  &__button:last-child {
+    padding-right: 16px;
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 3px;
+  }
+
+  &__text {
+    padding-bottom: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    color: $dark-grey;
+
+    &--selected {
+      color: $off-black;
+    }
+  }
+
+  &__image {
+    width: 100px;
+  }
+}
+
+
+
+.image-editor-options {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+
+  &__filter,
+  &__edit {
+    flex: 1 1 auto;
+    border-style: none;
+    border-top-style: solid;
+    border-radius: 0px;
+    height: 44px;
+    font-weight: 400;
+    color: $dark-grey;
+    border-color: $light-grey;
+  }
 }

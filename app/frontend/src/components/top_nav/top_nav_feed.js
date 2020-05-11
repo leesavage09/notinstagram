@@ -10,7 +10,7 @@ export default function Feed() {
 
     return (
         <div className='top-nav'>
-            <Link to="/create-image" className="top-nav__icon" >
+            <Link to="/create-post-image" className="top-nav__icon" >
                 <SVGIcon iconName='svg-camera-icon' />
             </Link>
 

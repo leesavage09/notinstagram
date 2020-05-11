@@ -1,43 +1,60 @@
 .small-logo {
-    background-image: url(/sprites1.png);
-    background-repeat: no-repeat;
-    background-position: 0px -288px;
-    height: 29px;
-    width: 103px;
+  background-image: url(/sprites1.png);
+  background-repeat: no-repeat;
+  background-position: 0px -288px;
+  height: 29px;
+  width: 103px;
 }
 
 .big-logo {
-    background-image: url(/sprites1.png);
-    background-repeat: no-repeat;
-    background-position: -98px 0px;
-    height: 51px;
-    width: 175px;
+  background-image: url(/sprites1.png);
+  background-repeat: no-repeat;
+  background-position: -98px 0px;
+  height: 51px;
+  width: 175px;
 }
 
 .feed-logo--dark-grey {
-    background-image: url(/sprites2.png);
-    background-repeat: no-repeat;
-    background-size: 456px 413px;
-    background-position: -200px -389px;
-    height: 24px;
-    width: 24px;
+  background-image: url(/sprites2.png);
+  background-repeat: no-repeat;
+  background-size: 456px 413px;
+  background-position: -200px -389px;
+  height: 24px;
+  width: 24px;
 }
 
 .feed-logo--blue {
-    background-image: url(/sprites2.png);
-    background-repeat: no-repeat;
-    background-size: 456px 413px;
-    background-position: -175px -389px;
-    height: 24px;
-    width: 24px;
+  background-image: url(/sprites2.png);
+  background-repeat: no-repeat;
+  background-size: 456px 413px;
+  background-position: -175px -389px;
+  height: 24px;
+  width: 24px;
 }
 
 .right-chevron {
-    background-image: url(/sprites3.png);
-    background-repeat: no-repeat;
-    background-size: 411px 396px;
-    background-position: -324px -256px;
-    width: 12px;
-    height: 15px;
+  background-image: url(/sprites3.png);
+  background-repeat: no-repeat;
+  background-size: 411px 396px;
+  background-position: -324px -256px;
+  width: 12px;
+  height: 15px;
 }
 
+.image-fit {
+  background-image: url(/sprites4.png);
+  background-repeat: no-repeat;
+  background-size: 89px 89px;
+  background-position: -59px 0;
+  width: 30px;
+  height: 30px;
+}
+
+.image-rotate {
+    background-image: url(/sprites4.png);
+    background-repeat: no-repeat;
+    background-size: 89px 89px;
+    background-position: 0 -59px;
+    width: 30px;
+    height: 30px;
+  }
