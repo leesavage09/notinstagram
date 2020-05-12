@@ -3,7 +3,7 @@ import React from 'react';
 import { logout } from '../redux/actions/session_actions'
 import { loggedInUser } from '../redux/selectors/session_selector'
 import { Link } from 'react-router-dom';
-import BottomNav from '../components/mobile_footer'
+import BottomNav from '../components/bottom_nav'
 import TopNav from '../components/top_nav/top_nav_account'
 import SVGIcon from '../components/svg_icon'
 

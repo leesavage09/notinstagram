@@ -7,13 +7,23 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="notinstagram is a clone of instagram" />
     
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <% if Rails.env.production? %>
+      <link rel="preconnect" href="<%= ENV['AWS_URL'] %>">
+      <link rel="icon" href="<%= ENV['AWS_URL'] %>/favicon.ico" />
+      <link rel="apple-touch-icon" href="<%= ENV['AWS_URL'] %>/logo192.png" />
+      <link rel="manifest" href="<%= ENV['AWS_URL'] %>/manifest.json" />
+      <script src="<%= ENV['AWS_URL'] %>/scripts/bundle.js.gz"></script>
+      <link rel="stylesheet" media="screen" href="<%= ENV['AWS_URL'] %>/scripts/style.css.gz">
+    <% else %>
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="apple-touch-icon" href="/logo192.png" />
+      <link rel="manifest" href="/manifest.json" />
+      <%= javascript_pack_tag "application" %>
+      <%= stylesheet_pack_tag 'style-development' %>
+    <% end %>
     
-    <%= javascript_pack_tag "application" %>
-    <%= stylesheet_pack_tag 'style' %>
     <%= react_component("Index") %>
+
     <% if logged_in? %>
       <script type="text/javascript">
           window.logged_in_user =

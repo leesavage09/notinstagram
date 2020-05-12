@@ -1,6 +1,6 @@
 import React from 'react';
 import TopNav from '../../components/top_nav/top_nav_options'
-import BottomNav from '../../components/mobile_footer'
+import BottomNav from '../../components/bottom_nav'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/actions/session_actions'

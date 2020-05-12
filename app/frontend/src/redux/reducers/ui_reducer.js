@@ -24,6 +24,8 @@ const UIReducer = (state = _default, action) => {
             return newMessage(state, { success: ["Profile Saved"] })
         case ActionTypes.LOGOUT_SUCCESS:
             return newMessage(state, { success: ["Logout Successful"] })
+        case ActionTypes.LOGIN_USER_SUCCESS:
+            return newMessage(state, { success: ["Login Successful"] })
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
             return newMessage(state, action.payload)
         case ActionTypes.CLEAR_MESSAGES:

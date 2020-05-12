@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: notinstagram_production
-  username: notinstagram
+  database: <%= ENV['NOTINSTAGRAM_DATABASE'] %>
+  username: <%= ENV['NOTINSTAGRAM_DATABASE_USER'] %>
   password: <%= ENV['NOTINSTAGRAM_DATABASE_PASSWORD'] %>

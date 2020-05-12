@@ -4,7 +4,7 @@ import SVGIcon from './svg_icon'
 import * as SessionSelector from '../redux/selectors/session_selector'
 import { useSelector } from 'react-redux'
 
-export default function MobileFooter() {
+export default function BottomNav() {
     const path = window.location.pathname
     const user = useSelector(state => SessionSelector.loggedInUser(state))
     return (

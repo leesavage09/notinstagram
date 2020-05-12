@@ -16,7 +16,7 @@ export default function ImageEditor(props) {
         if (selectedImage) save()
         else {
             const myImage = new Image(200, 200);
-            myImage.src = '/filters/Normal.jpg';
+            myImage.src = `${imagePath()}/filters/Normal.jpg`;
             myImage.onload = () => {
                 dispatch(ImageActions.imageSelectSuccess(myImage))
             }
@@ -92,7 +92,7 @@ export default function ImageEditor(props) {
 
 function FilterButton(props) {
     const dispatch = useDispatch();
-    const imgSrc = `/filters/${props.type}.jpg`
+    const imgSrc = `${imagePath()}/filters/${props.type}.jpg`
     const cName = props.selected ? 'filter-buttons__text filter-buttons__text--selected' : 'filter-buttons__text'
     return (
         <a
@@ -108,4 +108,8 @@ function FilterButton(props) {
             />
         </a>
     );
+}
+
+function imagePath() {
+    return process.env.NODE_ENV === 'production' ? process.env.STATIC_RESOURCES : ''
 }

@@ -1,0 +1,28 @@
+// // Normalise the css
+@import "./normalize";
+
+
+// //Variables Mixins & Functions & reusables
+@import "./base";
+@import "./global/sprites";
+
+
+// // HTML Global styles
+@import './global/elements';
+
+
+// // BEM component styles
+@import "./components/mobile_footer";
+@import "./components/top_nav";
+@import "./components/auth_container";
+@import "./components/image_editor";
+@import './components/svg_icon';
+@import './components/toast_notification';
+@import './/components/options_modal';
+
+
+// // Page Styles
+@import "./pages/account";
+@import ".//pages/account/options";
+@import "./pages/account/edit";
+@import "./pages/account/password_change";

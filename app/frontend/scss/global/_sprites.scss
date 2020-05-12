@@ -1,5 +1,5 @@
 .small-logo {
-  background-image: url(/sprites1.png);
+  background-image: url(#{$asset-path}/sprites1.png);
   background-repeat: no-repeat;
   background-position: 0px -288px;
   height: 29px;
@@ -7,7 +7,7 @@
 }
 
 .big-logo {
-  background-image: url(/sprites1.png);
+  background-image: url(#{$asset-path}/sprites1.png);
   background-repeat: no-repeat;
   background-position: -98px 0px;
   height: 51px;
@@ -15,7 +15,7 @@
 }
 
 .feed-logo--dark-grey {
-  background-image: url(/sprites2.png);
+  background-image: url(#{$asset-path}/sprites2.png);
   background-repeat: no-repeat;
   background-size: 456px 413px;
   background-position: -200px -389px;
@@ -24,7 +24,7 @@
 }
 
 .feed-logo--blue {
-  background-image: url(/sprites2.png);
+  background-image: url(#{$asset-path}/sprites2.png);
   background-repeat: no-repeat;
   background-size: 456px 413px;
   background-position: -175px -389px;
@@ -33,7 +33,7 @@
 }
 
 .right-chevron {
-  background-image: url(/sprites3.png);
+  background-image: url(#{$asset-path}/sprites3.png);
   background-repeat: no-repeat;
   background-size: 411px 396px;
   background-position: -324px -256px;
@@ -42,7 +42,7 @@
 }
 
 .image-fit {
-  background-image: url(/sprites4.png);
+  background-image: url(#{$asset-path}/sprites4.png);
   background-repeat: no-repeat;
   background-size: 89px 89px;
   background-position: -59px 0;
@@ -51,7 +51,7 @@
 }
 
 .image-rotate {
-    background-image: url(/sprites4.png);
+    background-image: url(#{$asset-path}/sprites4.png);
     background-repeat: no-repeat;
     background-size: 89px 89px;
     background-position: 0 -59px;

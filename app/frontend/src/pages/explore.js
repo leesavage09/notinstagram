@@ -1,6 +1,6 @@
 import React from 'react';
 import TopNav from '../components/top_nav/top_nav_explore'
-import BottomNav from '../components/mobile_footer'
+import BottomNav from '../components/bottom_nav'
 
 export default function Explore() {
 

@@ -6,7 +6,7 @@ import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import ImageEditor from '../../components/image_editor'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
-import BottomNav from '../../components/mobile_footer'
+import BottomNav from '../../components/bottom_nav'
 import Toast from '../../components/toast_notification';
 import ProfilePhotoModal from '../../components/options_modal/profile_photo_modal'
 

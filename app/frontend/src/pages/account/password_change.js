@@ -6,7 +6,7 @@ import * as UiActions from '../../redux/actions/ui_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
-import BottomNav from '../../components/mobile_footer'
+import BottomNav from '../../components/bottom_nav'
 import Toast from '../../components/toast_notification';
 
 export default function PasswordChange() {
