@@ -1,6 +1,10 @@
 import axios from 'axios'
 import * as ActionTypes from './action_types'
 import * as UiActions from './ui_actions'
+import { Utilitys } from '../../util/image'
+import * as AmazonS3 from '../../util/amazon_s3'
+import * as ImageSelector from '../selectors/image_selector'
+import * as SessionSelector from '../selectors/session_selector'
 
 export const createUser = (user) => {
     return (dispatch) => {
@@ -22,7 +26,6 @@ export const createUser = (user) => {
             })
     }
 }
-
 
 export const updateUser = (user) => {
     return (dispatch) => {
@@ -86,6 +89,32 @@ export const updatePassword = (user, oldPassword, newPassword, newPasswordConfir
     }
 }
 
+export const updateProfileImage = () => {
+    return (dispatch, getState) => {
+        const img = ImageSelector.processedImage(getState())
+        const user = SessionSelector.loggedInUser(getState())
+
+        dispatch(UiActions.createAsyncRequest())
+
+        Promise.all([
+            Utilitys.createFileWithImage(img),
+            axios.get('http://localhost:3000/api/jpg_uploads')
+        ])
+            .then(v => {
+                return AmazonS3.sendBlobToAmazonS3(v[0], v[1].data)
+            })
+            .then(imageUrl => {
+                return axios.patch(`http://localhost:3000/api/users/${user.id}`, { user: { image_url: imageUrl } })
+            })
+            .then(responce => {
+                dispatch(updateProfileImageSuccess(responce.data))
+            })
+            .catch(e => {
+                dispatch(updateProfileImageFailure({ error: [e.message] }))
+            })
+    }
+}
+
 const createUserSuccess = (user) => {
     return {
         type: ActionTypes.CREATE_USER_SUCCESS,
@@ -107,23 +136,37 @@ const updateUserSuccess = (user) => {
     }
 }
 
-export const updateUserFailure = (errors) => {
+const updateUserFailure = (errors) => {
     return {
         type: ActionTypes.UPDATE_USER_FAILURE,
         payload: errors
     }
 }
 
-export const updatePasswordSuccess = (message) => {
+const updatePasswordSuccess = (message) => {
     return {
         type: ActionTypes.UPDATE_PASSWORD_SUCCESS,
         payload: message
     }
 }
 
-export const updatePasswordFailure = (errors) => {
+const updatePasswordFailure = (errors) => {
     return {
         type: ActionTypes.UPDATE_PASSWORD_FAILURE,
+        payload: errors
+    }
+}
+
+const updateProfileImageSuccess = (user) => {
+    return {
+        type: ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS,
+        payload: user
+    }
+}
+
+const updateProfileImageFailure = (errors) => {
+    return {
+        type: ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE,
         payload: errors
     }
 }

@@ -18,10 +18,12 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.UPDATE_USER_FAILURE:
         case ActionTypes.UPDATE_PASSWORD_FAILURE:
         case ActionTypes.IMAGE_SELECT_FAILURE:
-        case ActionTypes.UPLOAD_IMAGE_FAILURE:
+        case ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE:
             return newError(state, action.payload)
         case ActionTypes.UPDATE_USER_SUCCESS:
             return newMessage(state, { success: ["Profile Saved"] })
+        case ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS:
+            return newMessage(state, { success: ["Profile image changed"] })
         case ActionTypes.LOGOUT_SUCCESS:
             return newMessage(state, { success: ["Logout Successful"] })
         case ActionTypes.LOGIN_USER_SUCCESS:

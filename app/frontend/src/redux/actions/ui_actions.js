@@ -1,6 +1,5 @@
 import * as ActionTypes from '../actions/action_types';
 
-
 export const createAsyncRequest = () => {
     return (dispatch) => {
         dispatch(clearMessages())
