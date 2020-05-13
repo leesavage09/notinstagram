@@ -23,7 +23,7 @@ class Index extends React.Component {
   render() {
     const store = configureStore()
     if (window.logged_in_user) {
-      store.dispatch(Actions.loginUserSuccess(window.logged_in_user))
+      store.dispatch(Actions.loginSuccess(window.logged_in_user))
     }
 
     const history = createBrowserHistory()

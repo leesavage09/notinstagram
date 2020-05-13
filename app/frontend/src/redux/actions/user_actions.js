@@ -1,28 +1,23 @@
-import axios from 'axios'
 import * as ActionTypes from './action_types'
 import * as UiActions from './ui_actions'
-import { Utilitys } from '../../util/image'
+import { Utilitys as ImageUtil } from '../../util/image'
 import * as AmazonS3 from '../../util/amazon_s3'
 import * as ImageSelector from '../selectors/image_selector'
 import * as SessionSelector from '../selectors/session_selector'
+import * as SessionActions from './session_actions'
+import * as ApiUtil from '../../util/api'
 
 export const createUser = (user) => {
     return (dispatch) => {
         dispatch(UiActions.createAsyncRequest())
-        return axios
-            .post('http://localhost:3000/api/users/', { user: user })
-            .then(response => {
-                dispatch(createUserSuccess(response.data))
-                return Promise.resolve()
+
+        ApiUtil.createUser(user)
+            .then(r => {
+                dispatch(createUserSuccess(r.data))
+                dispatch(SessionActions.loginSuccess(r.data))
             })
-            .catch(error => {
-                if (error.response && error.response.data && error.response.data.errors) {
-                    dispatch(createUserFailure(error.response.data.errors))
-                }
-                else {
-                    dispatch(createUserFailure({ unknown: [error.message] }))
-                }
-                return Promise.reject(error)
+            .catch(e => {
+                dispatch(createUserFailure(e))
             })
     }
 }
@@ -30,20 +25,11 @@ export const createUser = (user) => {
 export const updateUser = (user) => {
     return (dispatch) => {
         dispatch(UiActions.createAsyncRequest())
-        return axios
-            .patch(`http://localhost:3000/api/users/${user.id}`, { user: user })
-            .then(response => {
-                dispatch(updateUserSuccess(response.data))
-                return Promise.resolve()
-            })
-            .catch(error => {
-                if (error.response && error.response.data && error.response.data.errors) {
-                    dispatch(updateUserFailure(error.response.data.errors))
-                }
-                else {
-                    dispatch(updateUserFailure({ unknown: [error.message] }))
-                }
-                return Promise.reject(error)
+
+        ApiUtil.updateUser(user)
+            .then(r => dispatch(updateUserSuccess(r.data)))
+            .catch(e => {
+                dispatch(updateUserFailure(e))
             })
     }
 }
@@ -51,39 +37,25 @@ export const updateUser = (user) => {
 export const updatePassword = (user, oldPassword, newPassword, newPasswordConfirmation) => {
     return (dispatch) => {
         if (newPassword !== newPasswordConfirmation) {
-            dispatch(updatePasswordFailure({ general: ["Make sure both passwords match"] }))
+            dispatch(updatePasswordFailure("Make sure both passwords match"))
         }
         else {
             dispatch(UiActions.createAsyncRequest())
-            axios
-                .post('http://localhost:3000/api/session/', {
-                    user: {
-                        username: user.username,
-                        password: oldPassword
-                    }
+
+            ApiUtil.loginUser(user.username, oldPassword)
+                .then(r => {
+                    return ApiUtil.updateUser({ ...user, password: newPassword })
                 })
                 .then(r => {
-                    axios
-                        .patch(`http://localhost:3000/api/users/${user.id}`, {
-                            user: {
-                                username: user.username,
-                                password: newPassword
-                            }
-                        })
-                        .then(r => {
-                            dispatch(updatePasswordSuccess({ general: ["Password Updated"] }))
-                        })
-                        .catch(error => {
-                            if (error.response && error.response.data && error.response.data.errors) {
-                                dispatch(updatePasswordFailure(error.response.data.errors))
-                            }
-                            else {
-                                dispatch(updatePasswordFailure({ unknown: [error.message] }))
-                            }
-                        })
+                    dispatch(updatePasswordSuccess("Password Updated"))
                 })
                 .catch(e => {
-                    dispatch(updatePasswordFailure({ general: ["Your old password was entered incorrectly"] }))
+                    if (e.message.includes("401")) {
+                        dispatch(updatePasswordFailure("Your old password was entered incorrectly"))
+                    }
+                    else {
+                        dispatch(updatePasswordFailure(e))
+                    }
                 })
         }
     }
@@ -97,20 +69,20 @@ export const updateProfileImage = () => {
         dispatch(UiActions.createAsyncRequest())
 
         Promise.all([
-            Utilitys.createFileWithImage(img),
-            axios.get('http://localhost:3000/api/jpg_uploads')
+            ImageUtil.createFileWithImage(img),
+            ApiUtil.getPresignedUrlForProfileImage()
         ])
             .then(v => {
                 return AmazonS3.sendBlobToAmazonS3(v[0], v[1].data)
             })
             .then(imageUrl => {
-                return axios.patch(`http://localhost:3000/api/users/${user.id}`, { user: { image_url: imageUrl } })
+                return ApiUtil.updateUser({ ...user, image_url: imageUrl })
             })
             .then(responce => {
                 dispatch(updateProfileImageSuccess(responce.data))
             })
             .catch(e => {
-                dispatch(updateProfileImageFailure({ error: [e.message] }))
+                dispatch(updateProfileImageFailure(e))
             })
     }
 }

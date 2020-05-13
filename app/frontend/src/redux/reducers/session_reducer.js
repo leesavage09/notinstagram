@@ -6,7 +6,7 @@ const _nullUser = {
 
 const SessionReducer = (state = _nullUser, action) => {
   switch (action.type) {
-    case ActionTypes.LOGIN_USER_SUCCESS:
+    case ActionTypes.LOGIN_SUCCESS:
     case ActionTypes.CREATE_USER_SUCCESS:
     case ActionTypes.UPDATE_USER_SUCCESS:
     case ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS:

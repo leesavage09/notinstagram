@@ -10,6 +10,7 @@
   border-top-style: solid;
   border-top-color: $light_grey;
   background-color: $white;
+  overflow: hidden;
 
   &__button {
     flex: 1 1 auto;
