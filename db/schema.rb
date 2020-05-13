@@ -22,10 +22,12 @@ ActiveRecord::Schema.define(version: 2020_04_14_111826) do
     t.string "email", limit: 254, null: false
     t.string "password_digest", null: false
     t.string "session_token", null: false
+    t.string "image_key", null: false
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["image_key"], name: "index_users_on_image_key", unique: true
     t.index ["name"], name: "index_users_on_name"
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

@@ -57,6 +57,7 @@ const sendImageToAmazonS3 = (presignedData) => {
                 const url = presignedData.url;
                 const formData = new FormData();
                 formData.append('key', presignedData.url_fields['key'])
+                formData.append('Cache-Control', 'max-age=2592000')
                 formData.append('acl', presignedData.url_fields['acl'])
                 formData.append('success_action_status', presignedData.url_fields['success_action_status'])
                 formData.append('policy', presignedData.url_fields['policy'])
@@ -73,25 +74,14 @@ const sendImageToAmazonS3 = (presignedData) => {
 
                 return axios.post(url, formData, config).then((response) => {
                     const user = SessionSelector.loggedInUser(getState())
-                    user.image_url = url + "/" + presignedData.url_fields['key']
-                    console.log("updated User", user)
-                    dispatch(UserActions.updateUser(user))
-                        .then(()=>{
-                            user.image_url = user.image_url+"?"+Math.random()
-                            dispatch(uploadImageSuccess(user))
-                        })
+                    dispatch(UserActions.updateUser({
+                        id: user.id,
+                        image_url: presignedData.url_fields['key']+"?v="+Math.round((new Date()).getTime() / 1000)
+                    }))
                 }).catch(error => {
-                    console.log(error)
                     dispatch(uploadImageFailure({ s3UploadError: error.message }))
                 })
             })
-    }
-}
-
-const uploadImageSuccess = (url) => {
-    return {
-        type: ActionTypes.UPLOAD_IMAGE_SUCCESS,
-        payload: url
     }
 }
 

@@ -16,13 +16,16 @@ class User < ApplicationRecord
     validates :session_token, 
                 presence: true, 
                 uniqueness: true
+    validates :image_key, 
+                presence: true, 
+                uniqueness: true
     validates :password_digest, 
                 presence: true
     validates :password, 
                 length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long" }
     
     before_validation :ensure_session_token
-    before_validation :ensure_image_url
+    before_validation :ensure_image_key
   
     attr_reader :password
 
@@ -41,8 +44,13 @@ class User < ApplicationRecord
       self.session_token ||= User.generate_session_token
     end
 
-    def ensure_image_url
-      self.image_url ||= User.generate_image_url
+    def ensure_image_key
+      self.image_key ||= User.generate_image_key
+    end
+
+    def image_url
+      return ENV['AWS_URL']+"/"+self[:image_url] if self[:image_url]
+      nil
     end
 
     class << self
@@ -60,10 +68,10 @@ class User < ApplicationRecord
         end
       end
     
-      def generate_image_url
+      def generate_image_key
         loop do
-          url = "profile/"+SecureRandom::uuid+'.jpg'
-          break url unless User.where(image_url: url).exists?
+          key = SecureRandom::uuid
+          break key unless User.where(image_key: key).exists?
         end
       end
 
