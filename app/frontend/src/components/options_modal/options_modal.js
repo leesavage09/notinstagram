@@ -14,10 +14,7 @@ export default function OptionsModal(props) {
             <button
                 key={i}
                 className={style}
-                onClick={(e) => {
-                    e.stopPropagation()
-                    option.action()
-                }}
+                onClick={e => option.action(e)}
             >{option.text}</button>
         )
     });
@@ -36,5 +33,5 @@ export default function OptionsModal(props) {
                 {props.children}
             </div>
         </div>
-    );
+    )
 }

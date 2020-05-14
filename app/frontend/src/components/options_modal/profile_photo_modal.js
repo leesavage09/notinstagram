@@ -1,18 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import * as ImageActions from '../../redux/actions/image_actions'
+import { imageSelectSuccess, imageSelectFailure } from '../../redux/actions/image_actions'
 import OptionsModal, { STYLE_DANGER, STYLE_PRIMARY } from './options_modal'
 import { Utilitys } from '../../util/image'
+import { useDispatch, useSelector } from 'react-redux'
+import * as UISelector from '../../redux/selectors/ui_selector'
+import * as UIActions from '../../redux/actions/ui_actions'
 
-export default function ProfilePhotoModal(props) {
+export default function ProfilePhotoModal() {
     const dispatch = useDispatch();
+    const show = useSelector(state => UISelector.showProfilePhotoModal(state))
     const history = useHistory();
     const fileInput = React.createRef();
 
-    const uploadPhoto = () => {
-        fileInput.current.click();
-    }
+    const uploadPhoto = () => fileInput.current.click();
 
     const removePhoto = () => {
         console.log("remove photo TODO!")
@@ -20,20 +21,21 @@ export default function ProfilePhotoModal(props) {
 
     const fileSelected = () => {
         Utilitys.fetchImageFromFile(fileInput.current.files[0])
-            .then((img) => {
-                dispatch(ImageActions.imageSelectSuccess(img))
+            .then(img => {
+                dispatch(imageSelectSuccess(img))
                 history.push("/create-profile-image")
+                close()
             })
-            .catch((error) => {
-                dispatch(ImageActions.imageSelectFailure(error))
-                props.onClose()
-            })
+            .catch(e => dispatch(imageSelectFailure(e)))
     }
 
-    return (
+    const close = () => dispatch(UIActions.showProfilePhotoModal(false))
+
+
+    return show ? (
         <OptionsModal
             title='Change Profile Photo'
-            onClose={props.onClose}
+            onClose={close}
             options={[
                 {
                     text: 'Upload Photo',
@@ -55,5 +57,5 @@ export default function ProfilePhotoModal(props) {
                 onChange={fileSelected}
             />
         </OptionsModal>
-    );
+    ) : '';
 }

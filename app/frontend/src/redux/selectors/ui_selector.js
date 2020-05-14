@@ -19,3 +19,7 @@ export const allSuccesses = state => {
 export const isAwaitingAsync = state => {
     return state.ui.is_awaiting_async
 }
+
+export const showProfilePhotoModal = state => {
+    return state.ui.show_profile_photo_modal;
+}

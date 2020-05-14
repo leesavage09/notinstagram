@@ -18,3 +18,10 @@ const asyncRequest = () => {
         type: ActionTypes.ASYNC_REQUEST
     }
 }
+
+export const showProfilePhotoModal = (show) => {
+    return {
+        type: ActionTypes.SHOW_PROFILE_PHOTO_MODAL,
+        payload: show
+    }
+}

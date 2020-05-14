@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Switch } from "react-router-dom";
-import {createBrowserHistory} from "history"
+import { createBrowserHistory } from "history"
 import { Provider } from 'react-redux';
 import configureStore from './redux/store'
 import * as Actions from './redux/actions/session_actions'
@@ -18,6 +18,8 @@ import Activity from './pages/activity'
 import Account from './pages/account'
 import AccountOptions from './pages/account/options'
 import PasswordChange from './pages/account/password_change'
+import ProfilePhotoModal from './components/options_modal/profile_photo_modal'
+import ToastNotification from './components/toast_notification'
 
 class Index extends React.Component {
   render() {
@@ -33,24 +35,24 @@ class Index extends React.Component {
     return (
       <React.StrictMode>
         <Provider store={store}>
-          <div className="App">
-            <Router history={history}>
-              <Switch >
-                <AuthRoute exact path="/signup" component={Signup} />
-                <AuthRoute exact path="/login" component={Login} />
-                <ProtectedRoute exact path="/explore" component={Explore} />
-                <ProtectedRoute exact path="/create-profile-image" component={CreateProfileImage} />
-                <ProtectedRoute exact path="/create-post-image" component={CreatePostImage} />
-                <ProtectedRoute exact path="/create-post" component={CreatePost} />
-                <ProtectedRoute exact path="/activity" component={Activity} />
-                <ProtectedRoute exact path="/account/edit" component={AccountEdit} />
-                <ProtectedRoute exact path="/account" component={Account} />
-                <ProtectedRoute exact path="/account/options" component={AccountOptions} />
-                <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
-                <ProtectedRoute exact path="/" component={Home} />
-              </Switch>
-            </Router>
-          </div>
+          <Router history={history}>
+            <Switch >
+              <AuthRoute exact path="/signup" component={Signup} />
+              <AuthRoute exact path="/login" component={Login} />
+              <ProtectedRoute exact path="/explore" component={Explore} />
+              <ProtectedRoute exact path="/create-profile-image" component={CreateProfileImage} />
+              <ProtectedRoute exact path="/create-post-image" component={CreatePostImage} />
+              <ProtectedRoute exact path="/create-post" component={CreatePost} />
+              <ProtectedRoute exact path="/activity" component={Activity} />
+              <ProtectedRoute exact path="/account/edit" component={AccountEdit} />
+              <ProtectedRoute exact path="/account" component={Account} />
+              <ProtectedRoute exact path="/account/options" component={AccountOptions} />
+              <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
+              <ProtectedRoute exact path="/" component={Home} />
+            </Switch>
+            <ProfilePhotoModal />
+            <ToastNotification/>
+          </Router>
         </Provider>
       </React.StrictMode>
     );

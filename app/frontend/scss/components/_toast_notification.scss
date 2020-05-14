@@ -3,11 +3,13 @@
     width:100%;
     position: fixed;
     bottom:0px;
+    left:0px;
     background-color: $off-black;
     color: $white;
     padding-left:20px;
     line-height: 44px;
     font-weight: 400;
+    z-index: -1;
     
     -webkit-transition: -webkit-transform .2s ease-out;
     transition: transform .2s ease-out;

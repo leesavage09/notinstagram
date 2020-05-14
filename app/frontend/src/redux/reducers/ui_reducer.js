@@ -3,7 +3,8 @@ import * as ActionTypes from '../actions/action_types'
 const _default = {
     errors: false,
     is_awaiting_async: false,
-    messages: {}
+    messages: {},
+    show_profile_photo_modal: false
 };
 
 const UIReducer = (state = _default, action) => {
@@ -32,6 +33,8 @@ const UIReducer = (state = _default, action) => {
             return newMessage(state, "Login successful")
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
             return newMessage(state, action.payload)
+        case ActionTypes.SHOW_PROFILE_PHOTO_MODAL:
+            return Object.assign({}, state, { show_profile_photo_modal: action.payload, messages: {}, errors: false })
         case ActionTypes.CLEAR_MESSAGES:
             return clearMessage(state)
         default:
@@ -66,10 +69,10 @@ function format_data(e) {
     if (e.isAxiosError && e.response && e.response.data && e.response.data.errors) {
         return e.response.data.errors
     }
-    else if (typeof(e) === "string") {
+    else if (typeof (e) === "string") {
         return { message: [e] }
     }
-    else if (e.name==="Error") {
+    else if (e.name === "Error") {
         return { error: [e.message] }
     }
     else {

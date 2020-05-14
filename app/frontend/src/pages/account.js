@@ -3,6 +3,7 @@ import React from 'react';
 import { logout } from '../redux/actions/session_actions'
 import { loggedInUser } from '../redux/selectors/session_selector'
 import { Link } from 'react-router-dom';
+import { showProfilePhotoModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
 import TopNav from '../components/top_nav/top_nav_account'
 import SVGIcon from '../components/svg_icon'
@@ -14,11 +15,16 @@ export default function Account() {
   function logoutClicked() {
     dispatch(logout())
   }
+
   return (
     <div>
       <TopNav />
       <div className='account-details'>
-        <img className="account-details__image" alt="leesavage09's profile picture" src={user.image_url}></img>
+        <img
+          className="account-details__image"
+          onClick={() => { dispatch(showProfilePhotoModal(true)) }}
+          alt="leesavage09's profile picture"
+          src={user.image_url} />
         <div className='account-details__info'>
           <h2 className='account-details__username'>{user.username}</h2>
           <Link to='/account/edit' className='ghost-button account-details__action-button'>Edit Profile</Link>
