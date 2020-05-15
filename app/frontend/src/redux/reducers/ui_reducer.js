@@ -70,7 +70,7 @@ function newMessage(state, message) {
 
 function clearMessage(state) {
     return Object.assign({}, state, {
-        errors: false, messages: newMessage
+        errors: false, messages: {}
     })
 }
 

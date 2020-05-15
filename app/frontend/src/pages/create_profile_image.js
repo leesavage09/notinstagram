@@ -14,7 +14,7 @@ export default function CreateProfileImage() {
                 history.goBack()
                 dispatch(UserActions.updateProfileImage())
             }} />
-            <ImageEditor maxRes='320' />
+            <ImageEditor maxRes='320' forceSquareImage={true} />
         </div>
     );
 }
