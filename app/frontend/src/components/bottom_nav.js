@@ -1,13 +1,17 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SVGIcon from './svg_icon'
 import * as SessionSelector from '../redux/selectors/session_selector'
 import { useSelector } from 'react-redux'
 import ProfileImage from './profile_image';
+import ImageSelectButton from './image_select_button';
 
 export default function BottomNav() {
     const path = window.location.pathname
+    const history = useHistory();
     const user = useSelector(state => SessionSelector.loggedInUser(state))
+
     return (
         <div className='mobile-footer'>
 
@@ -19,9 +23,12 @@ export default function BottomNav() {
                 <SVGIcon iconName='svg-explore-icon' selected={path === '/explore'} />
             </Link>
 
-            <Link to="/create-post-image" className="mobile-footer__button" >
+            <ImageSelectButton
+                className="mobile-footer__button"
+                imageSelected={() => history.push("/create-post-image")}
+            >
                 <SVGIcon iconName='svg-create-icon' />
-            </Link>
+            </ImageSelectButton>
 
             <Link to="/activity" className="mobile-footer__button" >
                 <SVGIcon iconName='svg-activity-icon' selected={path === '/activity'} />

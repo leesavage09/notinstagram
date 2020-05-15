@@ -37,6 +37,11 @@
   }
 
   &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 48px;
     padding: 4px 8px;
     border: solid;
     border-color: $light_grey;
@@ -44,8 +49,7 @@
     border-width: 1px 0 0 0;
     line-height: 21px;
     font-weight: 400;
-    min-height: 48px;
-
+    
     &--danger {
         color: $red;
         font-weight: 600;
