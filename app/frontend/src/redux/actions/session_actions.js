@@ -4,7 +4,7 @@ import * as api_util from '../../util/api'
 
 export const loginUser = (user) => {
     return (dispatch) => {
-        dispatch(UiActions.createAsyncRequest())
+        dispatch(UiActions.asyncRequest())
 
         api_util.loginUser(user.username, user.password)
             .then(r => dispatch(loginSuccess(r.data)))
@@ -16,7 +16,7 @@ export const loginUser = (user) => {
 
 export const logout = () => {
     return (dispatch) => {
-        dispatch(UiActions.createAsyncRequest())
+        dispatch(UiActions.asyncRequest())
 
         api_util.logoutUser()
             .then(r => dispatch(logoutSuccess(r.data)))

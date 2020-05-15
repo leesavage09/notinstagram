@@ -7,6 +7,7 @@ import { showProfilePhotoModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
 import TopNav from '../components/top_nav/top_nav_account'
 import SVGIcon from '../components/svg_icon'
+import ProfileImage, { LARGE_LOADING_SPINNER } from '../components/profile_image';
 
 export default function Account() {
   const user = useSelector(loggedInUser)
@@ -20,11 +21,12 @@ export default function Account() {
     <div>
       <TopNav />
       <div className='account-details'>
-        <img
+        <ProfileImage
           className="account-details__image"
+          spinner={LARGE_LOADING_SPINNER}
+          user={user}
           onClick={() => { dispatch(showProfilePhotoModal(true)) }}
-          alt="leesavage09's profile picture"
-          src={user.image_url} />
+        />
         <div className='account-details__info'>
           <h2 className='account-details__username'>{user.username}</h2>
           <Link to='/account/edit' className='ghost-button account-details__action-button'>Edit Profile</Link>

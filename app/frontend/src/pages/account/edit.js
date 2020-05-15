@@ -6,6 +6,7 @@ import * as UISelector from '../../redux/selectors/ui_selector'
 import { showProfilePhotoModal } from '../../redux/actions/ui_actions'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/bottom_nav'
+import ProfileImage, { SMALL_LOADING_SPINNER } from '../../components/profile_image';
 
 export default function Edit() {
     const dispatch = useDispatch()
@@ -31,11 +32,12 @@ export default function Edit() {
         <div>
             <TopNav title="Edit Profile" />
             <div className='edit-details'>
-                <img
+                <ProfileImage
                     className="edit-details__image"
+                    spinner={SMALL_LOADING_SPINNER}
+                    user={user}
                     onClick={() => { dispatch(showProfilePhotoModal(true)) }}
-                    alt="leesavage09's profile picture"
-                    src={user.image_url} />
+                />
                 <div>
                     <h2 className='edit-details__username'>{user.username}</h2>
                     <a onClick={() => { dispatch(showProfilePhotoModal(true)) }}>

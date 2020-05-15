@@ -1,27 +1,25 @@
 import * as ActionTypes from '../actions/action_types';
 
-export const createAsyncRequest = () => {
-    return (dispatch) => {
-        dispatch(clearMessages())
-        dispatch(asyncRequest())
-    }
-}
-
-export const clearMessages = () => {
+export const browserRouteChanged = () => {
     return {
-        type: ActionTypes.CLEAR_MESSAGES
+        type: ActionTypes.BROWSER_ROUTE_CHANGED
     }
 }
 
-const asyncRequest = () => {
+export const asyncRequest = () => {
     return {
         type: ActionTypes.ASYNC_REQUEST
     }
 }
 
-export const showProfilePhotoModal = (show) => {
+export const showProfilePhotoModal = () => {
     return {
-        type: ActionTypes.SHOW_PROFILE_PHOTO_MODAL,
-        payload: show
+        type: ActionTypes.SHOW_PROFILE_PHOTO_MODAL
+    }
+}
+
+export const hideProfilePhotoModal = () => {
+    return {
+        type: ActionTypes.HIDE_PROFILE_PHOTO_MODAL
     }
 }

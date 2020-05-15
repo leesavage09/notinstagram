@@ -9,7 +9,7 @@ import * as ApiUtil from '../../util/api'
 
 export const createUser = (user) => {
     return (dispatch) => {
-        dispatch(UiActions.createAsyncRequest())
+        dispatch(UiActions.asyncRequest())
 
         ApiUtil.createUser(user)
             .then(r => {
@@ -24,7 +24,7 @@ export const createUser = (user) => {
 
 export const updateUser = (user) => {
     return (dispatch) => {
-        dispatch(UiActions.createAsyncRequest())
+        dispatch(UiActions.asyncRequest())
 
         ApiUtil.updateUser(user)
             .then(r => dispatch(updateUserSuccess(r.data)))
@@ -40,14 +40,14 @@ export const updatePassword = (user, oldPassword, newPassword, newPasswordConfir
             dispatch(updatePasswordFailure("Make sure both passwords match"))
         }
         else {
-            dispatch(UiActions.createAsyncRequest())
+            dispatch(UiActions.asyncRequest())
 
             ApiUtil.loginUser(user.username, oldPassword)
                 .then(r => {
                     return ApiUtil.updateUser({ ...user, password: newPassword })
                 })
                 .then(r => {
-                    dispatch(updatePasswordSuccess("Password Updated"))
+                    dispatch(updatePasswordSuccess())
                 })
                 .catch(e => {
                     if (e.message.includes("401")) {
@@ -66,7 +66,7 @@ export const updateProfileImage = () => {
         const img = ImageSelector.processedImage(getState())
         const user = SessionSelector.loggedInUser(getState())
 
-        dispatch(UiActions.createAsyncRequest())
+        dispatch(UiActions.asyncRequest())
 
         Promise.all([
             ImageUtil.createFileWithImage(img),
@@ -84,6 +84,20 @@ export const updateProfileImage = () => {
             .catch(e => {
                 dispatch(updateProfileImageFailure(e))
             })
+    }
+}
+export const removeProfileImage = () => {
+    return (dispatch, getState) => {
+        const user = SessionSelector.loggedInUser(getState())
+        dispatch(UiActions.asyncRequest())
+
+        ApiUtil.updateUser({ ...user, image_url: null })
+        .then(responce => {
+            dispatch(removeProfileImageSuccess(responce.data))
+        })
+        .catch(e => {
+            dispatch(removeProfileImageFailure(e))
+        })
     }
 }
 
@@ -115,10 +129,9 @@ const updateUserFailure = (errors) => {
     }
 }
 
-const updatePasswordSuccess = (message) => {
+const updatePasswordSuccess = () => {
     return {
-        type: ActionTypes.UPDATE_PASSWORD_SUCCESS,
-        payload: message
+        type: ActionTypes.UPDATE_PASSWORD_SUCCESS
     }
 }
 
@@ -139,6 +152,20 @@ const updateProfileImageSuccess = (user) => {
 const updateProfileImageFailure = (errors) => {
     return {
         type: ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE,
+        payload: errors
+    }
+}
+
+const removeProfileImageSuccess = (user) => {
+    return {
+        type: ActionTypes.REMOVE_PROFILE_IMAGE_SUCCESS,
+        payload: user
+    }
+}
+
+const removeProfileImageFailure = (errors) => {
+    return {
+        type: ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE,
         payload: errors
     }
 }

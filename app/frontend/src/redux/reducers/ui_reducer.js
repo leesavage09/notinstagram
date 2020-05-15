@@ -13,6 +13,7 @@ const UIReducer = (state = _default, action) => {
     switch (action.type) {
         case ActionTypes.ASYNC_REQUEST:
             return Object.assign({}, state, { is_awaiting_async: true })
+
         case ActionTypes.LOGIN_FAILURE:
         case ActionTypes.LOGOUT_FAILURE:
         case ActionTypes.CREATE_USER_FAILURE:
@@ -20,22 +21,30 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.UPDATE_PASSWORD_FAILURE:
         case ActionTypes.IMAGE_SELECT_FAILURE:
         case ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE:
+        case ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE:
             return newError(state, action.payload)
+
         case ActionTypes.CREATE_USER_SUCCESS:
             return newMessage(state, "User created")
         case ActionTypes.UPDATE_USER_SUCCESS:
             return newMessage(state, "Profile saved")
         case ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS:
-            return newMessage(state, "Profile image changed")
+            return newMessage(state, "Profile photo added")
+        case ActionTypes.REMOVE_PROFILE_IMAGE_SUCCESS:
+            return newMessage(state, "Profile photo removed")
         case ActionTypes.LOGOUT_SUCCESS:
             return newMessage(state, "Logout successful")
         case ActionTypes.LOGIN_SUCCESS:
             return newMessage(state, "Login successful")
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
-            return newMessage(state, action.payload)
+            return newMessage(state, "Password Updated")
+
         case ActionTypes.SHOW_PROFILE_PHOTO_MODAL:
-            return Object.assign({}, state, { show_profile_photo_modal: action.payload, messages: {}, errors: false })
-        case ActionTypes.CLEAR_MESSAGES:
+            return Object.assign({}, state, { show_profile_photo_modal: true, messages: {}, errors: false })
+        case ActionTypes.HIDE_PROFILE_PHOTO_MODAL:
+            return Object.assign({}, state, { show_profile_photo_modal: false, messages: {}, errors: false })
+
+        case ActionTypes.BROWSER_ROUTE_CHANGED:
             return clearMessage(state)
         default:
             return state;

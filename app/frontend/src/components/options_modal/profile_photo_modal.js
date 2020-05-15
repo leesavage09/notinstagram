@@ -6,6 +6,7 @@ import { Utilitys } from '../../util/image'
 import { useDispatch, useSelector } from 'react-redux'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import * as UIActions from '../../redux/actions/ui_actions'
+import * as UserActions from '../../redux/actions/user_actions'
 
 export default function ProfilePhotoModal() {
     const dispatch = useDispatch();
@@ -16,7 +17,8 @@ export default function ProfilePhotoModal() {
     const uploadPhoto = () => fileInput.current.click();
 
     const removePhoto = () => {
-        console.log("remove photo TODO!")
+        dispatch(UserActions.removeProfileImage())
+        close()
     }
 
     const fileSelected = () => {
@@ -29,7 +31,7 @@ export default function ProfilePhotoModal() {
             .catch(e => dispatch(imageSelectFailure(e)))
     }
 
-    const close = () => dispatch(UIActions.showProfilePhotoModal(false))
+    const close = () => dispatch(UIActions.hideProfilePhotoModal(false))
 
 
     return show ? (

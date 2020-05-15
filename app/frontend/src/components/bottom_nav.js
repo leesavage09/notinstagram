@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SVGIcon from './svg_icon'
 import * as SessionSelector from '../redux/selectors/session_selector'
 import { useSelector } from 'react-redux'
+import ProfileImage from './profile_image';
 
 export default function BottomNav() {
     const path = window.location.pathname
@@ -28,7 +29,10 @@ export default function BottomNav() {
 
             <Link to="/account" className="mobile-footer__button" >
                 <div className={path === '/account' ? 'mobile-footer__account-border' : ''}></div>
-                <img className="mobile-footer__account-image" alt="leesavage09's profile picture" src={user.image_url}></img>
+                <ProfileImage
+                    className="mobile-footer__account-image"
+                    user={user}
+                />
             </Link>
 
         </div >

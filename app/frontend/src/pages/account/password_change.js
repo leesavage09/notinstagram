@@ -5,6 +5,7 @@ import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/bottom_nav'
+import ProfileImage from '../../components/profile_image';
 
 export default function PasswordChange() {
     const dispatch = useDispatch()
@@ -31,7 +32,7 @@ export default function PasswordChange() {
         <div>
             <TopNav title="Change Password" />
             <div className='edit-details'>
-                <img className="edit-details__image" alt="leesavage09's profile picture" src={user.image_url}></img>
+                <ProfileImage className="edit-details__image" user={user} />
                 <div>
                     <h1 className='edit-details__h1-username'>{user.username}</h1>
                 </div>

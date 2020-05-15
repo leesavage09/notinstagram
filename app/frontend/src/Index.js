@@ -30,7 +30,7 @@ class Index extends React.Component {
 
     const history = createBrowserHistory()
     history.listen((location, action) => {
-      store.dispatch(UiActions.clearMessages())
+      store.dispatch(UiActions.browserRouteChanged())
     })
     return (
       <React.StrictMode>
