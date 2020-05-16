@@ -29,20 +29,4 @@
   &__link {
     font-size: 16px;
   }
-
-  &__search-input {
-    flex: 1 1 auto;
-    text-align: center;
-
-    &--has-text {
-      text-align: left;
-    }
-  }
-
-  &__search-cancel {
-    display: inline-block;
-    &--hide {
-      display: none;
-    }
-  }
 }

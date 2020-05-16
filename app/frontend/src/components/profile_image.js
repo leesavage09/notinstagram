@@ -1,23 +1,16 @@
 import { useSelector } from 'react-redux'
 import React from 'react';
 import * as UISelector from '../redux/selectors/ui_selector'
+import LoadingSpinner, { SMALL_LOADING_SPINNER, LARGE_LOADING_SPINNER } from './loading_spinner';
+import {imagePath} from '../util/helpers'
 
-export const SMALL_LOADING_SPINNER = '--small'
-export const LARGE_LOADING_SPINNER = '--large'
+export { SMALL_LOADING_SPINNER, LARGE_LOADING_SPINNER }
 
 export default function ProfileImage(props) {
-    const imageUrl = props.user.image_url || "/no_profile.jpg"
+    const imageUrl = props.user.image_url || `${imagePath()}/no_profile.jpg`
 
     const loading = props.spinner ? useSelector(state => UISelector.isAwaitingAsync(state)) : false
-    const spinnerElement = loading ? (
-        <div className='profile-image__spinner'>
-            <div className='profile-image__spinner-container'>
-                <div className={`profile-image__lds-spinner profile-image__lds-spinner${props.spinner}`}>
-                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-                </div>
-            </div>
-        </div>
-    ) : ''
+    const spinnerElement = loading ? <LoadingSpinner spinner={props.spinner} /> : ''
 
     return (
         <div className={`${props.className} profile-image`}>

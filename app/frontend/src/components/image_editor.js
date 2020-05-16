@@ -4,6 +4,7 @@ import { Transformations } from '../util/image'
 import * as ImageSelector from '../redux/selectors/image_selector'
 import * as ImageActions from '../redux/actions/image_actions'
 import { presetsMapping, applyPresetOnCanvas } from 'instagram-filters';
+import {imagePath} from '../util/helpers'
 
 export default function ImageEditor(props) {
     const dispatch = useDispatch();
@@ -116,8 +117,4 @@ function FilterButton(props) {
             />
         </a>
     );
-}
-
-function imagePath() {
-    return process.env.NODE_ENV === 'production' ? process.env.STATIC_RESOURCES : ''
 }

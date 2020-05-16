@@ -1,0 +1,25 @@
+.top-nav {
+  &__spinner {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-left: -25px;
+  }
+
+  &__search-input {
+    flex: 1 1 auto;
+    text-align: center;
+
+    &--has-text {
+      text-align: left;
+    }
+  }
+
+  &__search-cancel {
+    display: inline-block;
+    margin-left: 5px;
+    &--hide {
+      display: none;
+    }
+  }
+}

@@ -101,6 +101,13 @@ export const removeProfileImage = () => {
     }
 }
 
+export const findUser = (string) => {
+    return (dispatch, getState) => {
+        dispatch(UiActions.asyncRequest())
+        console.log("finding user that matches: ",string)
+    }
+}
+
 const createUserSuccess = (user) => {
     return {
         type: ActionTypes.CREATE_USER_SUCCESS,
