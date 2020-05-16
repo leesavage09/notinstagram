@@ -9,7 +9,7 @@ export default function ProfileImage(props) {
     const imageUrl = props.user.image_url || "/no_profile.jpg"
 
     const loading = props.spinner ? useSelector(state => UISelector.isAwaitingAsync(state)) : false
-    const spinner = loading ? (
+    const spinnerElement = loading ? (
         <div className='profile-image__spinner'>
             <div className='profile-image__spinner-container'>
                 <div className={`profile-image__lds-spinner profile-image__lds-spinner${props.spinner}`}>
@@ -27,7 +27,7 @@ export default function ProfileImage(props) {
                 src={imageUrl}
                 onClick={props.onClick}
             />
-            {spinner}
+            {spinnerElement}
         </div>
     );
 }

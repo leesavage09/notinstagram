@@ -1,0 +1,43 @@
+.create-post {
+  background-color: $off-white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &--typing {
+      background-color: $dark-grey;
+  }
+
+  &__container {
+    box-sizing: border-box;
+    height: 80px;
+    background-color: $white;
+    @include thin-border;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    padding: 16px;
+
+    display: flex;
+  }
+
+  &__profile-image {
+    width: 29px;
+    height: 29px;
+    margin: -2px 6px 0 0;
+
+  }
+  &__textarea {
+    flex: 1 1 auto;
+    line-height: 18px;
+    border-width: 0px;
+    outline: none;
+
+    &::placeholder {
+        font-size: 16px;
+        columns: $light-grey;
+    }
+  }
+  &__post-image {
+    height: 48px;
+  }
+}
