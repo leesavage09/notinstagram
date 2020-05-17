@@ -1,6 +1,6 @@
 import React from 'react';
 import { debounce } from '../../util/helpers'
-import * as UserActions from '../../redux/actions/user_actions'
+import * as ProfileActions from '../../redux/actions/normalized/profile_actions'
 import { useSelector, useDispatch } from 'react-redux'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import LoadingSpinner, { SMALL_LOADING_SPINNER } from '../../components/loading_spinner';
@@ -14,7 +14,7 @@ export default function Explore() {
     const searchBox = React.createRef();
     const cancelBtn = React.createRef();
     const dispatch = useDispatch()
-    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
+    const loading = useSelector(UISelector.isAwaitingAsync())
     const spinnerElement = loading ? <LoadingSpinner spinner={SMALL_LOADING_SPINNER} /> : ''
 
 
@@ -25,7 +25,7 @@ export default function Explore() {
 
     const doSearch = () => {
         if (searchBox.current.value !== "") {
-            dispatch(UserActions.findUser(searchBox.current.value))
+            dispatch(ProfileActions.searchForProfiles(searchBox.current.value))
         }
     }
 

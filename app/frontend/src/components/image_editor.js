@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Transformations } from '../util/image'
-import * as ImageSelector from '../redux/selectors/image_selector'
-import * as ImageActions from '../redux/actions/image_actions'
+import * as ImageSelector from '../redux/selectors/component/image_selector'
+import * as ImageActions from '../redux/actions/component/image_actions'
 import { presetsMapping, applyPresetOnCanvas } from 'instagram-filters';
 import {imagePath} from '../util/helpers'
 
@@ -10,8 +10,8 @@ export default function ImageEditor(props) {
     const dispatch = useDispatch();
     const myCanvas = React.useRef();
     const container = React.useRef();
-    const selectedImage = useSelector(state => ImageSelector.selectedImage(state))
-    const { fitWidth: selectedFitWidth, rotation: selectedRotation, filter: selectedFilter } = useSelector(state => ImageSelector.imageProcesses(state))
+    const selectedImage = useSelector(ImageSelector.selectedImage())
+    const { fitWidth: selectedFitWidth, rotation: selectedRotation, filter: selectedFilter } = useSelector(ImageSelector.imageProcesses())
     const fitWidth = props.forceSquareImage ? true : selectedFitWidth
 
     React.useEffect(() => {

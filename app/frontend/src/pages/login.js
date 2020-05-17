@@ -8,8 +8,8 @@ import * as UISelector from '../redux/selectors/ui_selector'
 export default function Signup() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
-    const errorsMessages = useSelector(state => UISelector.allErrors(state))
+    const loading = useSelector(UISelector.isAwaitingAsync())
+    const errorsMessages = useSelector(UISelector.allErrors())
 
     const usernameInput = React.createRef();
     const passwordInput = React.createRef();

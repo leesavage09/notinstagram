@@ -10,12 +10,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
-    resources :users, only: [:create, :update]
+    resources :users, only: [:index, :create, :update]
     get "users/s3presigned", to: "users#get_s3_presigned", as: "get_s3_presigned"
 
     resource :session, only: [:create, :destroy]
 
-    resources :jpg_uploads, only: [:index]
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

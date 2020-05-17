@@ -1,9 +1,9 @@
 import React from 'react';
 import TopNav from '../components/top_nav/top_nav_create_post'
-import * as ImageActions from '../redux/actions/image_actions'
-import * as ImageSelector from '../redux/selectors/image_selector'
+import * as ImageActions from '../redux/actions/component/image_actions'
+import * as ImageSelector from '../redux/selectors/component/image_selector'
 import ProfileImage from '../components/profile_image';
-import * as PostActions from '../redux/actions/post_actions'
+import * as PostActions from '../redux/actions/normalized/post_actions'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { loggedInUser } from '../redux/selectors/session_selector'
@@ -11,7 +11,7 @@ import { loggedInUser } from '../redux/selectors/session_selector'
 export default function CreatePost() {
     const dispatch = useDispatch()
     const user = useSelector(loggedInUser)
-    const selectedImage = useSelector(state => ImageSelector.processedImage(state))
+    const selectedImage = useSelector(ImageSelector.processedImage())
     const outerContainer = React.createRef()
     const textArea = React.createRef()
     const imageSrc = selectedImage ? selectedImage.toDataURL() : ''

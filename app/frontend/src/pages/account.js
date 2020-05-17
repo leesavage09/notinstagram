@@ -10,7 +10,7 @@ import SVGIcon from '../components/svg_icon'
 import ProfileImage, { LARGE_LOADING_SPINNER } from '../components/profile_image';
 
 export default function Account() {
-  const user = useSelector(loggedInUser)
+  const user = useSelector(loggedInUser())
   const dispatch = useDispatch();
 
   function logoutClicked() {

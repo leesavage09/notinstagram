@@ -1,0 +1,25 @@
+.profile-item {
+  display: flex;
+  padding: 8px 16px;
+
+  &__image {
+    width: 44px;
+    height: 44px;
+    margin-right: 12px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__username {
+    font-weight: 600;
+  }
+
+  &__name {
+    font-weight: 400;
+    color: $dark-grey;
+  }
+}

@@ -9,7 +9,7 @@ export { SMALL_LOADING_SPINNER, LARGE_LOADING_SPINNER }
 export default function ProfileImage(props) {
     const imageUrl = props.user.image_url || `${imagePath()}/no_profile.jpg`
 
-    const loading = props.spinner ? useSelector(state => UISelector.isAwaitingAsync(state)) : false
+    const loading = props.spinner ? useSelector(UISelector.isAwaitingAsync()) : false
     const spinnerElement = loading ? <LoadingSpinner spinner={props.spinner} /> : ''
 
     return (

@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions/action_types'
+import * as ActionTypes from '../../actions/action_types'
 
 const _default = {
     selected_image: null,

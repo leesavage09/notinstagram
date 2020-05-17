@@ -22,30 +22,36 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.IMAGE_SELECT_FAILURE:
         case ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE:
         case ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE:
+        case ActionTypes.FOUND_PROFILES_FAILURE:
             return newError(state, action.payload)
 
         case ActionTypes.CREATE_USER_SUCCESS:
-            return newMessage(state, "User created")
+        case ActionTypes.LOGOUT_SUCCESS:
+        case ActionTypes.LOGIN_SUCCESS:
+        case ActionTypes.FOUND_PROFILES_SUCCESS:
+            return Object.assign({}, state, { is_awaiting_async: false })
+
         case ActionTypes.UPDATE_USER_SUCCESS:
             return newMessage(state, "Profile saved")
+
         case ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS:
             return newMessage(state, "Profile photo added")
+
         case ActionTypes.REMOVE_PROFILE_IMAGE_SUCCESS:
             return newMessage(state, "Profile photo removed")
-        case ActionTypes.LOGOUT_SUCCESS:
-            return newMessage(state, "Logout successful")
-        case ActionTypes.LOGIN_SUCCESS:
-            return newMessage(state, "Login successful")
+
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
             return newMessage(state, "Password Updated")
 
         case ActionTypes.SHOW_PROFILE_PHOTO_MODAL:
             return Object.assign({}, state, { show_profile_photo_modal: true, messages: {}, errors: false })
+
         case ActionTypes.HIDE_PROFILE_PHOTO_MODAL:
             return Object.assign({}, state, { show_profile_photo_modal: false, messages: {}, errors: false })
 
         case ActionTypes.BROWSER_ROUTE_CHANGED:
             return clearMessage(state)
+
         default:
             return state;
     }

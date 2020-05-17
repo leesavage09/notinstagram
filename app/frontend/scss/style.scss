@@ -22,11 +22,13 @@
 @import './components/options_modal';
 @import './components/profile_image';
 @import './components/loading_spinner';
+@import './components/profile_item';
 
 
 // // Page Styles
 @import "./pages/account";
-@import ".//pages/account/options";
+@import "./pages/account/options";
 @import "./pages/account/edit";
 @import "./pages/account/password_change";
-@import "./pages//create_post";
+@import "./pages/create_post";
+@import "./pages/explore";

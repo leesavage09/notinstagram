@@ -1,16 +1,21 @@
-.mobile-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.bottom-nav {
   width: 100vw;
   height: 44px;
-  display: flex;
-  flex-direction: row;
-  border-top-width: 1.5px;
-  border-top-style: solid;
-  border-top-color: $light_grey;
-  background-color: $white;
-  overflow: hidden;
+  
+  &__container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    border-top-width: 1.5px;
+    border-top-style: solid;
+    border-top-color: $light_grey;
+    background-color: $white;
+    overflow: hidden;
+  }
 
   &__button {
     flex: 1 1 auto;
@@ -18,7 +23,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   &__account-image {
     width: 24px;
     height: 24px;

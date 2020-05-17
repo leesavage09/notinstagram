@@ -1,25 +1,27 @@
- export const allMessages = state => {
-    const messages = []
-    Object.keys(state.ui.messages).forEach(key => {
-        state.ui.messages[key].forEach(message => {
-            messages.push(message)
+export const allMessages = () => {
+    return state => {
+        const messages = []
+        Object.keys(state.ui.messages).forEach(key => {
+            state.ui.messages[key].forEach(message => {
+                messages.push(message)
+            })
         })
-    })
-    return messages;
+        return messages;
+    }
 }
 
-export const allErrors = state => {
-    return state.ui.errors ? allMessages(state) : []
+export const allErrors = () => {
+    return state => state.ui.errors ? allMessages()(state) : []
 }
 
-export const allSuccesses = state => {
-    return !state.ui.errors ? allMessages(state) : []
+export const allSuccesses = () => {
+    return state => !state.ui.errors ? allMessages()(state) : []
 }
 
-export const isAwaitingAsync = state => {
-    return state.ui.is_awaiting_async
+export const isAwaitingAsync = () => {
+    return state => state.ui.is_awaiting_async
 }
 
-export const showProfilePhotoModal = state => {
-    return state.ui.show_profile_photo_modal;
+export const showProfilePhotoModal = () => {
+    return state => state.ui.show_profile_photo_modal;
 }

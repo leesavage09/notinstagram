@@ -4,16 +4,16 @@ import OptionsModal, { STYLE_DANGER, STYLE_PRIMARY } from './options_modal'
 import { useDispatch, useSelector } from 'react-redux'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import * as UIActions from '../../redux/actions/ui_actions'
-import * as UserActions from '../../redux/actions/user_actions'
+import * as SesionActions from '../../redux/actions/session_actions'
 import ImageSelectButton from '../image_select_button';
 
 export default function ProfilePhotoModal() {
     const dispatch = useDispatch();
-    const show = useSelector(state => UISelector.showProfilePhotoModal(state))
+    const show = useSelector(UISelector.showProfilePhotoModal())
     const history = useHistory();
 
     const removePhoto = () => {
-        dispatch(UserActions.removeProfileImage())
+        dispatch(SesionActions.removeProfileImage())
         close()
     }
 

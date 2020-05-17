@@ -4,7 +4,7 @@ import * as UISelector from '../redux/selectors/ui_selector'
 
 export default function ToastNotification() {
     const notification = React.createRef();
-    const messages = useSelector(state => UISelector.allMessages(state))
+    const messages = useSelector(UISelector.allMessages())
 
     const show = messages.length > 0
 

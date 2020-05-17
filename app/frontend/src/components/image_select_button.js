@@ -1,5 +1,5 @@
 import React from 'react';
-import { imageSelectSuccess, imageSelectFailure } from '../redux/actions/image_actions'
+import { imageSelectSuccess, imageSelectFailure } from '../redux/actions/component/image_actions'
 import { Utilitys } from '../util/image'
 import { useDispatch } from 'react-redux'
 

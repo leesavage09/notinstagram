@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import * as UserActions from '../../redux/actions/user_actions'
+import * as SessionActions from '../../redux/actions/session_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import { showProfilePhotoModal } from '../../redux/actions/ui_actions'
@@ -10,8 +10,8 @@ import ProfileImage, { SMALL_LOADING_SPINNER } from '../../components/profile_im
 
 export default function Edit() {
     const dispatch = useDispatch()
-    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
-    const user = useSelector(state => SessionSelector.loggedInUser(state))
+    const loading = useSelector(UISelector.isAwaitingAsync())
+    const user = useSelector(SessionSelector.loggedInUser())
     const nameInput = React.createRef();
     const usernameInput = React.createRef();
     const emailInput = React.createRef();
@@ -25,7 +25,7 @@ export default function Edit() {
             email: emailInput.current.value,
             bio: bioInput.current.value
         }
-        dispatch(UserActions.updateUser(newUser))
+        dispatch(SessionActions.updateUser(newUser))
     }
 
     return (

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import * as UserActions from '../../redux/actions/user_actions'
+import * as SessionActions from '../../redux/actions/session_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
@@ -9,8 +9,8 @@ import ProfileImage from '../../components/profile_image';
 
 export default function PasswordChange() {
     const dispatch = useDispatch()
-    const loading = useSelector(state => UISelector.isAwaitingAsync(state))
-    const user = useSelector(state => SessionSelector.loggedInUser(state))
+    const loading = useSelector(UISelector.isAwaitingAsync())
+    const user = useSelector(SessionSelector.loggedInUser())
     const oldPassword = React.createRef();
     const newPassword = React.createRef();
     const confirmPassword = React.createRef();
@@ -21,7 +21,7 @@ export default function PasswordChange() {
             username: user.username,
             password: newPassword.current.value
         }
-        dispatch(UserActions.updatePassword(
+        dispatch(SessionActions.updatePassword(
             newUser,
             oldPassword.current.value,
             newPassword.current.value,
