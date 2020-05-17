@@ -24,5 +24,5 @@ export function updateUser(user) {
 }
 
 export function getPresignedUrlForProfileImage() {
-  return axios.get('http://localhost:3000/api/jpg_uploads')
+  return axios.get('http://localhost:3000/api/users/s3presigned')
 }

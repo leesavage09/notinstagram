@@ -1,79 +1,87 @@
+require_relative "../services/amazon_s3_service.rb"
+
 class User < ApplicationRecord
-    validates :name, 
-                length: { maximum: 30, message: "Name must be less than 30 characters." }
-    validates :username, 
-                presence: {message: "You must choose a username."}, 
-                uniqueness: {message: "This username has already been taken."},
-                length: {maximum: 30, message: "Username must be less than 30 characters."},
-                format: { with: /\A[\w.]+\z/, message: "Username can only use letters, numbers, underscores and periods" }
-    validates :bio, 
-                length: {maximum: 150, message: "Bio must be under 150 characters."}
-    validates :email, 
-                presence: {message: "You must have an email address"}, 
-                uniqueness: {message: "Email address has already signed up"}, 
-                length: {maximum: 254, message: "Email is not valid"}, 
-                format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email is not valid" } 
-    validates :session_token, 
-                presence: true, 
-                uniqueness: true
-    validates :image_key, 
-                presence: true, 
-                uniqueness: true
-    validates :password_digest, 
-                presence: true
-    validates :password, 
-                length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long" }
-    
-    before_validation :ensure_session_token
-    before_validation :ensure_image_key
-  
-    attr_reader :password
+  validates :name,
+            length: { maximum: 30, message: "Name must be less than 30 characters." }
+  validates :username,
+            presence: { message: "You must choose a username." },
+            uniqueness: { message: "This username has already been taken." },
+            length: { maximum: 30, message: "Username must be less than 30 characters." },
+            format: { with: /\A[\w.]+\z/, message: "Username can only use letters, numbers, underscores and periods" }
+  validates :bio,
+            length: { maximum: 150, message: "Bio must be under 150 characters." }
+  validates :email,
+            presence: { message: "You must have an email address" },
+            uniqueness: { message: "Email address has already signed up" },
+            length: { maximum: 254, message: "Email is not valid" },
+            format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email is not valid" }
+  validates :session_token,
+            presence: true,
+            uniqueness: true
+  validates :image_key,
+            presence: true,
+            uniqueness: true
+  validates :password_digest,
+            presence: true
+  validates :password,
+            length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long" }
 
-    def password=(password)
-      @password = password
-      self.password_digest = BCrypt::Password.create(password)
-    end
+  before_validation :ensure_session_token
+  before_validation :ensure_image_key
 
-    def reset_session_token!
-      self.session_token = User.generate_session_token
-      self.save!
-      self.session_token
-    end
+  attr_reader :password
 
-    def ensure_session_token
-      self.session_token ||= User.generate_session_token
-    end
+  def password=(password)
+    @password = password
+    self.password_digest = BCrypt::Password.create(password)
+  end
 
-    def ensure_image_key
-      self.image_key ||= User.generate_image_key
-    end
+  def reset_session_token!
+    self.session_token = User.generate_session_token
+    self.save!
+    self.session_token
+  end
 
-    def image_url
-      return ENV['AWS_URL']+"/"+self[:image_url] if self[:image_url]
+  def ensure_session_token
+    self.session_token ||= User.generate_session_token
+  end
+
+  def ensure_image_key
+    self.image_key ||= User.generate_image_key
+  end
+
+  def image_url
+    return ENV["AWS_URL"] + "/" + self[:image_url] if self[:image_url]
+    nil
+  end
+
+  def image_s3_post_url
+    presigned = AmazonS3Service.get_presigned_post(key: "profile/" + self.image_key + ".jpg")
+    {
+      url: presigned.url,
+      url_fields: presigned.fields,
+    }
+  end
+
+  class << self
+    def find_by_credentials(username, password)
+      user = User.find_by(username: username)
+      return user if user && BCrypt::Password.new(user.password_digest).is_password?(password)
       nil
     end
 
-    class << self
-      
-      def find_by_credentials(username, password)
-        user = User.find_by(username: username)
-        return user if user && BCrypt::Password.new(user.password_digest).is_password?(password)
-        nil
+    def generate_session_token
+      loop do
+        token = SecureRandom::urlsafe_base64(16)
+        break token unless User.where(session_token: token).exists?
       end
-
-      def generate_session_token
-        loop do
-          token = SecureRandom::urlsafe_base64(16)
-          break token unless User.where(session_token: token).exists?
-        end
-      end
-    
-      def generate_image_key
-        loop do
-          key = SecureRandom::uuid
-          break key unless User.where(image_key: key).exists?
-        end
-      end
-
     end
+
+    def generate_image_key
+      loop do
+        key = SecureRandom::uuid
+        break key unless User.where(image_key: key).exists?
+      end
+    end
+  end
 end
