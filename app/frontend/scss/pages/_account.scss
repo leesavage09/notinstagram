@@ -13,6 +13,13 @@
     flex: 1 1 auto;
   }
 
+  &__info--profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
   &__username {
     color: $off_black;
     font-weight: 300;

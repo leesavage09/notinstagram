@@ -20,6 +20,7 @@ import AccountOptions from './pages/account/options'
 import PasswordChange from './pages/account/password_change'
 import ProfilePhotoModal from './components/options_modal/profile_photo_modal'
 import ToastNotification from './components/toast_notification'
+import Profile from './pages/profile'
 
 class Index extends React.Component {
   render() {
@@ -48,10 +49,11 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/account" component={Account} />
               <ProtectedRoute exact path="/account/options" component={AccountOptions} />
               <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
+              <ProtectedRoute exact path="/profile" component={Profile} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ProfilePhotoModal />
-            <ToastNotification/>
+            <ToastNotification />
           </Router>
         </Provider>
       </React.StrictMode>

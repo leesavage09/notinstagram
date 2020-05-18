@@ -51,10 +51,19 @@
 }
 
 .image-rotate {
-    background-image: url(#{$asset-path}/sprites4.png);
-    background-repeat: no-repeat;
-    background-size: 89px 89px;
-    background-position: 0 -59px;
-    width: 30px;
-    height: 30px;
-  }
+  background-image: url(#{$asset-path}/sprites4.png);
+  background-repeat: no-repeat;
+  background-size: 89px 89px;
+  background-position: 0 -59px;
+  width: 30px;
+  height: 30px;
+}
+
+.follow-profile {
+  background-image: url(#{$asset-path}/sprites2.png);
+  background-repeat: no-repeat;
+  background-size: 456px 413px;
+  background-position: -432px -296px;
+  width: 24px;
+  height: 12px;
+}

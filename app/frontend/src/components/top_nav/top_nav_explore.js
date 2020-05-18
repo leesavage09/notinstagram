@@ -1,6 +1,6 @@
 import React from 'react';
 import { debounce } from '../../util/helpers'
-import * as ProfileActions from '../../redux/actions/normalized/profile_actions'
+import * as ExploreActions from '../../redux/actions/component/explore_actions'
 import { useSelector, useDispatch } from 'react-redux'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import LoadingSpinner, { SMALL_LOADING_SPINNER } from '../../components/loading_spinner';
@@ -25,7 +25,7 @@ export default function Explore() {
 
     const doSearch = () => {
         if (searchBox.current.value !== "") {
-            dispatch(ProfileActions.searchForProfiles(searchBox.current.value))
+            dispatch(ExploreActions.searchForProfiles(searchBox.current.value))
         }
     }
 

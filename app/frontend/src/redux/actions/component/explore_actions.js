@@ -1,10 +1,3 @@
-import * as ActionTypes from '../action_types'
-import * as UiActions from '../ui_actions'
-import { Utilitys as ImageUtil } from '../../../util/image'
-import * as AmazonS3 from '../../../util/amazon_s3'
-import * as ImageSelector from '../../selectors/component/image_selector'
-import * as SessionSelector from '../../selectors/session_selector'
-import * as SessionActions from '../session_actions'
 import * as ApiUtil from '../../../util/api'
 
 export const searchForProfiles = (searchQuery) => {
