@@ -5,7 +5,7 @@ class Api::UsersController < ApplicationController
     @users = User.where("username ILIKE :q or name ILIKE :q",
                         q: "%" + query_param + "%")
       .where.not(id: logged_in_user.id)
-      .order(:username, :name)
+      .order(:username)
       .limit(55)
     render :index
   end
@@ -23,6 +23,8 @@ class Api::UsersController < ApplicationController
   def update
     if logged_in_user.id != params.require(:id).to_i
       render json: { errors: { auth: ["You must be logged in"] } }, status: :forbidden
+    elsif logged_in_user.username === "guest"
+      render json: { errors: { auth: ["The guest account cannot be changed"] } }, status: :forbidden
     else
       @user = logged_in_user
       @user.update(user_params)

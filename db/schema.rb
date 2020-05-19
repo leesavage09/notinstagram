@@ -10,10 +10,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_111826) do
+ActiveRecord::Schema.define(version: 2020_05_18_094900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.string "body", limit: 2200, null: false
+    t.string "parent_type", null: false
+    t.integer "parent_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["parent_type", "parent_id"], name: "index_comments_on_parent_type_and_parent_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.string "followed_type", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_type", "followed_id"], name: "index_follows_on_followed_type_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id", unique: true
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_hashtags_on_name", unique: true
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "liker_id", null: false
+    t.string "liked_type", null: false
+    t.integer "liked_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["liked_type", "liked_id"], name: "index_likes_on_liked_type_and_liked_id"
+    t.index ["liker_id", "liked_type", "liked_id"], name: "index_likes_on_liker_id_and_liked_type_and_liked_id", unique: true
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "source_user_id", null: false
+    t.integer "notified_user_id", null: false
+    t.string "activity_type", null: false
+    t.integer "activity_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notified_user_id", "created_at"], name: "index_notifications_on_notified_user_id_and_created_at"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.string "caption", limit: 2200
+    t.string "image_key", null: false
+    t.string "image_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_posts_on_author_id"
+    t.index ["created_at"], name: "index_posts_on_created_at"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "hashtag_id", null: false
+    t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id", "post_id"], name: "index_taggings_on_hashtag_id_and_post_id", unique: true
+    t.index ["post_id"], name: "index_taggings_on_post_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 30

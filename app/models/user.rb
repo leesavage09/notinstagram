@@ -1,3 +1,19 @@
+# t.string "name", limit: 30
+# t.string "username", limit: 30, null: false
+# t.string "bio", limit: 150
+# t.string "email", limit: 254, null: false
+# t.string "password_digest", null: false
+# t.string "session_token", null: false
+# t.string "image_key", null: false
+# t.string "image_url"
+# t.datetime "created_at", precision: 6, null: false
+# t.datetime "updated_at", precision: 6, null: false
+# t.index ["email"], name: "index_users_on_email", unique: true
+# t.index ["image_key"], name: "index_users_on_image_key", unique: true
+# t.index ["name"], name: "index_users_on_name"
+# t.index ["session_token"], name: "index_users_on_session_token", unique: true
+# t.index ["username"], name: "index_users_on_username", unique: true
+
 require_relative "../services/amazon_s3_service.rb"
 
 class User < ApplicationRecord
@@ -25,6 +41,22 @@ class User < ApplicationRecord
             presence: true
   validates :password,
             length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long" }
+
+  has_many :posts,
+           class_name: "Post",
+           foreign_key: :author_id
+
+  has_many :notifications,
+    class_name: "Notification",
+    foreign_key: :notified_user
+
+  has_many :inward_followers, -> { where followed_type: "user" },
+    class_name: "Follow",
+    foreign_key: :followed_id
+
+  has_many :outward_follows,
+    class_name: "Follow",
+    foreign_key: :follower_id
 
   before_validation :ensure_session_token
   before_validation :ensure_image_key

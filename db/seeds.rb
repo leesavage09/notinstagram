@@ -7,7 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-10.times do
+100.times do
     u = FactoryBot.build(:user)
     u.save()
 end
+
+User.create({
+    name: "Guest Account",
+    username: "guest",
+    email: "guest@example.com",
+    password: "guestaccount"
+})
