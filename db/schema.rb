@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 2020_05_18_094900) do
     t.integer "followed_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["followed_type", "followed_id"], name: "index_follows_on_followed_type_and_followed_id", unique: true
-    t.index ["follower_id"], name: "index_follows_on_follower_id", unique: true
+    t.index ["followed_type", "followed_id"], name: "index_follows_on_followed_type_and_followed_id"
+    t.index ["follower_id", "followed_type", "followed_id"], name: "index_follows_on_follower_id_and_followed_type_and_followed_id", unique: true
   end
 
   create_table "hashtags", force: :cascade do |t|
@@ -54,12 +54,13 @@ ActiveRecord::Schema.define(version: 2020_05_18_094900) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "source_user_id", null: false
     t.integer "notified_user_id", null: false
+    t.string "message", null: false
     t.string "activity_type", null: false
     t.integer "activity_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["notified_user_id", "activity_type", "activity_id"], name: "index_on_notified_user_id_and_activity_type_and_activity_id", unique: true
     t.index ["notified_user_id", "created_at"], name: "index_notifications_on_notified_user_id_and_created_at"
   end
 

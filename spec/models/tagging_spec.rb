@@ -23,7 +23,7 @@ RSpec.describe Tagging, type: :model do
     @hashtag.save()
   end
 
-  it "can create a tagging" do
+  it "Create a tagging" do
     tagging = Tagging.new
     tagging.hashtag = @hashtag
     tagging.post = @post
@@ -35,25 +35,7 @@ RSpec.describe Tagging, type: :model do
     expect(taggingFound).to be_an_instance_of Tagging
   end
 
-  it "There must be a hashtag" do
-    tagging = Tagging.new
-    tagging.post = @post
-    tagging.save()
-
-    expect(tagging).not_to be_valid
-    expect(tagging.errors[:hashtag]).to include("There must be a hashtag.")
-  end
-
-  it "There must be a post" do
-    tagging = Tagging.new
-    tagging.hashtag = @hashtag
-    tagging.save()
-
-    expect(tagging).not_to be_valid
-    expect(tagging.errors[:post]).to include("There must be a post.")
-  end
-
-  it "tagging is destroyed when the tagged post is destroyed" do
+  it "Tagging is destroyed when the tagged post is destroyed" do
     tagging = Tagging.new
     tagging.hashtag = @hashtag
     tagging.post = @post
@@ -75,7 +57,26 @@ RSpec.describe Tagging, type: :model do
     expect(taggingFound).to be_nil
   end
 
-  it "all post hastag pairs must be unique" do
+  it "Throws an error if there is no hashtag" do
+    tagging = Tagging.new
+    tagging.post = @post
+    tagging.save()
+
+    expect(tagging).not_to be_valid
+    expect(tagging.errors[:hashtag]).to include("There must be a hashtag")
+  end
+
+  it "Throws an error if there is no post" do
+    tagging = Tagging.new
+    tagging.hashtag = @hashtag
+    tagging.save()
+
+    expect(tagging).not_to be_valid
+    expect(tagging.errors[:post]).to include("There must be a post")
+  end
+
+
+  it "Throws an error if post is tagged with a hashtag twice" do
     tagging = Tagging.new
     tagging.hashtag = @hashtag
     tagging.post = @post
@@ -87,10 +88,25 @@ RSpec.describe Tagging, type: :model do
     tagging2.post = @post
     tagging2.save()
     expect(tagging2).not_to be_valid
-    expect(tagging2.errors[:post_id]).to include("A post can only be tagged ones with a hashtag.")
+    expect(tagging2.errors[:post]).to include("A post can only be tagged once with a particular hashtag")
   end
 
-  it "a post can only be tagged 30 times or less" do
-    raise "TODO this and other unique checks"
+  it "Throws an error if the same post is saved to more than 30 taggings" do
+    30.times {
+      tagging = Tagging.new
+      tagging.hashtag = build(:hashtag)
+      tagging.hashtag.save()
+      tagging.post = @post
+      tagging.save()
+      expect(tagging).to be_valid
+    }
+
+    tagging = Tagging.new
+    tagging.hashtag = build(:hashtag)
+    tagging.hashtag.save()
+    tagging.post = @post
+    tagging.save()
+    expect(tagging).not_to be_valid
   end
+
 end

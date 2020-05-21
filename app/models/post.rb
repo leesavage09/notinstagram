@@ -10,15 +10,19 @@
 require_relative "../services/amazon_s3_service.rb"
 
 class Post < ApplicationRecord
+  before_validation :ensure_image_key
+
   validates :caption,
-            length: { maximum: 2200, message: "Post caption must be less than 2200 characters." }
+            length: { maximum: 2200, message: "Post captions must under 2200 characters" }
+  validates :image_url,
+            presence: { message: "The post must have a photo URL" }
+  validates :author,
+            presence: { message: "The post must have an author" }
+  validate :validate_post_max_taggings
 
   belongs_to :author,
              class_name: "User",
              foreign_key: :author_id
-
-  validates :author,
-            presence: { message: "The post must have an author." }
 
   has_many :taggings,
            class_name: "Tagging",
@@ -28,12 +32,6 @@ class Post < ApplicationRecord
   has_many :hashtags,
            through: :taggings,
            source: :hashtag
-
-  validate :validate_taggings
-
-  def validate_taggings
-    errors.add(:taggings, "A post can have a maximum of 30 taggings.") if taggings.size > 30
-  end
 
   has_many :likes, -> { where liked_type: "Post" },
            class_name: "Like",
@@ -45,7 +43,9 @@ class Post < ApplicationRecord
            foreign_key: :parent_id,
            dependent: :destroy
 
-  before_validation :ensure_image_key
+  def validate_post_max_taggings
+    errors.add(:max_taggings, "A post can only be tagged a maximum of 30 times") if taggings.size > 30
+  end
 
   def ensure_image_key
     self.image_key ||= User.generate_image_key

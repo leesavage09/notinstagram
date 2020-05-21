@@ -1,48 +1,65 @@
 require "rails_helper"
 
-def createUser
-  user = build(:user)
-  user.save()
-  user
-end
-
 RSpec.describe Follow, type: :model do
-  it "follow a user" do
+  before(:each) do
+    @user1 = build(:user)
+    @user1.save()
+
+    @user2 = build(:user)
+    @user2.save()
+  end
+
+  it "Follow a user" do
     follow = Follow.create({
-      follower: createUser,
-      followed: createUser,
+      follower: @user1,
+      followed: @user2,
     })
 
     expect(follow).to be_valid
   end
 
-  it "follow a hastag" do
+  it "Follow a hastag" do
     follow = Follow.create({
-      follower: createUser,
+      follower: @user1,
       followed: build(:hashtag),
     })
 
     expect(follow).to be_valid
   end
 
-  it "must follow somthing (user or hastag)" do
+  it "Throws an error if nothing is being followed" do
     follow = Follow.create({
-      follower: createUser,
+      follower: @user1,
       followed: nil,
     })
 
     expect(follow).not_to be_valid
-    expect(follow.errors[:followed]).to include("Something must be followed.")
+    expect(follow.errors[:followed]).to include("Something must be followed")
   end
 
-  it "there must be a follower" do
+  it "Throws an error if there is no follower" do
     follow = Follow.create({
       follower: nil,
-      followed: createUser,
+      followed: @user1,
     })
 
     expect(follow).not_to be_valid
-    expect(follow.errors[:follower]).to include("There must be a follower.")
+    expect(follow.errors[:follower]).to include("There must be a follower")
+  end
+
+  it "Throws an error if the same thing is followed again" do
+    follow = Follow.create({
+      follower: @user1,
+      followed: @user2,
+    })
+    expect(follow).to be_valid
+
+    follow2 = Follow.create({
+      follower: @user1,
+      followed: @user2,
+    })
+    expect(follow2).not_to be_valid
+    expect(follow2.errors[:follower]).to include("User is already following this hashtag")
   end
 
 end

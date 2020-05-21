@@ -8,13 +8,23 @@
 
 class Like < ApplicationRecord
   validates :liker,
-            presence: { message: "There must be a liker." }
+            presence: { message: "There must be a liker" }
   validates :liked,
-            presence: { message: "Something must be liked." }
+            presence: { message: "Something must be liked" }
+  validates :liker,
+            uniqueness: { scope: :liked,
+                          message: "Can only be liked once" }
 
   belongs_to :liker,
              class_name: "User",
              foreign_key: :liker_id
 
   belongs_to :liked, polymorphic: true
+
+  after_destroy :destroy_notification
+
+  def destroy_notification
+    note = Notification.find_by(activity_type: "Like", activity_id: id)
+    note.destroy() if note
+  end
 end

@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Comment, type: :model do
-  before(:all) do
-  end
-
   before(:each) do
     @user1 = build(:user)
     @user1.save()
@@ -19,7 +16,7 @@ RSpec.describe Comment, type: :model do
     @post.save()
   end
 
-  it "comment on a post" do
+  it "Comment on a post" do
     comment1 = build(:comment)
     comment1.author = @user1
     comment1.parent = @post
@@ -31,7 +28,7 @@ RSpec.describe Comment, type: :model do
     expect(commentFound).to be_an_instance_of Comment
   end
 
-  it "comment on a comment" do
+  it "Comment on a comment" do
     comment1 = build(:comment)
     comment1.author = @user1
     comment1.parent = @post
@@ -46,7 +43,7 @@ RSpec.describe Comment, type: :model do
     expect(comment2).to be_valid
   end
 
-  it "deleteing a post also deletes its comments" do
+  it "Deleting a post also deletes its comments" do
     comment1 = build(:comment)
     comment1.author = @user1
     comment1.parent = @post
@@ -61,7 +58,7 @@ RSpec.describe Comment, type: :model do
     expect(commentFound).to be_nil
   end
 
-  it "deleteing a comment also deletes its sub comments" do
+  it "Deleting a comment also deletes its sub comments" do
     comment1 = build(:comment)
     comment1.author = @user1
     comment1.parent = @post
@@ -83,7 +80,7 @@ RSpec.describe Comment, type: :model do
     expect(commentFound).to be_nil
   end
 
-  it "the comment must have a body" do
+  it "Throws an error if the comment has no body" do
     comment1 = build(:comment)
     comment1.body = nil
     comment1.author = @user1
@@ -91,10 +88,44 @@ RSpec.describe Comment, type: :model do
     comment1.save()
 
     expect(comment1).not_to be_valid
-    expect(comment1.errors[:body]).to include("The comment must have a body.")
+    expect(comment1.errors[:body]).to include("The comment must have a body")
   end
 
-  it "the comment body length is less than 2200 char" do
+  it "Throws an error if the comment has no author" do
+    comment1 = build(:comment)
+    comment1.author = @user1
+    comment1.parent = @post
+    comment1.save()
+
+    expect(comment1).to be_valid
+    
+    comment2 = build(:comment)
+    comment2.author = nil
+    comment2.parent = @post
+    comment2.save()
+
+    expect(comment2).not_to be_valid
+    expect(comment2.errors[:author]).to include("The comment must have an author")
+  end
+
+  it "Throws an error when the comment has no parent" do
+    comment1 = build(:comment)
+    comment1.author = @user1
+    comment1.parent = @post
+    comment1.save()
+
+    expect(comment1).to be_valid
+    
+    comment2 = build(:comment)
+    comment2.author = @user1
+    comment2.parent = nil
+    comment2.save()
+
+    expect(comment2).not_to be_valid
+    expect(comment2.errors[:parent]).to include("The comment must have a parent")
+  end
+
+  it "Throws an error if the comment body has more than 2200 character" do
     comment1 = build(:comment)
     comment1.body = "0" * 2200
     comment1.author = @user1
@@ -110,40 +141,6 @@ RSpec.describe Comment, type: :model do
     comment2.save()
 
     expect(comment2).not_to be_valid
-    expect(comment2.errors[:body]).to include("Comment body must be less than 2200 characters.")
-  end
-
-  it "the comment must have an author" do
-    comment1 = build(:comment)
-    comment1.author = @user1
-    comment1.parent = @post
-    comment1.save()
-
-    expect(comment1).to be_valid
-    
-    comment2 = build(:comment)
-    comment2.author = nil
-    comment2.parent = @post
-    comment2.save()
-
-    expect(comment2).not_to be_valid
-    expect(comment2.errors[:author]).to include("The comment must have an author.")
-  end
-
-  it "the comment must have a parent" do
-    comment1 = build(:comment)
-    comment1.author = @user1
-    comment1.parent = @post
-    comment1.save()
-
-    expect(comment1).to be_valid
-    
-    comment2 = build(:comment)
-    comment2.author = @user1
-    comment2.parent = nil
-    comment2.save()
-
-    expect(comment2).not_to be_valid
-    expect(comment2.errors[:parent]).to include("The comment must have a parent.")
+    expect(comment2.errors[:body]).to include("Comment body must be less than 2200 characters")
   end
 end

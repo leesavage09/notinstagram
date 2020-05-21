@@ -18,19 +18,19 @@ require_relative "../services/amazon_s3_service.rb"
 
 class User < ApplicationRecord
   validates :name,
-            length: { maximum: 30, message: "Name must be less than 30 characters." }
+            length: { maximum: 30, message: "Name must be less than 30 characters" }
   validates :username,
-            presence: { message: "You must choose a username." },
-            uniqueness: { message: "This username has already been taken." },
-            length: { maximum: 30, message: "Username must be less than 30 characters." },
+            presence: { message: "You must choose a username" },
+            uniqueness: { message: "This username has already been taken" },
+            length: { maximum: 30, message: "Username must be less than 30 characters" },
             format: { with: /\A[\w.]+\z/, message: "Username can only use letters, numbers, underscores and periods" }
   validates :bio,
-            length: { maximum: 150, message: "Bio must be under 150 characters." }
+            length: { maximum: 150, message: "Bio must be under 150 characters" }
   validates :email,
             presence: { message: "You must have an email address" },
             uniqueness: { message: "Email address has already signed up" },
-            length: { maximum: 254, message: "Email is not valid" },
-            format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email is not valid" }
+            length: { maximum: 254, message: "Email is not in a valid format" },
+            format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email is not in a valid format" }
   validates :session_token,
             presence: true,
             uniqueness: true

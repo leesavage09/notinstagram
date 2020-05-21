@@ -9,12 +9,12 @@
 
 class Comment < ApplicationRecord
   validates :body,
-            presence: { message: "The comment must have a body." },
-            length: { maximum: 2200, message: "Comment body must be less than 2200 characters." }
+            presence: { message: "The comment must have a body" },
+            length: { maximum: 2200, message: "Comment body must be less than 2200 characters" }
   validates :author,
-            presence: { message: "The comment must have an author." }
+            presence: { message: "The comment must have an author" }
   validates :parent,
-            presence: { message: "The comment must have a parent." }
+            presence: { message: "The comment must have a parent" }
 
   belongs_to :author,
              class_name: "User",
@@ -32,4 +32,12 @@ class Comment < ApplicationRecord
            class_name: "Like",
            foreign_key: :liked_id,
            dependent: :destroy
+
+
+  after_destroy :destroy_notification
+
+  def destroy_notification
+    note = Notification.find_by(activity_type: "Comment", activity_id: id)
+    note.destroy() if note
+  end
 end
