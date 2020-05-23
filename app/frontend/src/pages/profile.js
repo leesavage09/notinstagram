@@ -14,7 +14,6 @@ export default function Account() {
   const user = useSelector(loggedInUser())
   const dispatch = useDispatch()
 
-
   return (
     <div>
       <TopNav title={user.username}/>

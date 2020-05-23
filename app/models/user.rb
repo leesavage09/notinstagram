@@ -50,13 +50,27 @@ class User < ApplicationRecord
     class_name: "Notification",
     foreign_key: :notified_user
 
-  has_many :inward_followers, -> { where followed_type: "user" },
+  has_many :inward_follows, -> { where followed_type: "User" },
     class_name: "Follow",
     foreign_key: :followed_id
 
   has_many :outward_follows,
     class_name: "Follow",
     foreign_key: :follower_id
+
+  has_many :followers,
+           through: :inward_follows,
+           source: :follower
+
+  has_many :followed_users,
+           through: :outward_follows,
+           source_type: "User",
+           source: :followed
+
+  has_many :followed_hashtags,
+           through: :outward_follows,
+           source_type: "Hashtag",
+           source: :followed
 
   before_validation :ensure_session_token
   before_validation :ensure_image_key
@@ -88,7 +102,7 @@ class User < ApplicationRecord
   end
 
   def image_s3_post_url
-    presigned = AmazonS3Service.get_presigned_post(key: "profile/" + self.image_key + ".jpg")
+    presigned = AmazonS3Service.get_presigned_post(key: "avatar/" + self.image_key + ".jpg")
     {
       url: presigned.url,
       url_fields: presigned.fields,

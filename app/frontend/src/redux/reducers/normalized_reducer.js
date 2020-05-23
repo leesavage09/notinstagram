@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import ProfilesReducer from './normalized/profiles_reducer'
+import usersReducer from './normalized/user_reducer'
 
 const normalizedReducer = combineReducers({
-    profiles: ProfilesReducer
+    users: usersReducer
 });
 
 export default normalizedReducer;

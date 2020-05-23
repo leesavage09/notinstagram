@@ -2,14 +2,18 @@ import * as ActionTypes from '../../actions/action_types'
 
 
 const _results = {
-    profiles: [],
+    users: [],
     hashtags: []
 }
 
 const ExploreReducer = (state = _results, action) => {
     switch (action.type) {
         case ActionTypes.FOUND_PROFILES_SUCCESS:
-            return Object.assign({}, state, { profiles: Object.keys(action.payload.profiles) });
+            if (action.payload.users) {
+                return Object.assign({}, state, { users: Object.keys(action.payload.users) });
+            } else {
+                return _results
+            }
         default:
             return state;
     }

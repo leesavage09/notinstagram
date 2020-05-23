@@ -1,0 +1,9 @@
+json.id post.id
+json.author_id post.author_id
+json.caption post.caption
+json.image_url post.image_url
+json.created_at post.created_at
+json.comments_count post.comments.length
+json.likes_count post.likes.length
+json.comment_ids post.comments.ids
+json.liker_ids post.likes.pluck("liker_id")

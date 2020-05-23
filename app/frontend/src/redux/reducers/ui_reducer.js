@@ -23,12 +23,14 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE:
         case ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE:
         case ActionTypes.FOUND_PROFILES_FAILURE:
+        case ActionTypes.GET_PROFILE_FAILURE:
             return newError(state, action.payload)
 
         case ActionTypes.CREATE_USER_SUCCESS:
         case ActionTypes.LOGOUT_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
         case ActionTypes.FOUND_PROFILES_SUCCESS:
+        case ActionTypes.GET_PROFILE_SUCCESS:
             return Object.assign({}, state, { is_awaiting_async: false })
 
         case ActionTypes.UPDATE_USER_SUCCESS:

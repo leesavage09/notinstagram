@@ -24,9 +24,13 @@ export function updateUser(user) {
 }
 
 export function getPresignedUrlForProfileImage() {
-  return axios.get('http://localhost:3000/api/users/s3presigned')
+  return axios.get('http://localhost:3000/api/session/s3presigned')
 }
 
 export function findProfile(queryString) {
   return axios.get('http://localhost:3000/api/users?q='+encodeURI(queryString))
+}
+
+export function getProfile(id, page) {
+  return axios.get('http://localhost:3000/api/users/'+encodeURI(id)+'/posts/'+encodeURI(page) )
 }

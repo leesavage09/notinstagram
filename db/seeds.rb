@@ -11,8 +11,8 @@
 @allHashtags = []
 @allComments = []
 
-def tag_post(post)
-  @allHashtags.sample(4).each { |hashtag|
+def tag_post(hashtags, post)
+  hashtags.each { |hashtag|
     tagging = Tagging.new
     tagging.hashtag = hashtag
     tagging.post = post
@@ -54,9 +54,13 @@ end
 #create posts
 @allUsers.each { |user|
   8.times do
+    hashtags = @allHashtags.sample(4)
     post = FactoryBot.build(:post)
     post.author = user
-    tag_post(post)
+    hashtags.each { |hashtag|
+      post.caption << " " + hashtag.name
+    }
+    tag_post(hashtags, post)
 
     post.save()
     @allPosts << post
@@ -91,14 +95,21 @@ end
 }
 
 #follows
-@allUsers.each { |user1|
-  @allUsers.sample(10) { |user2|
+@allUsers.each { |user|
+  @allUsers.sample(10).each { |other_user|
     follow = Follow.new
-    follow.follower = user1
-    follow.followed = user2
+    follow.follower = user
+    follow.followed = other_user
     follow.save()
 
-    create_notification(user2, Notification::STARTED_FOLLOWING, follow)
+    create_notification(other_user, Notification::STARTED_FOLLOWING, follow)
+  }
+
+  @allHashtags.sample(4).each { |hashtag|
+    follow = Follow.new
+    follow.follower = user
+    follow.followed = hashtag
+    follow.save()
   }
 }
 

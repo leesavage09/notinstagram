@@ -38,7 +38,7 @@ class Post < ApplicationRecord
            foreign_key: :liked_id,
            dependent: :destroy
 
-  has_many :comments,
+  has_many :comments, -> { where(parent_type: "Post").order(created_at: :asc) },
            class_name: "Comment",
            foreign_key: :parent_id,
            dependent: :destroy

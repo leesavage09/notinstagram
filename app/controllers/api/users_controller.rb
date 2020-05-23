@@ -10,6 +10,37 @@ class Api::UsersController < ApplicationController
     render :index
   end
 
+  def show
+    @user = User.find_by(id: id_param)
+    render :show
+  end
+
+  def show_posts
+    user_id = params.require(:id)
+    limit = 4
+    offset = params.require(:page).to_i * limit
+
+    @user = User.find_by(id: user_id)
+    @posts = Post.includes(:likes, :comments).where(author_id: user_id).order("created_at DESC").limit(limit).offset(offset)
+    @post_comments = []
+
+    preload_user_ids = []
+
+    @posts.each do |post|
+      post.likes.each do |like|
+        preload_user_ids << like.liker_id
+      end
+      post.comments.each do |comment|
+        @post_comments << comment
+        preload_user_ids << comment.author_id
+      end
+    end
+
+    @associated_users = User.where(id: preload_user_ids)
+
+    render :show_details
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -34,11 +65,6 @@ class Api::UsersController < ApplicationController
         render json: { errors: logged_in_user.errors.messages }, status: :unprocessable_entity
       end
     end
-  end
-
-  def get_s3_presigned
-    data = logged_in_user.image_s3_post_url
-    render json: data, status: :ok
   end
 
   private
