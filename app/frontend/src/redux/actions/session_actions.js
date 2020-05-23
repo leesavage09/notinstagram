@@ -113,7 +113,7 @@ export const updatePassword = (user, oldPassword, newPassword, newPasswordConfir
     }
 }
 
-export const updateProfileImage = () => {
+export const updateUserAvatar = () => {
     return (dispatch, getState) => {
         const img = ImageSelector.processedImage()(getState())
         const user = SessionSelector.loggedInUser()(getState())
@@ -122,7 +122,7 @@ export const updateProfileImage = () => {
 
         Promise.all([
             ImageUtil.createFileWithImage(img),
-            ApiUtil.getPresignedUrlForProfileImage()
+            ApiUtil.getPresignedUrlForUserAvatar()
         ])
             .then(v => {
                 return AmazonS3.sendBlobToAmazonS3(v[0], v[1].data)
@@ -131,24 +131,24 @@ export const updateProfileImage = () => {
                 return ApiUtil.updateUser({ ...user, image_url: imageUrl })
             })
             .then(responce => {
-                dispatch(updateProfileImageSuccess(responce.data))
+                dispatch(updateUserAvatarSuccess(responce.data))
             })
             .catch(e => {
-                dispatch(updateProfileImageFailure(e))
+                dispatch(updateUserAvatarFailure(e))
             })
     }
 }
-export const removeProfileImage = () => {
+export const removeUserAvatar = () => {
     return (dispatch, getState) => {
         const user = SessionSelector.loggedInUser()(getState())
         dispatch(UiActions.asyncRequest())
 
         ApiUtil.updateUser({ ...user, image_url: null })
         .then(responce => {
-            dispatch(removeProfileImageSuccess(responce.data))
+            dispatch(removeUserAvatarSuccess(responce.data))
         })
         .catch(e => {
-            dispatch(removeProfileImageFailure(e))
+            dispatch(removeUserAvatarFailure(e))
         })
     }
 }
@@ -194,30 +194,30 @@ const updatePasswordFailure = (errors) => {
     }
 }
 
-const updateProfileImageSuccess = (user) => {
+const updateUserAvatarSuccess = (user) => {
     return {
-        type: ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS,
+        type: ActionTypes.UPDATE_USER_IMAGE_SUCCESS,
         payload: user
     }
 }
 
-const updateProfileImageFailure = (errors) => {
+const updateUserAvatarFailure = (errors) => {
     return {
-        type: ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE,
+        type: ActionTypes.UPDATE_USER_IMAGE_FAILURE,
         payload: errors
     }
 }
 
-const removeProfileImageSuccess = (user) => {
+const removeUserAvatarSuccess = (user) => {
     return {
-        type: ActionTypes.REMOVE_PROFILE_IMAGE_SUCCESS,
+        type: ActionTypes.REMOVE_USER_IMAGE_SUCCESS,
         payload: user
     }
 }
 
-const removeProfileImageFailure = (errors) => {
+const removeUserAvatarFailure = (errors) => {
     return {
-        type: ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE,
+        type: ActionTypes.REMOVE_USER_IMAGE_FAILURE,
         payload: errors
     }
 }

@@ -3,11 +3,11 @@ import React from 'react';
 import { logout } from '../redux/actions/session_actions'
 import { loggedInUser } from '../redux/selectors/session_selector'
 import { Link } from 'react-router-dom';
-import { showProfilePhotoModal } from '../redux/actions/ui_actions'
+import { showChangeAvatarModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
 import TopNav from '../components/top_nav/top_nav_account'
 import SVGIcon from '../components/svg_icon'
-import ProfileImage, { LARGE_LOADING_SPINNER } from '../components/profile_image';
+import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 
 export default function Account() {
   const user = useSelector(loggedInUser())
@@ -21,11 +21,11 @@ export default function Account() {
     <div>
       <TopNav />
       <div className='account-details'>
-        <ProfileImage
+        <UserAvatar
           className="account-details__image"
           spinner={LARGE_LOADING_SPINNER}
           user={user}
-          onClick={() => { dispatch(showProfilePhotoModal(true)) }}
+          onClick={() => { dispatch(showChangeAvatarModal(true)) }}
         />
         <div className='account-details__info'>
           <h2 className='account-details__username'>{user.username}</h2>

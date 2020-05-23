@@ -3,14 +3,14 @@ import React from 'react';
 import { logout } from '../redux/actions/session_actions'
 import { loggedInUser } from '../redux/selectors/session_selector'
 import { Link } from 'react-router-dom';
-import { showProfilePhotoModal } from '../redux/actions/ui_actions'
+import { showChangeAvatarModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
 import TopNav from '../components/top_nav/top_nav_back_with_title'
 import SVGIcon from '../components/svg_icon'
-import ProfileImage from '../components/profile_image';
+import UserAvatar from '../components/user_avatar';
 
 
-export default function Account() {
+export default function UserDetails() {
   const user = useSelector(loggedInUser())
   const dispatch = useDispatch()
 
@@ -18,14 +18,14 @@ export default function Account() {
     <div>
       <TopNav title={user.username}/>
       <div className='account-details'>
-        <ProfileImage
+        <UserAvatar
           className="account-details__image"
           user={user}
         />
-        <div className='account-details__info--profile'>
+        <div className='account-details__info--user'>
           <h2 className='account-details__username'>{user.username}</h2>
           <button className='ghost-button account-details__action-button'>
-          <div className="follow-profile" />
+          <div className="follow-user" />
           </button>
         </div>
       </div>

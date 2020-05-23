@@ -7,22 +7,22 @@ import * as UIActions from '../../redux/actions/ui_actions'
 import * as SesionActions from '../../redux/actions/session_actions'
 import ImageSelectButton from '../image_select_button';
 
-export default function ProfilePhotoModal() {
+export default function ChangeAvatarModal() {
     const dispatch = useDispatch();
-    const show = useSelector(UISelector.showProfilePhotoModal())
+    const show = useSelector(UISelector.showChangeAvatarModal())
     const history = useHistory();
 
     const removePhoto = () => {
-        dispatch(SesionActions.removeProfileImage())
+        dispatch(SesionActions.removeUserAvatar())
         close()
     }
 
     const fileSelected = () => {
-        history.push("/create-profile-image")
+        history.push("/create-user-avatar")
         close()
     }
 
-    const close = () => dispatch(UIActions.hideProfilePhotoModal(false))
+    const close = () => dispatch(UIActions.hideChangeAvatarModal(false))
 
     return show ? (
         <OptionsModal

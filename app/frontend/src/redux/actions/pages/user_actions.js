@@ -2,30 +2,30 @@ import * as ApiUtil from '../../../util/api'
 import * as UiActions from '../ui_actions'
 import * as ActionTypes from '../action_types'
 
-export const searchForUsers = (searchQuery) => {
+export const getUser = (id,page) => {
     return (dispatch) => {
         dispatch(UiActions.asyncRequest())
 
-        ApiUtil.findUser(searchQuery)
+        ApiUtil.getUser(id,page)
             .then(r => {
-                dispatch(foundUsersSuccess(r.data))
+                dispatch(getUserSuccess(r.data))
             })
             .catch(e => {
-                dispatch(foundUsersFailure(e))
+                dispatch(getUserFailure(e))
             })
     }
 }
 
-export const foundUsersSuccess = (user) => {
+export const getUserSuccess = (user) => {
     return {
-        type: ActionTypes.FOUND_USERS_SUCCESS,
+        type: ActionTypes.GET_USER_SUCCESS,
         payload: user
     }
 }
 
-export const foundUsersFailure = (error) => {
+export const getUserFailure = (error) => {
     return {
-        type: ActionTypes.FOUND_USERS_FAILURE,
+        type: ActionTypes.GET_USER_FAILURE,
         payload: error
     }
 }

@@ -25,7 +25,7 @@ export default function Explore() {
 
     const doSearch = () => {
         if (searchBox.current.value !== "") {
-            dispatch(ExploreActions.searchForProfiles(searchBox.current.value))
+            dispatch(ExploreActions.searchForUsers(searchBox.current.value))
         }
     }
 

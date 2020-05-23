@@ -4,7 +4,7 @@ const _default = {
     errors: false,
     is_awaiting_async: false,
     messages: {},
-    show_profile_photo_modal: false
+    show_change_avatar_modal: false
 };
 
 const UIReducer = (state = _default, action) => {
@@ -20,36 +20,36 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.UPDATE_USER_FAILURE:
         case ActionTypes.UPDATE_PASSWORD_FAILURE:
         case ActionTypes.IMAGE_SELECT_FAILURE:
-        case ActionTypes.UPDATE_PROFILE_IMAGE_FAILURE:
-        case ActionTypes.REMOVE_PROFILE_IMAGE_FAILURE:
-        case ActionTypes.FOUND_PROFILES_FAILURE:
-        case ActionTypes.GET_PROFILE_FAILURE:
+        case ActionTypes.UPDATE_USER_IMAGE_FAILURE:
+        case ActionTypes.REMOVE_USER_IMAGE_FAILURE:
+        case ActionTypes.FOUND_USERS_FAILURE:
+        case ActionTypes.GET_USER_FAILURE:
             return newError(state, action.payload)
 
         case ActionTypes.CREATE_USER_SUCCESS:
         case ActionTypes.LOGOUT_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
-        case ActionTypes.FOUND_PROFILES_SUCCESS:
-        case ActionTypes.GET_PROFILE_SUCCESS:
+        case ActionTypes.FOUND_USERS_SUCCESS:
+        case ActionTypes.GET_USER_SUCCESS:
             return Object.assign({}, state, { is_awaiting_async: false })
 
         case ActionTypes.UPDATE_USER_SUCCESS:
             return newMessage(state, "Profile saved")
 
-        case ActionTypes.UPDATE_PROFILE_IMAGE_SUCCESS:
+        case ActionTypes.UPDATE_USER_IMAGE_SUCCESS:
             return newMessage(state, "Profile photo added")
 
-        case ActionTypes.REMOVE_PROFILE_IMAGE_SUCCESS:
+        case ActionTypes.REMOVE_USER_IMAGE_SUCCESS:
             return newMessage(state, "Profile photo removed")
 
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
             return newMessage(state, "Password Updated")
 
-        case ActionTypes.SHOW_PROFILE_PHOTO_MODAL:
-            return Object.assign({}, state, { show_profile_photo_modal: true, messages: {}, errors: false })
+        case ActionTypes.SHOW_USER_PHOTO_MODAL:
+            return Object.assign({}, state, { show_change_avatar_modal: true, messages: {}, errors: false })
 
-        case ActionTypes.HIDE_PROFILE_PHOTO_MODAL:
-            return Object.assign({}, state, { show_profile_photo_modal: false, messages: {}, errors: false })
+        case ActionTypes.HIDE_USER_PHOTO_MODAL:
+            return Object.assign({}, state, { show_change_avatar_modal: false, messages: {}, errors: false })
 
         case ActionTypes.BROWSER_ROUTE_CHANGED:
             return clearMessage(state)

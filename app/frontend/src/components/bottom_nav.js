@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SVGIcon from './svg_icon'
 import * as SessionSelector from '../redux/selectors/session_selector'
 import { useSelector } from 'react-redux'
-import ProfileImage from './profile_image';
+import UserAvatar from './user_avatar';
 import ImageSelectButton from './image_select_button';
 
 export default function BottomNav() {
@@ -37,7 +37,7 @@ export default function BottomNav() {
 
                 <Link to="/account" className="bottom-nav__button" >
                     <div className={path === '/account' ? 'bottom-nav__account-border' : ''}></div>
-                    <ProfileImage
+                    <UserAvatar
                         className="bottom-nav__account-image"
                         user={user}
                     />

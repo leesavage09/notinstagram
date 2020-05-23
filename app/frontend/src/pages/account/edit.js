@@ -3,10 +3,10 @@ import React from 'react';
 import * as SessionActions from '../../redux/actions/session_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
-import { showProfilePhotoModal } from '../../redux/actions/ui_actions'
+import { showChangeAvatarModal } from '../../redux/actions/ui_actions'
 import TopNav from '../../components/top_nav/top_nav_back_with_title'
 import BottomNav from '../../components/bottom_nav'
-import ProfileImage, { SMALL_LOADING_SPINNER } from '../../components/profile_image';
+import UserAvatar, { SMALL_LOADING_SPINNER } from '../../components/user_avatar';
 
 export default function Edit() {
     const dispatch = useDispatch()
@@ -32,15 +32,15 @@ export default function Edit() {
         <div>
             <TopNav title="Edit Profile" />
             <div className='edit-details'>
-                <ProfileImage
+                <UserAvatar
                     className="edit-details__image"
                     spinner={SMALL_LOADING_SPINNER}
                     user={user}
-                    onClick={() => { dispatch(showProfilePhotoModal(true)) }}
+                    onClick={() => { dispatch(showChangeAvatarModal(true)) }}
                 />
                 <div>
                     <h2 className='edit-details__username'>{user.username}</h2>
-                    <a onClick={() => { dispatch(showProfilePhotoModal(true)) }}>
+                    <a onClick={() => { dispatch(showChangeAvatarModal(true)) }}>
                         Change Profile Photo
                     </a>
                 </div>

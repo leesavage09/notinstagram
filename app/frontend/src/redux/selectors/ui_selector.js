@@ -22,6 +22,6 @@ export const isAwaitingAsync = () => {
     return state => state.ui.is_awaiting_async
 }
 
-export const showProfilePhotoModal = () => {
-    return state => state.ui.show_profile_photo_modal;
+export const showChangeAvatarModal = () => {
+    return state => state.ui.show_change_avatar_modal;
 }

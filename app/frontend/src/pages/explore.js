@@ -2,25 +2,25 @@ import React from 'react';
 import BottomNav from '../components/bottom_nav';
 import TopNav from '../components/top_nav/top_nav_explore';
 import { useSelector, useDispatch } from 'react-redux'
-import * as ExploreSelector from '../redux/selectors/component/explore_selector'
-import ProfileItem from '../components/profile_Item';
+import * as ExploreSelector from '../redux/selectors/page/explore_selector'
+import UserListItem from '../components/user_list_item';
 import { useHistory } from "react-router-dom";
-import * as ProfileActions from '../redux/actions/pages/profile_actions'
+import * as UserActions from '../redux/actions/pages/user_actions'
 
 export default function Explore() {
-    const selectedProfiles = useSelector(ExploreSelector.discoveredProfiles())
+    const selectedUsers = useSelector(ExploreSelector.discoveredUsers())
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const profileItemElements = []
-    selectedProfiles.forEach(profile => {
-        profileItemElements.push(
-            <ProfileItem
-                key={profile.id}
-                profile={profile}
+    const UserListItems = []
+    selectedUsers.forEach(user => {
+        UserListItems.push(
+            <UserListItem
+                key={user.id}
+                user={user}
                 onClick={() => { 
-                    dispatch(ProfileActions.getProfile(profile.id,0))
-                    history.push("profile")
+                    dispatch(UserActions.getUser(user.id,0))
+                    history.push("user")
                 }}
             />)
     });
@@ -29,7 +29,7 @@ export default function Explore() {
         <div>
             <TopNav />
             <ul className="explore-items">
-                {profileItemElements}
+                {UserListItems}
             </ul>
             <BottomNav />
         </div>

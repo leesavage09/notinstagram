@@ -8,7 +8,7 @@ const _results = {
 
 const ExploreReducer = (state = _results, action) => {
     switch (action.type) {
-        case ActionTypes.FOUND_PROFILES_SUCCESS:
+        case ActionTypes.FOUND_USERS_SUCCESS:
             if (action.payload.users) {
                 return Object.assign({}, state, { users: Object.keys(action.payload.users) });
             } else {

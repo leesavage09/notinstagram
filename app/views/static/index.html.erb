@@ -27,7 +27,7 @@
     <% if logged_in? %>
       <script type="text/javascript">
           window.logged_in_user =
-            <%= render("api/users/user.json.jbuilder", user: logged_in_user).html_safe %>
+            <%= render("api/sessions/user.json.jbuilder", user: logged_in_user).html_safe %>
       </script>
     <% end %>
   </head>

@@ -23,14 +23,14 @@ export function updateUser(user) {
   return axios.patch(`http://localhost:3000/api/users/${user.id}`, { user: user })
 }
 
-export function getPresignedUrlForProfileImage() {
+export function getPresignedUrlForUserAvatar() {
   return axios.get('http://localhost:3000/api/session/s3presigned')
 }
 
-export function findProfile(queryString) {
+export function findUser(queryString) {
   return axios.get('http://localhost:3000/api/users?q='+encodeURI(queryString))
 }
 
-export function getProfile(id, page) {
+export function getUser(id, page) {
   return axios.get('http://localhost:3000/api/users/'+encodeURI(id)+'/posts/'+encodeURI(page) )
 }

@@ -38,7 +38,7 @@ class Api::UsersController < ApplicationController
 
     @associated_users = User.where(id: preload_user_ids)
 
-    render :show_details
+    render :show_posts
   end
 
   def create

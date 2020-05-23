@@ -1,13 +1,13 @@
 import * as ActionTypes from '../../actions/action_types'
 
 
-const _nullProfiles = {
+const _nullUsers = {
 
 }
 
-const UserReducer = (state = _nullProfiles, action) => {
+const UserReducer = (state = _nullUsers, action) => {
   switch (action.type) {
-    case ActionTypes.FOUND_PROFILES_SUCCESS:
+    case ActionTypes.FOUND_USERS_SUCCESS:
       if (action.payload.users) {
         return Object.assign({}, state, action.payload.users);
       } else {

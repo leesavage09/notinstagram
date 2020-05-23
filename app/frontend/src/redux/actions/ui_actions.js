@@ -12,14 +12,14 @@ export const asyncRequest = () => {
     }
 }
 
-export const showProfilePhotoModal = () => {
+export const showChangeAvatarModal = () => {
     return {
-        type: ActionTypes.SHOW_PROFILE_PHOTO_MODAL
+        type: ActionTypes.SHOW_USER_PHOTO_MODAL
     }
 }
 
-export const hideProfilePhotoModal = () => {
+export const hideChangeAvatarModal = () => {
     return {
-        type: ActionTypes.HIDE_PROFILE_PHOTO_MODAL
+        type: ActionTypes.HIDE_USER_PHOTO_MODAL
     }
 }

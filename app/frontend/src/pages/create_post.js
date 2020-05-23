@@ -2,7 +2,7 @@ import React from 'react';
 import TopNav from '../components/top_nav/top_nav_create_post'
 import * as ImageActions from '../redux/actions/component/image_actions'
 import * as ImageSelector from '../redux/selectors/component/image_selector'
-import ProfileImage from '../components/profile_image';
+import UserAvatar from '../components/user_avatar';
 import * as PostActions from '../redux/actions/normalized/post_actions'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -36,8 +36,8 @@ export default function CreatePost() {
         <div ref={outerContainer} className="create-post">
             <TopNav createPost={createPost} />
             <div className="create-post__container">
-                <ProfileImage
-                    className="create-post__profile-image"
+                <UserAvatar
+                    className="create-post__user-avatar"
                     user={user}
                 />
                 <textarea

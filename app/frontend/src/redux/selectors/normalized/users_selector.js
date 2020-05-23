@@ -1,3 +1,3 @@
-export const getProfile = (id) => {
+export const getUser = (id) => {
     return state => state.normalized.users[id]
 }
