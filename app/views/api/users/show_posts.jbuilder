@@ -11,4 +11,4 @@ json.partial! "api/posts/posts", posts: @posts
 
 json.partial! "api/comments/comments", comments: @post_comments
 
-json.partial! "api/users/users", users: @associated_users
+json.partial! "api/users/public_users", users: @associated_users

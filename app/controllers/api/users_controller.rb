@@ -45,7 +45,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(@user)
-      render :show
+      render :private_show
     else
       render json: { errors: @user.errors.messages }, status: :unprocessable_entity
     end
@@ -60,7 +60,7 @@ class Api::UsersController < ApplicationController
       @user = logged_in_user
       @user.update(user_params)
       if @user.save
-        render :show
+        render :private_show
       else
         render json: { errors: logged_in_user.errors.messages }, status: :unprocessable_entity
       end
