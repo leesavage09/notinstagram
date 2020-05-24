@@ -30,7 +30,6 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.LOGOUT_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
         case ActionTypes.FOUND_USERS_SUCCESS:
-        case ActionTypes.GET_USER_SUCCESS:
             return Object.assign({}, state, { is_awaiting_async: false })
 
         case ActionTypes.UPDATE_USER_SUCCESS:

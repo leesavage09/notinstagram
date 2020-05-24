@@ -13,6 +13,12 @@ const UserReducer = (state = _nullUsers, action) => {
       } else {
         return state
       }
+    case ActionTypes.GET_USER_SUCCESS:
+      if (action.payload.users) {
+        return Object.assign({}, state, action.payload.users);
+      } else {
+        return state
+      }
     default:
       return state;
   }

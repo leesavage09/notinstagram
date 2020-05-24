@@ -15,7 +15,6 @@ import CreateUserAvatar from './pages/create_user_avatar'
 import CreatePostImage from './pages/create_post_image'
 import CreatePost from './pages/create_post'
 import Activity from './pages/activity'
-import Account from './pages/account'
 import AccountOptions from './pages/account/options'
 import PasswordChange from './pages/account/password_change'
 import ChangeAvatarModal from './components/options_modal/change_avatar_modal'
@@ -46,10 +45,9 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/create-post" component={CreatePost} />
               <ProtectedRoute exact path="/activity" component={Activity} />
               <ProtectedRoute exact path="/account/edit" component={AccountEdit} />
-              <ProtectedRoute exact path="/account" component={Account} />
               <ProtectedRoute exact path="/account/options" component={AccountOptions} />
               <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
-              <ProtectedRoute exact path="/user" component={UserDetails} />
+              <ProtectedRoute path="/user/" component={UserDetails} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ChangeAvatarModal />

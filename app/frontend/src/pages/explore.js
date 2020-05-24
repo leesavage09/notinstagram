@@ -19,8 +19,7 @@ export default function Explore() {
                 key={user.id}
                 user={user}
                 onClick={() => { 
-                    dispatch(UserActions.getUser(user.id,0))
-                    history.push("user")
+                    history.push(`user/?user_id=${user.id}&page=${0}`)
                 }}
             />)
     });

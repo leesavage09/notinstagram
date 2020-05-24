@@ -3,7 +3,6 @@ import TopNav from '../components/top_nav/top_nav_create_post'
 import * as ImageActions from '../redux/actions/component/image_actions'
 import * as ImageSelector from '../redux/selectors/component/image_selector'
 import UserAvatar from '../components/user_avatar';
-import * as PostActions from '../redux/actions/normalized/post_actions'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { loggedInUser } from '../redux/selectors/session_selector'

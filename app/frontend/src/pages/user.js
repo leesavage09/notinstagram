@@ -1,38 +1,36 @@
 import { useSelector, useDispatch } from 'react-redux'
-import React from 'react';
-import { logout } from '../redux/actions/session_actions'
+import React, { useEffect, useState } from 'react';
 import { loggedInUser } from '../redux/selectors/session_selector'
+import * as page_user_selector from '../redux/selectors/page/user_selector'
 import { Link } from 'react-router-dom';
 import { showChangeAvatarModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
-import TopNav from '../components/top_nav/top_nav_back_with_title'
+import LoggedInTopNav from '../components/top_nav/top_nav_account'
+import ViewTopNav from '../components/top_nav/top_nav_back_with_title'
 import SVGIcon from '../components/svg_icon'
-import UserAvatar from '../components/user_avatar';
+import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
+import queryString from 'query-string';
+import * as UserActions from '../redux/actions/pages/user_actions'
 
-
-export default function UserDetails() {
-  const user = useSelector(loggedInUser())
+export default function User(props) {
   const dispatch = useDispatch()
+  const queryStr = props.location.search
+  const params = queryString.parse(queryStr)
+  const sessionUser = useSelector(loggedInUser())
+  const [lastGetURL, setLestGetURL] = useState()
+  const Options = sessionUser.id == params.user_id ? <LoggedInUserOptions /> : <ViewUserOptions />
+
+  useEffect(() => {
+    if (lastGetURL !== props.location.search) {
+      dispatch(UserActions.getUser(params.user_id, params.page))
+      setLestGetURL(queryStr)
+    }
+  }, [props.location.search]);
 
   return (
     <div>
-      <TopNav title={user.username}/>
-      <div className='account-details'>
-        <UserAvatar
-          className="account-details__image"
-          user={user}
-        />
-        <div className='account-details__info--user'>
-          <h2 className='account-details__username'>{user.username}</h2>
-          <button className='ghost-button account-details__action-button'>
-          <div className="follow-user" />
-          </button>
-        </div>
-      </div>
-      <p className='account-details__bio'>
-        <span className='account-details__name'>{user.name}</span>
-        {user.bio}
-      </p>
+      {Options}
+
       <ul className='account-activity'>
         <li className='account-activity__item'>
           <span className='account-activity__count'>
@@ -72,4 +70,64 @@ export default function UserDetails() {
       <BottomNav />
     </div>
   );
+}
+
+
+function LoggedInUserOptions() {
+  const dispatch = useDispatch()
+  const user = useSelector(loggedInUser())
+  return (
+    <div>
+      <LoggedInTopNav />
+      <div className='user-details'>
+        <UserAvatar
+          className="user-details__image"
+          spinnerStyle={LARGE_LOADING_SPINNER}
+          user={user}
+          onClick={() => { dispatch(showChangeAvatarModal(true)) }}
+        />
+        <div className='user-details__info'>
+          <h2 className='user-details__username'>{user.username}</h2>
+
+          <Link to='/account/edit'
+            className='ghost-button user-details__action-button'>
+            Edit Profile
+    </Link>
+        </div>
+      </div>
+      <p className='user-details__bio'>
+        <span className='user-details__name'>{user.name}</span>
+        {user.bio}
+      </p>
+    </div>
+  )
+}
+
+function ViewUserOptions() {
+  let user = useSelector(page_user_selector.user())
+  const loading = useSelector(page_user_selector.isLoading())
+  if (loading || !user) {
+    return (<div></div>)
+  } 
+    return (
+      <div>
+        <ViewTopNav title={user.username} />
+        <div className='user-details'>
+          <UserAvatar
+            className="user-details__image"
+            user={user}
+          />
+          <div className='user-details__info--user'>
+            <h2 className='user-details__username'>{user.username}</h2>
+            <button className='ghost-button user-details__action-button'>
+              <div className="follow-user" />
+            </button>
+          </div>
+        </div >
+        <p className='user-details__bio'>
+          <span className='user-details__name'>{user.name}</span>
+          {user.bio}
+        </p>
+      </div>
+    )
 }

@@ -4,7 +4,7 @@ import * as ActionTypes from '../action_types'
 
 export const getUser = (id,page) => {
     return (dispatch) => {
-        dispatch(UiActions.asyncRequest())
+        dispatch(getUserRequest())
 
         ApiUtil.getUser(id,page)
             .then(r => {
@@ -13,6 +13,12 @@ export const getUser = (id,page) => {
             .catch(e => {
                 dispatch(getUserFailure(e))
             })
+    }
+}
+
+export const getUserRequest = () => {
+    return {
+        type: ActionTypes.GET_USER_REQUEST
     }
 }
 

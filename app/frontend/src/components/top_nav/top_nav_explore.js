@@ -15,7 +15,7 @@ export default function Explore() {
     const cancelBtn = React.createRef();
     const dispatch = useDispatch()
     const loading = useSelector(UISelector.isAwaitingAsync())
-    const spinnerElement = loading ? <LoadingSpinner spinner={SMALL_LOADING_SPINNER} /> : ''
+    const spinnerElement = loading ? <LoadingSpinner spinnerStyle={SMALL_LOADING_SPINNER} /> : ''
 
 
     const inputFocus = () => {

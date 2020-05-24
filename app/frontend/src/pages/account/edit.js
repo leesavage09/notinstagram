@@ -34,7 +34,7 @@ export default function Edit() {
             <div className='edit-details'>
                 <UserAvatar
                     className="edit-details__image"
-                    spinner={SMALL_LOADING_SPINNER}
+                    spinnerStyle={SMALL_LOADING_SPINNER}
                     user={user}
                     onClick={() => { dispatch(showChangeAvatarModal(true)) }}
                 />
