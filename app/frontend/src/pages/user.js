@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react';
 import { loggedInUser } from '../redux/selectors/session_selector'
-import * as page_user_selector from '../redux/selectors/page/user_selector'
+import * as user_selector from '../redux/selectors/normalized/users_selector'
 import { Link } from 'react-router-dom';
 import { showChangeAvatarModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
@@ -18,7 +18,7 @@ export default function User(props) {
   const params = queryString.parse(queryStr)
   const sessionUser = useSelector(loggedInUser())
   const [lastGetURL, setLestGetURL] = useState()
-  const Options = sessionUser.id == params.user_id ? <LoggedInUserOptions /> : <ViewUserOptions />
+  const Options = sessionUser.id == params.user_id ? <LoggedInUserOptions /> : <ViewUserOptions user_id={params.user_id} />
 
   useEffect(() => {
     if (lastGetURL !== props.location.search) {
@@ -103,10 +103,9 @@ function LoggedInUserOptions() {
   )
 }
 
-function ViewUserOptions() {
-  let user = useSelector(page_user_selector.user())
-  const loading = useSelector(page_user_selector.isLoading())
-  if (loading || !user) {
+function ViewUserOptions(props) {
+  let user = useSelector(user_selector.getUser(props.user_id))
+  if (!user) {
     return (<div></div>)
   } 
     return (

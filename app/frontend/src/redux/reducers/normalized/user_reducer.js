@@ -15,7 +15,8 @@ const UserReducer = (state = _nullUsers, action) => {
       }
     case ActionTypes.GET_USER_SUCCESS:
       if (action.payload.users) {
-        return Object.assign({}, state, action.payload.users);
+        const addUsers = Object.assign({}, action.payload.users, {[action.payload.user.id]: action.payload.user})
+        return Object.assign({}, state, addUsers);
       } else {
         return state
       }

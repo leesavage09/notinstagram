@@ -6,6 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require "net/http"
+require "json"
+
+
+url = "https://randomuser.me/api/?results=15&password=upper,lower,7-14&seed=notinsta&inc=name,email,login,picture"
+uri = URI(url)
+response = Net::HTTP.get(uri)
+jsonSeeds = JSON.parse(response)
+
 @allPosts = []
 @allUsers = []
 @allHashtags = []
@@ -44,12 +53,16 @@ user.save()
   @allHashtags << hashtag
 end
 
-#create users
-15.times do
-  user = FactoryBot.build(:user)
+jsonSeeds["results"].each { |data|
+  user = User.new
+  user.name = data["name"]["first"] + " " + data["name"]["last"]
+  user.email = data["email"]
+  user.username = data["login"]["username"]
+  user.password = data["login"]["password"]
+  user.image_url = data["picture"]["large"]
   user.save()
   @allUsers << user
-end
+}
 
 #create posts
 @allUsers.each { |user|
@@ -63,6 +76,9 @@ end
     tag_post(hashtags, post)
 
     post.save()
+    post.image_url = "https://picsum.photos/seed/#{post.id}/411/308"
+    post.save()
+
     @allPosts << post
   end
 }

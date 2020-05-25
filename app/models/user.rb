@@ -97,6 +97,10 @@ class User < ApplicationRecord
   end
 
   def image_url
+    if Rails.env.development? && self[:image_url] && self[:image_url].include?("randomuser.me")
+      return self[:image_url] if self[:image_url]
+      return nil
+    end
     return ENV["AWS_URL"] + "/" + self[:image_url] if self[:image_url]
     nil
   end
