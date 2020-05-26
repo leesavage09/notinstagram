@@ -13,7 +13,7 @@ export default function Signup() {
         <Redirect to="/" />
     }
 
-    const loading = useSelector(UISelector.isAwaitingAsync())
+    const loading = useSelector(UISelector.isButton_loading())
     const errorMessages = useSelector(UISelector.allErrors())
     const dispatch = useDispatch()
 

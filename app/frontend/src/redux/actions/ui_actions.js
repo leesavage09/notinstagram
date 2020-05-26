@@ -1,14 +1,8 @@
 import * as ActionTypes from '../actions/action_types';
 
-export const browserRouteChanged = () => {
+export const clearMessages = () => {
     return {
-        type: ActionTypes.BROWSER_ROUTE_CHANGED
-    }
-}
-
-export const asyncRequest = () => {
-    return {
-        type: ActionTypes.ASYNC_REQUEST
+        type: ActionTypes.CLEAR_MESSAGES
     }
 }
 

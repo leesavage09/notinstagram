@@ -9,7 +9,7 @@ import UserAvatar from '../../components/user_avatar';
 
 export default function PasswordChange() {
     const dispatch = useDispatch()
-    const loading = useSelector(UISelector.isAwaitingAsync())
+    const loading = useSelector(UISelector.isButton_loading())
     const user = useSelector(SessionSelector.loggedInUser())
     const oldPassword = React.createRef();
     const newPassword = React.createRef();

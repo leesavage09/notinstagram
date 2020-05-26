@@ -1,5 +1,4 @@
 import * as ApiUtil from '../../../util/api'
-import * as UiActions from '../ui_actions'
 import * as ActionTypes from '../action_types'
 
 export const getUser = (id,page) => {

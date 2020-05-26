@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store'
 import * as Actions from './redux/actions/session_actions'
 import { AuthRoute, ProtectedRoute } from './util/routes'
-import * as UiActions from './redux/actions/ui_actions'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import AccountEdit from './pages/account/edit'
@@ -19,7 +18,7 @@ import AccountOptions from './pages/account/options'
 import PasswordChange from './pages/account/password_change'
 import ChangeAvatarModal from './components/options_modal/change_avatar_modal'
 import ToastNotification from './components/toast_notification'
-import UserDetails from './pages/user'
+import Profile from './pages/profile'
 
 class Index extends React.Component {
   render() {
@@ -29,9 +28,6 @@ class Index extends React.Component {
     }
 
     const history = createBrowserHistory()
-    history.listen((location, action) => {
-      store.dispatch(UiActions.browserRouteChanged())
-    })
     return (
       <React.StrictMode>
         <Provider store={store}>
@@ -47,7 +43,7 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/account/edit" component={AccountEdit} />
               <ProtectedRoute exact path="/account/options" component={AccountOptions} />
               <ProtectedRoute exact path="/account/password-change" component={PasswordChange} />
-              <ProtectedRoute path="/user/" component={UserDetails} />
+              <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ChangeAvatarModal />

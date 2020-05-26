@@ -7,9 +7,9 @@ import {imagePath} from '../util/helpers'
 export { SMALL_LOADING_SPINNER, LARGE_LOADING_SPINNER }
 
 export default function UserAvatar(props) {
-    const imageUrl = props.user.image_url || `${imagePath()}/no_avatar.jpg`
+    const imageUrl = props.user.image_url || `${imagePath}/no_avatar.jpg`
     
-    const loading = props.spinnerStyle ? useSelector(UISelector.isAwaitingAsync()) : false
+    const loading = props.spinnerStyle ? useSelector(UISelector.isAvatar_loading()) : false
     const spinnerElement = loading ? <LoadingSpinner spinnerStyle={props.spinnerStyle} /> : ''
 
     return (

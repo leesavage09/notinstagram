@@ -6,7 +6,7 @@ const _null = {
     user_id: null
 }
 
-const ExploreReducer = (state = _null, action) => {
+const UserReducer = (state = _null, action) => {
     switch (action.type) {
         case ActionTypes.GET_USER_SUCCESS:
             return Object.assign({}, state, { loading: false, user_id: action.payload.user.id });
@@ -19,4 +19,4 @@ const ExploreReducer = (state = _null, action) => {
     }
 };
 
-export default ExploreReducer
+export default UserReducer

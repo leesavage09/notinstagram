@@ -10,3 +10,9 @@ export const discoveredUsers = () => {
         return users
     }
 }
+
+export const loading = () => {
+    return (state) => {
+        return state.page.explore.loading
+    }
+}

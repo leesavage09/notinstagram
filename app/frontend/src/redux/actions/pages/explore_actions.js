@@ -1,10 +1,9 @@
 import * as ApiUtil from '../../../util/api'
-import * as UiActions from '../ui_actions'
 import * as ActionTypes from '../action_types'
 
 export const searchForUsers = (searchQuery) => {
     return (dispatch) => {
-        dispatch(UiActions.asyncRequest())
+        dispatch(foundUsersRequest())
 
         ApiUtil.findUser(searchQuery)
             .then(r => {
@@ -13,6 +12,12 @@ export const searchForUsers = (searchQuery) => {
             .catch(e => {
                 dispatch(foundUsersFailure(e))
             })
+    }
+}
+
+export const foundUsersRequest = () => {
+    return {
+        type: ActionTypes.FOUND_USERS_REQUEST
     }
 }
 

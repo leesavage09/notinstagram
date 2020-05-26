@@ -2,8 +2,6 @@ import React from 'react';
 import UserAvatar from './user_avatar';
 
 export default function UserListItem(props) {
-
-
     return (
         <li
             className="user-list-item"

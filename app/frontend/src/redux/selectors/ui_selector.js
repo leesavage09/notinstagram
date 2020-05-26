@@ -18,8 +18,12 @@ export const allSuccesses = () => {
     return state => !state.ui.errors ? allMessages()(state) : []
 }
 
-export const isAwaitingAsync = () => {
-    return state => state.ui.is_awaiting_async
+export const isButton_loading = () => {
+    return state => state.ui.button_loading
+}
+
+export const isAvatar_loading = () => {
+    return state => state.ui.avatar_loading
 }
 
 export const showChangeAvatarModal = () => {

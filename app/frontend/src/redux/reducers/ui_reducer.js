@@ -2,7 +2,8 @@ import * as ActionTypes from '../actions/action_types'
 
 const _default = {
     errors: false,
-    is_awaiting_async: false,
+    button_loading: false,
+    avatar_loading: false,
     messages: {},
     show_change_avatar_modal: false
 };
@@ -11,8 +12,16 @@ const UIReducer = (state = _default, action) => {
     Object.freeze(state);
 
     switch (action.type) {
-        case ActionTypes.ASYNC_REQUEST:
-            return Object.assign({}, state, { is_awaiting_async: true })
+        case ActionTypes.LOGIN_REQUEST:
+        case ActionTypes.LOGOUT_REQUEST:
+        case ActionTypes.CREATE_USER_REQUEST:
+        case ActionTypes.UPDATE_USER_REQUEST:
+        case ActionTypes.UPDATE_PASSWORD_REQUEST:
+            return Object.assign({}, state, { button_loading: true })
+
+        case ActionTypes.UPDATE_USER_AVATAR_REQUEST:
+        case ActionTypes.REMOVE_USER_AVATAR_REQUEST:
+            return Object.assign({}, state, { avatar_loading: true })
 
         case ActionTypes.LOGIN_FAILURE:
         case ActionTypes.LOGOUT_FAILURE:
@@ -20,8 +29,8 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.UPDATE_USER_FAILURE:
         case ActionTypes.UPDATE_PASSWORD_FAILURE:
         case ActionTypes.IMAGE_SELECT_FAILURE:
-        case ActionTypes.UPDATE_USER_IMAGE_FAILURE:
-        case ActionTypes.REMOVE_USER_IMAGE_FAILURE:
+        case ActionTypes.UPDATE_USER_AVATAR_FAILURE:
+        case ActionTypes.REMOVE_USER_AVATAR_FAILURE:
         case ActionTypes.FOUND_USERS_FAILURE:
         case ActionTypes.GET_USER_FAILURE:
             return newError(state, action.payload)
@@ -29,16 +38,15 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.CREATE_USER_SUCCESS:
         case ActionTypes.LOGOUT_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
-        case ActionTypes.FOUND_USERS_SUCCESS:
-            return Object.assign({}, state, { is_awaiting_async: false })
+            return Object.assign({}, clearMessage(state), { button_loading: false })
 
         case ActionTypes.UPDATE_USER_SUCCESS:
             return newMessage(state, "Profile saved")
 
-        case ActionTypes.UPDATE_USER_IMAGE_SUCCESS:
+        case ActionTypes.UPDATE_USER_AVATAR_SUCCESS:
             return newMessage(state, "Profile photo added")
 
-        case ActionTypes.REMOVE_USER_IMAGE_SUCCESS:
+        case ActionTypes.REMOVE_USER_AVATAR_SUCCESS:
             return newMessage(state, "Profile photo removed")
 
         case ActionTypes.UPDATE_PASSWORD_SUCCESS:
@@ -50,7 +58,7 @@ const UIReducer = (state = _default, action) => {
         case ActionTypes.HIDE_USER_PHOTO_MODAL:
             return Object.assign({}, state, { show_change_avatar_modal: false, messages: {}, errors: false })
 
-        case ActionTypes.BROWSER_ROUTE_CHANGED:
+        case ActionTypes.CLEAR_MESSAGES:
             return clearMessage(state)
 
         default:
@@ -64,14 +72,16 @@ export default UIReducer;
 function newError(state, error) {
     return Object.assign({}, state, {
         errors: true, messages: format_data(error),
-        is_awaiting_async: false
+        button_loading: false,
+        avatar_loading: false
     })
 }
 
 function newMessage(state, message) {
     return Object.assign({}, state, {
         errors: false, messages: format_data(message),
-        is_awaiting_async: false
+        button_loading: false,
+        avatar_loading: false
     })
 }
 

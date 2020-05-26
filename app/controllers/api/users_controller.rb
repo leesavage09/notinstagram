@@ -21,9 +21,9 @@ class Api::UsersController < ApplicationController
     offset = params.require(:page).to_i * limit
 
     @user = User.find_by(id: user_id)
+    
     @posts = Post.includes(:likes, :comments).where(author_id: user_id).order("created_at DESC").limit(limit).offset(offset)
     @post_comments = []
-
     preload_user_ids = []
 
     @posts.each do |post|

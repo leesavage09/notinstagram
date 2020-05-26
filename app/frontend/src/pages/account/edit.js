@@ -10,7 +10,7 @@ import UserAvatar, { SMALL_LOADING_SPINNER } from '../../components/user_avatar'
 
 export default function Edit() {
     const dispatch = useDispatch()
-    const loading = useSelector(UISelector.isAwaitingAsync())
+    const loading = useSelector(UISelector.isButton_loading())
     const user = useSelector(SessionSelector.loggedInUser())
     const nameInput = React.createRef();
     const usernameInput = React.createRef();

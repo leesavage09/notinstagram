@@ -35,7 +35,7 @@ export default function BottomNav() {
                     <SVGIcon iconName='svg-activity-icon' selected={path === '/activity'} />
                 </Link>
 
-                <Link to={`/user?page=0&user_id=${user.id}`} className="bottom-nav__button" >
+                <Link to={`/profile?page=0&user_id=${user.id}`} className="bottom-nav__button" >
                     <div className={path === '/account' ? 'bottom-nav__account-border' : ''}></div>
                     <UserAvatar
                         className="bottom-nav__account-image"

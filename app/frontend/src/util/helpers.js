@@ -20,7 +20,5 @@ export function debounce(func, waitTime) {
     }
 }
 
-const imgPath = process.env.NODE_ENV === 'production' ? process.env.STATIC_RESOURCES : ''
-export function imagePath() {
-    return imgPath
-}
+
+export const imagePath = process.env.NODE_ENV === 'production' ? process.env.STATIC_RESOURCES : ''

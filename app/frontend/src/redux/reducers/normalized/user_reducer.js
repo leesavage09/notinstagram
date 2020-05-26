@@ -1,5 +1,5 @@
 import * as ActionTypes from '../../actions/action_types'
-
+import merge from 'lodash/merge'
 
 const _nullUsers = {
 
@@ -14,12 +14,8 @@ const UserReducer = (state = _nullUsers, action) => {
         return state
       }
     case ActionTypes.GET_USER_SUCCESS:
-      if (action.payload.users) {
-        const addUsers = Object.assign({}, action.payload.users, {[action.payload.user.id]: action.payload.user})
-        return Object.assign({}, state, addUsers);
-      } else {
-        return state
-      }
+      const addUsers = merge({}, action.payload.users, { [action.payload.user.id]: action.payload.user })
+      return merge({}, state, addUsers);
     default:
       return state;
   }

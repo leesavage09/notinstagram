@@ -18,7 +18,7 @@ export default function ImageEditor(props) {
         if (selectedImage) save()
         else { //TODO remove after testing //for dev only
             const myImage = new Image(200, 200);
-            myImage.src = `${imagePath()}/filters/Normal.jpg`;
+            myImage.src = `${imagePath}/filters/Normal.jpg`;
             myImage.onload = () => {
                 dispatch(ImageActions.imageSelectSuccess(myImage))
             }
@@ -101,7 +101,7 @@ function getAllowedFilterButtons(selectedFilter) {
 
 function FilterButton(props) {
     const dispatch = useDispatch();
-    const imgSrc = `${imagePath()}/filters/${props.filterName}.jpg`
+    const imgSrc = `${imagePath}/filters/${props.filterName}.jpg`
     const cName = props.isSelected ? 'filter-buttons__text filter-buttons__text--selected' : 'filter-buttons__text'
     return (
         <a

@@ -11,8 +11,9 @@ import SVGIcon from '../components/svg_icon'
 import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 import queryString from 'query-string';
 import * as UserActions from '../redux/actions/pages/user_actions'
+import * as PostSelector from '../redux/selectors/normalized/post_selector'
 
-export default function User(props) {
+export default function Profile(props) {
   const dispatch = useDispatch()
   const queryStr = props.location.search
   const params = queryString.parse(queryStr)
@@ -31,22 +32,38 @@ export default function User(props) {
     <div>
       {Options}
 
+      <BottomNav />
+    </div>
+  );
+}
+
+function ProfileActivity(props) {
+  const postImages = []
+  if (props.user.post_ids) {
+    const posts = useSelector(PostSelector.getPosts(props.user.post_ids))
+    posts.forEach((post) => {
+      postImages.push(<img key={post.id} src={post.image_url} />)
+    })
+  }
+
+  return (
+    <div>
       <ul className='account-activity'>
         <li className='account-activity__item'>
           <span className='account-activity__count'>
-            5
+            {props.user.number_posts}
           </span>
           posts
         </li>
         <li className='account-activity__item'>
           <span className='account-activity__count'>
-            25
+            {props.user.number_followers}
           </span>
           followers
         </li>
         <li className='account-activity__item'>
           <span className='account-activity__count'>
-            15
+            {props.user.number_following}
           </span>
           following
         </li>
@@ -67,9 +84,12 @@ export default function User(props) {
         </a>
       </div>
 
-      <BottomNav />
+      <div>
+        {postImages}
+      </div>
+
     </div>
-  );
+  )
 }
 
 
@@ -99,6 +119,8 @@ function LoggedInUserOptions() {
         <span className='user-details__name'>{user.name}</span>
         {user.bio}
       </p>
+
+      <ProfileActivity user={user} />
     </div>
   )
 }
@@ -107,26 +129,29 @@ function ViewUserOptions(props) {
   let user = useSelector(user_selector.getUser(props.user_id))
   if (!user) {
     return (<div></div>)
-  } 
-    return (
-      <div>
-        <ViewTopNav title={user.username} />
-        <div className='user-details'>
-          <UserAvatar
-            className="user-details__image"
-            user={user}
-          />
-          <div className='user-details__info--user'>
-            <h2 className='user-details__username'>{user.username}</h2>
-            <button className='ghost-button user-details__action-button'>
-              <div className="follow-user" />
-            </button>
-          </div>
-        </div >
-        <p className='user-details__bio'>
-          <span className='user-details__name'>{user.name}</span>
-          {user.bio}
-        </p>
-      </div>
-    )
+  }
+  return (
+    <div>
+      <ViewTopNav title={user.username} />
+      <div className='user-details'>
+        <UserAvatar
+          className="user-details__image"
+          user={user}
+        />
+        <div className='user-details__info--user'>
+          <h2 className='user-details__username'>{user.username}</h2>
+          <button className='ghost-button user-details__action-button'>
+            <div className="follow-user" />
+          </button>
+        </div>
+      </div >
+      <p className='user-details__bio'>
+        <span className='user-details__name'>{user.name}</span>
+        {user.bio}
+      </p>
+
+
+      <ProfileActivity user={user} />
+    </div>
+  )
 }
