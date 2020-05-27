@@ -63,7 +63,13 @@ a {
   color: $blue;
   text-decoration: none;
 }
-
+a.dark-link {
+  color: $off-black;
+}
+a.light-link {
+  color: $dark_grey;
+  font-weight: 400;
+}
 // Inputs
 .grey-input,
 .white-input {

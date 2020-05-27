@@ -23,10 +23,12 @@
 @import './components/user_list_item';
 @import './components/loading_spinner';
 @import './components/user_avatar';
+@import './components/posts_grid';
+@import './components/posts_feed';
 
 
 // // Page Styles
-@import "./pages/user";
+@import "./pages/profile";
 @import "./pages/account/options";
 @import "./pages/account/edit";
 @import "./pages/account/password_change";

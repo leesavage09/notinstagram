@@ -1,1 +1,102 @@
-// styles shared with _account.scss
+.profile-details {
+    display: flex;
+    flex-direction: row;
+    margin: 30px 16px 24px 16px;
+  
+    &__image {
+      width: 77px;
+      height: 77px;
+      margin-right: 28px;
+    }
+  
+    &__info {
+      flex: 1 1 auto;
+    }
+  
+    &__info--user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  
+    &__username {
+      color: $off_black;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 32px;
+      margin: -5px 0px 6px 0px;
+    }
+  
+    &__action-button {
+      display: block;
+    }
+  
+    &__bio {
+      padding: 0px 16px 21px 16px;
+      display: block;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 300;
+      margin: 0;
+    }
+    &__name {
+      display: block;
+      font-weight: 600;
+    }
+  }
+  
+  .account-activity {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: $light_grey;
+    margin: 0;
+    text-align: center;
+  
+    &__item {
+      font-weight: 400;
+      list-style: none;
+      width: 33%;
+      color: $dark_grey;
+    }
+  
+    &__count {
+      font-weight: 600;
+      display: block;
+      color: $off_black;
+    }
+  }
+  
+  .account-icons {
+    height: 44px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: $light_grey;
+  
+    &__icon {
+      flex: 1 1 auto;
+      text-align: center;
+      height: 24px;
+    }
+  
+    &__svg {
+      fill: $dark-grey;
+  
+      &--selected {
+        fill: $blue;
+      }
+    }
+  
+    &__sprite {
+      margin: auto;
+    }
+  }
+  

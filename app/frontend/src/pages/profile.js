@@ -10,8 +10,10 @@ import ViewTopNav from '../components/top_nav/top_nav_back_with_title'
 import SVGIcon from '../components/svg_icon'
 import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 import queryString from 'query-string';
-import * as UserActions from '../redux/actions/pages/user_actions'
+import * as ProfileActions from '../redux/actions/pages/profile_actions'
 import * as PostSelector from '../redux/selectors/normalized/post_selector'
+import PostGrid from '../components/posts_grid';
+import PostFeed from '../components/posts_feed';
 
 export default function Profile(props) {
   const dispatch = useDispatch()
@@ -19,11 +21,11 @@ export default function Profile(props) {
   const params = queryString.parse(queryStr)
   const sessionUser = useSelector(loggedInUser())
   const [lastGetURL, setLestGetURL] = useState()
-  const Options = sessionUser.id == params.user_id ? <LoggedInUserOptions /> : <ViewUserOptions user_id={params.user_id} />
+  const Options = sessionUser.id == params.user_id ? <LoggedInProfile /> : <PublicProfile user_id={params.user_id} />
 
   useEffect(() => {
     if (lastGetURL !== props.location.search) {
-      dispatch(UserActions.getUser(params.user_id, params.page))
+      dispatch(ProfileActions.getUser(params.user_id, params.page))
       setLestGetURL(queryStr)
     }
   }, [props.location.search]);
@@ -31,20 +33,82 @@ export default function Profile(props) {
   return (
     <div>
       {Options}
-
       <BottomNav />
     </div>
   );
 }
 
-function ProfileActivity(props) {
-  const postImages = []
-  if (props.user.post_ids) {
-    const posts = useSelector(PostSelector.getPosts(props.user.post_ids))
-    posts.forEach((post) => {
-      postImages.push(<img key={post.id} src={post.image_url} />)
-    })
+function LoggedInProfile() {
+  const dispatch = useDispatch()
+  const user = useSelector(loggedInUser())
+  return (
+    <div>
+      <LoggedInTopNav />
+      <div className='profile-details'>
+        <UserAvatar
+          className="profile-details__image"
+          spinnerStyle={LARGE_LOADING_SPINNER}
+          user={user}
+          onClick={() => { dispatch(showChangeAvatarModal(true)) }}
+        />
+        <div className='profile-details__info'>
+          <h2 className='profile-details__username'>{user.username}</h2>
+
+          <Link to='/account/edit'
+            className='ghost-button profile-details__action-button'>
+            Edit Profile
+    </Link>
+        </div>
+      </div>
+      <p className='profile-details__bio'>
+        <span className='profile-details__name'>{user.name}</span>
+        {user.bio}
+      </p>
+
+      <ProfileActivity user={user} />
+    </div>
+  )
+}
+
+function PublicProfile(props) {
+  let user = useSelector(user_selector.getUser(props.user_id))
+  if (!user) {
+    return (<div></div>)
   }
+  return (
+    <div>
+      <ViewTopNav title={user.username} />
+      <div className='profile-details'>
+        <UserAvatar
+          className="profile-details__image"
+          user={user}
+        />
+        <div className='profile-details__info--user'>
+          <h2 className='profile-details__username'>{user.username}</h2>
+          <button className='ghost-button profile-details__action-button'>
+            <div className="follow-user" />
+          </button>
+        </div>
+      </div >
+      <p className='profile-details__bio'>
+        <span className='profile-details__name'>{user.name}</span>
+        {user.bio}
+      </p>
+
+
+      <ProfileActivity user={user} />
+    </div>
+  )
+}
+
+function ProfileActivity(props) {
+  const [feedTypeFull, setFeedTypeFull] = useState(false);
+
+  const POST_GRID_BUTTON_STYLE = "account-icons__svg account-icons__svg"
+  const POST_GRID_BUTTON_STYLE_SELECTED = "account-icons__svg account-icons__svg--selected"
+
+  const POST_FEED_BUTTON_STYLE = "feed-logo--dark-grey account-icons__sprite"
+  const POST_FEED_BUTTON_STYLE_SELECTED = "feed-logo--blue account-icons__sprite"
 
   return (
     <div>
@@ -70,88 +134,25 @@ function ProfileActivity(props) {
       </ul>
 
       <div className='account-icons'>
-        <a href="#" className='account-icons__icon'>
-          <SVGIcon className='account-icons__svg account-icons__svg--selected' iconName='svg-posts-grid' />
+        <a onClick={() => setFeedTypeFull(false)} className='account-icons__icon'>
+          <SVGIcon className={feedTypeFull ? POST_GRID_BUTTON_STYLE : POST_GRID_BUTTON_STYLE_SELECTED} iconName='svg-post-grid-icon' />
+        </a>
+        <a onClick={() => setFeedTypeFull(true)} className='account-icons__icon'>
+          <div className={feedTypeFull ? POST_FEED_BUTTON_STYLE_SELECTED : POST_FEED_BUTTON_STYLE} />
         </a>
         <a href="#" className='account-icons__icon'>
-          <div className='feed-logo--dark-grey account-icons__sprite' />
+          <SVGIcon className='account-icons__svg' iconName='svg-bookmark-icon' />
         </a>
         <a href="#" className='account-icons__icon'>
-          <SVGIcon className='account-icons__svg' iconName='svg-posts-bookmarked' />
-        </a>
-        <a href="#" className='account-icons__icon'>
-          <SVGIcon className='account-icons__svg' iconName='svg-posts-tagged' />
+          <SVGIcon className='account-icons__svg' iconName='svg-tagged-icon' />
         </a>
       </div>
 
       <div>
-        {postImages}
+        {feedTypeFull ? <PostFeed user={props.user} /> : <PostGrid user={props.user} />}
       </div>
 
     </div>
   )
 }
 
-
-function LoggedInUserOptions() {
-  const dispatch = useDispatch()
-  const user = useSelector(loggedInUser())
-  return (
-    <div>
-      <LoggedInTopNav />
-      <div className='user-details'>
-        <UserAvatar
-          className="user-details__image"
-          spinnerStyle={LARGE_LOADING_SPINNER}
-          user={user}
-          onClick={() => { dispatch(showChangeAvatarModal(true)) }}
-        />
-        <div className='user-details__info'>
-          <h2 className='user-details__username'>{user.username}</h2>
-
-          <Link to='/account/edit'
-            className='ghost-button user-details__action-button'>
-            Edit Profile
-    </Link>
-        </div>
-      </div>
-      <p className='user-details__bio'>
-        <span className='user-details__name'>{user.name}</span>
-        {user.bio}
-      </p>
-
-      <ProfileActivity user={user} />
-    </div>
-  )
-}
-
-function ViewUserOptions(props) {
-  let user = useSelector(user_selector.getUser(props.user_id))
-  if (!user) {
-    return (<div></div>)
-  }
-  return (
-    <div>
-      <ViewTopNav title={user.username} />
-      <div className='user-details'>
-        <UserAvatar
-          className="user-details__image"
-          user={user}
-        />
-        <div className='user-details__info--user'>
-          <h2 className='user-details__username'>{user.username}</h2>
-          <button className='ghost-button user-details__action-button'>
-            <div className="follow-user" />
-          </button>
-        </div>
-      </div >
-      <p className='user-details__bio'>
-        <span className='user-details__name'>{user.name}</span>
-        {user.bio}
-      </p>
-
-
-      <ProfileActivity user={user} />
-    </div>
-  )
-}
