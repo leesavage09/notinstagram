@@ -1,12 +1,12 @@
 import React from 'react';
-import TopNav from '../components/top_nav/top_nav_activity'
+import {TopNavActivity} from '../components/top_nav'
 import BottomNav from '../components/bottom_nav'
 
 export default function Activity() {
 
     return (
         <div>
-            <TopNav />
+            <TopNavActivity />
             Activity
             <BottomNav />
         </div>

@@ -5,8 +5,8 @@ import * as user_selector from '../redux/selectors/normalized/users_selector'
 import { Link } from 'react-router-dom';
 import { showChangeAvatarModal } from '../redux/actions/ui_actions'
 import BottomNav from '../components/bottom_nav'
-import LoggedInTopNav from '../components/top_nav/top_nav_account'
-import ViewTopNav from '../components/top_nav/top_nav_back_with_title'
+import {TopNavAccount} from '../components/top_nav'
+import {TopNavBackWithTitle} from '../components/top_nav'
 import SVGIcon from '../components/svg_icon'
 import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 import queryString from 'query-string';
@@ -43,7 +43,7 @@ function LoggedInProfile() {
   const user = useSelector(loggedInUser())
   return (
     <div>
-      <LoggedInTopNav />
+      <TopNavAccount />
       <div className='profile-details'>
         <UserAvatar
           className="profile-details__image"
@@ -77,7 +77,7 @@ function PublicProfile(props) {
   }
   return (
     <div>
-      <ViewTopNav title={user.username} />
+      <TopNavBackWithTitle title={user.username} />
       <div className='profile-details'>
         <UserAvatar
           className="profile-details__image"

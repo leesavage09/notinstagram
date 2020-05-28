@@ -1,5 +1,5 @@
 import React from 'react';
-import TopNav from '../components/top_nav/top_nav_create_post'
+import {TopNavCreatePost} from '../components/top_nav'
 import * as ImageActions from '../redux/actions/component/image_actions'
 import * as ImageSelector from '../redux/selectors/component/image_selector'
 import UserAvatar from '../components/user_avatar';
@@ -33,7 +33,7 @@ export default function CreatePost() {
 
     return (
         <div ref={outerContainer} className="create-post">
-            <TopNav createPost={createPost} />
+            <TopNavCreatePost createPost={createPost} />
             <div className="create-post__container">
                 <UserAvatar
                     className="create-post__user-avatar"

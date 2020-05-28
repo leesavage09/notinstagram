@@ -4,7 +4,7 @@ import * as SessionActions from '../../redux/actions/session_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
 import { showChangeAvatarModal } from '../../redux/actions/ui_actions'
-import TopNav from '../../components/top_nav/top_nav_back_with_title'
+import {TopNavBackWithTitle} from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import UserAvatar, { SMALL_LOADING_SPINNER } from '../../components/user_avatar';
 
@@ -30,7 +30,7 @@ export default function Edit() {
 
     return (
         <div>
-            <TopNav title="Edit Profile" />
+            <TopNavBackWithTitle title="Edit Profile" />
             <div className='edit-details'>
                 <UserAvatar
                     className="edit-details__image"

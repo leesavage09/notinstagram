@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomNav from '../components/bottom_nav';
-import TopNav from '../components/top_nav/top_nav_explore';
+import {TopNavExplore} from '../components/top_nav';
 import { useSelector } from 'react-redux'
 import * as ExploreSelector from '../redux/selectors/page/explore_selector'
 import UserListItem from '../components/user_list_item';
@@ -24,7 +24,7 @@ export default function Explore() {
 
     return (
         <div>
-            <TopNav />
+            <TopNavExplore />
             <ul className="explore-items">
                 {UserListItems}
             </ul>

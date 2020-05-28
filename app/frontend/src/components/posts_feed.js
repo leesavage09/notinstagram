@@ -1,15 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux'
-import React, { useEffect, useState } from 'react';
-import { loggedInUser } from '../redux/selectors/session_selector'
+import { useSelector } from 'react-redux'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { showChangeAvatarModal } from '../redux/actions/ui_actions'
-import BottomNav from './bottom_nav'
-import LoggedInTopNav from './top_nav/top_nav_account'
-import ViewTopNav from './top_nav/top_nav_back_with_title'
-import SVGIcon from './svg_icon'
-import UserAvatar, { LARGE_LOADING_SPINNER } from './user_avatar';
-import queryString from 'query-string';
-import * as ProfileActions from '../redux/actions/pages/profile_actions'
+import UserAvatar from './user_avatar';
 import * as PostSelector from '../redux/selectors/normalized/post_selector'
 import * as CommentsSelector from '../redux/selectors/normalized/comment_selector'
 import * as UserSelector from '../redux/selectors/normalized/users_selector'

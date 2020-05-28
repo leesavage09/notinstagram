@@ -1,16 +1,16 @@
 import React from 'react';
-import { debounce } from '../../util/helpers'
-import * as ExploreActions from '../../redux/actions/pages/explore_actions'
+import { debounce } from '../util/helpers'
+import * as ExploreActions from '../redux/actions/pages/explore_actions'
 import { useSelector, useDispatch } from 'react-redux'
-import * as ExploreSelector from '../../redux/selectors/page/explore_selector'
-import LoadingSpinner, { SMALL_LOADING_SPINNER } from '../../components/loading_spinner';
+import * as ExploreSelector from '../redux/selectors/page/explore_selector'
+import LoadingSpinner, { SMALL_LOADING_SPINNER } from './loading_spinner';
 
-const SEARCH_INPUT_DEFAULT_STYLE = "white-input top-nav__search-input"
-const SEARCH_INPUT_FOCUSED_STYLE = "white-input top-nav__search-input top-nav__search-input--has-text"
-const CANCLE_BUTTON_HIDDEN_STYLE = "text-button top-nav__search-cancel top-nav__search-cancel--hide"
-const CANCLE_BUTTON_VISIBLE_STYLE = "text-button top-nav__search-cancel"
+const SEARCH_INPUT_DEFAULT_STYLE = "white-input search__input"
+const SEARCH_INPUT_FOCUSED_STYLE = "white-input search__input search__input--has-text"
+const CANCLE_BUTTON_HIDDEN_STYLE = "text-button search__cancel search__cancel--hide"
+const CANCLE_BUTTON_VISIBLE_STYLE = "text-button search__cancel"
 
-export default function Explore() {
+export default function SearchInput() {
     const searchBox = React.createRef();
     const cancelBtn = React.createRef();
     const dispatch = useDispatch()
@@ -38,7 +38,7 @@ export default function Explore() {
     }
 
     return (
-        <div className='top-nav'>
+        <div className='search'>
             <input
                 className={SEARCH_INPUT_DEFAULT_STYLE}
                 ref={searchBox}
@@ -47,7 +47,7 @@ export default function Explore() {
                 onFocus={inputFocus}
                 onChange={inputChanged}
             />
-            <div className="top-nav__spinner">{spinnerElement}</div>
+            <div className="search__spinner">{spinnerElement}</div>
             <button
                 className={CANCLE_BUTTON_HIDDEN_STYLE}
                 ref={cancelBtn}

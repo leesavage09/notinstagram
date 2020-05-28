@@ -3,7 +3,7 @@ import React from 'react';
 import * as SessionActions from '../../redux/actions/session_actions'
 import * as SessionSelector from '../../redux/selectors/session_selector'
 import * as UISelector from '../../redux/selectors/ui_selector'
-import TopNav from '../../components/top_nav/top_nav_back_with_title'
+import { TopNavBackWithTitle } from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import UserAvatar from '../../components/user_avatar';
 
@@ -30,7 +30,7 @@ export default function PasswordChange() {
 
     return (
         <div>
-            <TopNav title="Change Password" />
+            <TopNavBackWithTitle title="Change Password" />
             <div className='edit-details'>
                 <UserAvatar className="edit-details__image" user={user} />
                 <div>

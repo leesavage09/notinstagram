@@ -1,5 +1,5 @@
 import React from 'react';
-import TopNav from '../../components/top_nav/top_nav_options'
+import {TopNavOptions} from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
@@ -13,7 +13,7 @@ export default function Options() {
 
     return (
         <div className='options'>
-            <TopNav />
+            <TopNavOptions />
             <div className='options__body'>
                 <h3 className='options__title'>ACCOUNT</h3>
                 <Link to='/account/edit' className='options__link'>
