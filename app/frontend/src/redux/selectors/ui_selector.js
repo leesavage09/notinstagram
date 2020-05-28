@@ -29,3 +29,7 @@ export const isAvatar_loading = () => {
 export const showChangeAvatarModal = () => {
     return state => state.ui.show_change_avatar_modal;
 }
+
+export const showLogOutModal = () => {
+    return state => state.ui.show_logout_modal;
+}

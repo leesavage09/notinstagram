@@ -5,7 +5,8 @@ const _default = {
     button_loading: false,
     avatar_loading: false,
     messages: {},
-    show_change_avatar_modal: false
+    show_change_avatar_modal: false,
+    show_logout_modal: false
 };
 
 const UIReducer = (state = _default, action) => {
@@ -53,10 +54,16 @@ const UIReducer = (state = _default, action) => {
             return newMessage(state, "Password Updated")
 
         case ActionTypes.SHOW_USER_PHOTO_MODAL:
-            return Object.assign({}, state, { show_change_avatar_modal: true, messages: {}, errors: false })
+            return Object.assign({}, state, { show_change_avatar_modal: true })
 
         case ActionTypes.HIDE_USER_PHOTO_MODAL:
-            return Object.assign({}, state, { show_change_avatar_modal: false, messages: {}, errors: false })
+            return Object.assign({}, state, { show_change_avatar_modal: false })
+
+        case ActionTypes.SHOW_LOGOUT_MODAL:
+            return Object.assign({}, state, { show_logout_modal: true })
+
+        case ActionTypes.HIDE_LOGOUT_MODAL:
+            return Object.assign({}, state, { show_logout_modal: false })
 
         case ActionTypes.CLEAR_MESSAGES:
             return clearMessage(state)

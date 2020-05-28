@@ -22,7 +22,7 @@ export default function ChangeAvatarModal() {
         close()
     }
 
-    const close = () => dispatch(UIActions.hideChangeAvatarModal(false))
+    const close = () => dispatch(UIActions.hideChangeAvatarModal())
 
     return show ? (
         <OptionsModal

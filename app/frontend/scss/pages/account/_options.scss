@@ -40,6 +40,10 @@
     color: $off-black;
   }
 
+  &__text--red {
+    color: $red;
+  }
+
   &__options__chevron {
     flex: 0 0 auto;
   }

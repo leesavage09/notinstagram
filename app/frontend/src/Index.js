@@ -17,6 +17,7 @@ import Activity from './pages/activity'
 import AccountOptions from './pages/account/options'
 import PasswordChange from './pages/account/password_change'
 import ChangeAvatarModal from './components/options_modal/change_avatar_modal'
+import LogoutModal from './components/options_modal/logout_modal'
 import ToastNotification from './components/toast_notification'
 import Profile from './pages/profile'
 
@@ -47,6 +48,7 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ChangeAvatarModal />
+            <LogoutModal/>
             <ToastNotification />
           </Router>
         </Provider>

@@ -9,6 +9,7 @@ export default function OptionsModal(props) {
         <div className='options-modal' onClick={props.onClose}>
             <div className='options-modal__body' onClick={e => e.stopPropagation()}>
                 <h3 className='options-modal__title'>{props.title}</h3>
+                <p className='options-modal__text'>{props.text}</p>
                 <div className='options-modal__list'>
                     {props.elements}
                     <button

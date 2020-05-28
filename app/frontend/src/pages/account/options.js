@@ -3,12 +3,12 @@ import {TopNavOptions} from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import { logout } from '../../redux/actions/session_actions'
+import * as UIActions from '../../redux/actions/ui_actions'
 
 export default function Options() {
     const dispatch = useDispatch();
     function logoutClicked() {
-        dispatch(logout())
+        dispatch(UIActions.showLogOutModal())
     }
 
     return (
@@ -31,7 +31,7 @@ export default function Options() {
                 <h3 className='options__title'></h3>
 
                 <a onClick={logoutClicked} className='options__link'>
-                    <div className='options__text'>Log Out</div>
+                    <div className='options__text options__text--red'>Log Out</div>
                     <div className='right-chevron options__chevron'></div>
                 </a>
             </div>
