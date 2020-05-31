@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import SVGIcon from './svg_icon';
 import SearchInput from './search_input'
 import { useSelector } from 'react-redux'
-import { loggedInUser } from '../redux/selectors/session_selector'
+import { sessionSelector } from '../redux/slice/session_slice'
 
 export const TopNavFeed = () => (
     <TopNav>
@@ -18,7 +18,6 @@ export const TopNavExplore = () => (
         <SearchInput />
     </TopNav>
 )
-
 
 export const TopNavCreatePhoto = (props) => (
     <TopNav>
@@ -40,7 +39,6 @@ export const TopNavCreatePost = (props) => (
     </TopNav>
 )
 
-
 export const TopNavActivity = () => (
     <TopNav>
         <NoButton />
@@ -58,7 +56,7 @@ export const TopNavOptions = () => (
 )
 
 export const TopNavAccount = () => {
-    const user = useSelector(loggedInUser)
+    const user = useSelector(sessionSelector.loggedInUser)
     return (
         <TopNav>
             <AccountOptionsButton />
@@ -75,10 +73,6 @@ export const TopNavBackWithTitle = (props) => (
         <NoButton />
     </TopNav>
 )
-
-
-
-
 
 const TopNav = (props) => (
     <div className='top-nav'>

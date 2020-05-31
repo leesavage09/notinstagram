@@ -1,20 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
-import * as SessionActions from '../redux/actions/session_actions'
-import * as SessionSelector from '../redux/selectors/session_selector'
-import * as UISelector from '../redux/selectors/ui_selector'
+import { sessionActions, sessionSelector } from '../redux/slice/session_slice'
+import { toastSelector } from '../redux/slice/toast_slice'
+import { uiLoadingSelector } from '../redux/slice/ui_loading_slice'
 import NoAuthContainer from '../components/auth_container'
 
-
 export default function Signup() {
-    const loggedInUser = useSelector(SessionSelector.loggedInUser)
+    const loggedInUser = useSelector(sessionSelector.loggedInUser)
     if (loggedInUser) {
         <Redirect to="/" />
     }
 
-    const loading = useSelector(UISelector.isButton_loading())
-    const errorMessages = useSelector(UISelector.allErrors())
+    const loading = useSelector(uiLoadingSelector.disable_buttons())
+    const errorMessages = useSelector(toastSelector.allErrors())
     const dispatch = useDispatch()
 
     const usernameInput = React.createRef();
@@ -23,7 +22,7 @@ export default function Signup() {
     const emailInput = React.createRef();
 
     function signUpClicked() {
-        dispatch(SessionActions.createUser({
+        dispatch(sessionActions.createUser({
             username: usernameInput.current.value,
             password: passwordInput.current.value,
             name: nameInput.current.value,
@@ -32,7 +31,7 @@ export default function Signup() {
     }
 
     function loginGuest() {
-        dispatch(SessionActions.loginUser({
+        dispatch(sessionActions.login({
             username: 'guest',
             password: 'guestaccount'
         }))

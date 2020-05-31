@@ -2,7 +2,8 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SVGIcon from './svg_icon'
-import * as SessionSelector from '../redux/selectors/session_selector'
+import { sessionSelector } from '../redux/slice/session_slice'
+
 import { useSelector } from 'react-redux'
 import UserAvatar from './user_avatar';
 import ImageSelectButton from './image_select_button';
@@ -10,7 +11,7 @@ import ImageSelectButton from './image_select_button';
 export default function BottomNav() {
     const path = window.location.pathname
     const history = useHistory();
-    const user = useSelector(SessionSelector.loggedInUser())
+    const user = useSelector(sessionSelector.loggedInUser())
 
     return (
         <div className='bottom-nav'>

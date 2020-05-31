@@ -1,5 +1,5 @@
 import React from 'react';
-import { imageSelectSuccess, imageSelectFailure } from '../redux/actions/component/image_actions'
+import { imageEditorActions } from '../redux/slice/image_editor_slice'
 import { Utilitys } from '../util/image'
 import { useDispatch } from 'react-redux'
 
@@ -10,11 +10,11 @@ export default function ImageSelectButton(props) {
     const fileSelected = () => {
         Utilitys.fetchImageFromFile(fileInput.current.files[0])
             .then(img => {
-                dispatch(imageSelectSuccess(img))
+                dispatch(imageEditorActions.imageSelectSuccess(img))
                 props.imageSelected()
             })
             .catch(e => {
-                dispatch(imageSelectFailure(e))
+                dispatch(imageEditorActions.imageSelectFailure(e))
             })
     }
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { debounce } from '../util/helpers'
-import * as ExploreActions from '../redux/actions/pages/explore_actions'
+import { exploreSelector, exploreActions } from '../redux/slice/explore_slice'
 import { useSelector, useDispatch } from 'react-redux'
-import * as ExploreSelector from '../redux/selectors/page/explore_selector'
 import LoadingSpinner, { SMALL_LOADING_SPINNER } from './loading_spinner';
 
 const SEARCH_INPUT_DEFAULT_STYLE = "white-input search__input"
@@ -14,7 +13,7 @@ export default function SearchInput() {
     const searchBox = React.createRef();
     const cancelBtn = React.createRef();
     const dispatch = useDispatch()
-    const loading = useSelector(ExploreSelector.loading())
+    const loading = useSelector(exploreSelector.loading())
     const spinnerElement = loading ? <LoadingSpinner spinnerStyle={SMALL_LOADING_SPINNER} /> : ''
 
 
@@ -25,7 +24,7 @@ export default function SearchInput() {
 
     const doSearch = () => {
         if (searchBox.current.value !== "") {
-            dispatch(ExploreActions.searchForUsers(searchBox.current.value))
+            dispatch(exploreActions.searchUsers(searchBox.current.value))
         }
     }
 

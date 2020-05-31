@@ -2,8 +2,7 @@ import React from 'react';
 import { Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history"
 import { Provider } from 'react-redux';
-import configureStore from './redux/store'
-import * as Actions from './redux/actions/session_actions'
+import getStore from './redux/store'
 import { AuthRoute, ProtectedRoute } from './util/routes'
 import Signup from './pages/signup'
 import Login from './pages/login'
@@ -20,12 +19,13 @@ import ChangeAvatarModal from './components/options_modal/change_avatar_modal'
 import LogoutModal from './components/options_modal/logout_modal'
 import ToastNotification from './components/toast_notification'
 import Profile from './pages/profile'
+import { sessionActions } from './redux/slice/session_slice'
 
 class Index extends React.Component {
   render() {
-    const store = configureStore()
+    const store = getStore()
     if (window.logged_in_user) {
-      store.dispatch(Actions.loginSuccess(window.logged_in_user))
+      store.dispatch(sessionActions.login.fulfilled(window.logged_in_user))
     }
 
     const history = createBrowserHistory()
@@ -48,7 +48,7 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ChangeAvatarModal />
-            <LogoutModal/>
+            <LogoutModal />
             <ToastNotification />
           </Router>
         </Provider>

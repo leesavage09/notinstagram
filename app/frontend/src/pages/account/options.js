@@ -1,14 +1,15 @@
 import React from 'react';
-import {TopNavOptions} from '../../components/top_nav'
+import { TopNavOptions } from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import * as UIActions from '../../redux/actions/ui_actions'
+
+import { modalActions } from '../../redux/slice/modal_slice'
 
 export default function Options() {
     const dispatch = useDispatch();
     function logoutClicked() {
-        dispatch(UIActions.showLogOutModal())
+        dispatch(modalActions.showLogOutModal(true))
     }
 
     return (

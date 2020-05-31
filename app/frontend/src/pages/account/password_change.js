@@ -1,16 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import * as SessionActions from '../../redux/actions/session_actions'
-import * as SessionSelector from '../../redux/selectors/session_selector'
-import * as UISelector from '../../redux/selectors/ui_selector'
+import { sessionActions, sessionSelector } from '../../redux/slice/session_slice'
+import { uiLoadingSelector } from '../../redux/slice/ui_loading_slice'
 import { TopNavBackWithTitle } from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
 import UserAvatar from '../../components/user_avatar';
 
 export default function PasswordChange() {
     const dispatch = useDispatch()
-    const loading = useSelector(UISelector.isButton_loading())
-    const user = useSelector(SessionSelector.loggedInUser())
+    const loading = useSelector(uiLoadingSelector.disable_buttons())
+    const user = useSelector(sessionSelector.loggedInUser())
     const oldPassword = React.createRef();
     const newPassword = React.createRef();
     const confirmPassword = React.createRef();
@@ -21,11 +20,12 @@ export default function PasswordChange() {
             username: user.username,
             password: newPassword.current.value
         }
-        dispatch(SessionActions.updatePassword(
-            newUser,
-            oldPassword.current.value,
-            newPassword.current.value,
-            confirmPassword.current.value))
+        dispatch(sessionActions.updatePassword({
+            user: newUser,
+            oldPassword: oldPassword.current.value,
+            newPassword: newPassword.current.value,
+            newPasswordConfirmation: confirmPassword.current.value
+        }))
     }
 
     return (

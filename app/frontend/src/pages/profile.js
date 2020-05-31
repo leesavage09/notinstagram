@@ -1,31 +1,30 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react';
-import { loggedInUser } from '../redux/selectors/session_selector'
-import * as user_selector from '../redux/selectors/normalized/users_selector'
+import { sessionSelector } from '../redux/slice/session_slice'
 import { Link } from 'react-router-dom';
-import { showChangeAvatarModal } from '../redux/actions/ui_actions'
+import { modalActions } from '../redux/slice/modal_slice'
 import BottomNav from '../components/bottom_nav'
-import {TopNavAccount} from '../components/top_nav'
-import {TopNavBackWithTitle} from '../components/top_nav'
+import { TopNavAccount } from '../components/top_nav'
+import { TopNavBackWithTitle } from '../components/top_nav'
 import SVGIcon from '../components/svg_icon'
 import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 import queryString from 'query-string';
-import * as ProfileActions from '../redux/actions/pages/profile_actions'
-import * as PostSelector from '../redux/selectors/normalized/post_selector'
+import { profileActions } from '../redux/slice/profile_slice'
 import PostGrid from '../components/posts_grid';
 import PostFeed from '../components/posts_feed';
+import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 
 export default function Profile(props) {
   const dispatch = useDispatch()
   const queryStr = props.location.search
   const params = queryString.parse(queryStr)
-  const sessionUser = useSelector(loggedInUser())
+  const sessionUser = useSelector(sessionSelector.loggedInUser())
   const [lastGetURL, setLestGetURL] = useState()
   const Options = sessionUser.id == params.user_id ? <LoggedInProfile /> : <PublicProfile user_id={params.user_id} />
 
   useEffect(() => {
     if (lastGetURL !== props.location.search) {
-      dispatch(ProfileActions.getUser(params.user_id, params.page))
+      dispatch(profileActions.fetchDetails(params.user_id))
       setLestGetURL(queryStr)
     }
   }, [props.location.search]);
@@ -40,7 +39,7 @@ export default function Profile(props) {
 
 function LoggedInProfile() {
   const dispatch = useDispatch()
-  const user = useSelector(loggedInUser())
+  const user = useSelector(sessionSelector.loggedInUser())
   return (
     <div>
       <TopNavAccount />
@@ -49,7 +48,7 @@ function LoggedInProfile() {
           className="profile-details__image"
           spinnerStyle={LARGE_LOADING_SPINNER}
           user={user}
-          onClick={() => { dispatch(showChangeAvatarModal(true)) }}
+          onClick={() => { dispatch(modalActions.showChangeAvatarModal(true)) }}
         />
         <div className='profile-details__info'>
           <h2 className='profile-details__username'>{user.username}</h2>
@@ -71,7 +70,7 @@ function LoggedInProfile() {
 }
 
 function PublicProfile(props) {
-  let user = useSelector(user_selector.getUser(props.user_id))
+  let user = useSelector(normalizedUsersSelector.getUser(props.user_id))
   if (!user) {
     return (<div></div>)
   }

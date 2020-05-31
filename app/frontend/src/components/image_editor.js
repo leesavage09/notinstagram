@@ -1,17 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Transformations } from '../util/image'
-import * as ImageSelector from '../redux/selectors/component/image_selector'
-import * as ImageActions from '../redux/actions/component/image_actions'
+import { imageEditorSelector, imageEditorActions } from '../redux/slice/image_editor_slice'
 import { presetsMapping, applyPresetOnCanvas } from 'instagram-filters';
-import {imagePath} from '../util/helpers'
+import { imagePath } from '../util/helpers'
 
 export default function ImageEditor(props) {
     const dispatch = useDispatch();
     const myCanvas = React.useRef();
     const container = React.useRef();
-    const selectedImage = useSelector(ImageSelector.selectedImage())
-    const { fitWidth: selectedFitWidth, rotation: selectedRotation, filter: selectedFilter } = useSelector(ImageSelector.imageProcesses())
+    const selectedImage = useSelector(imageEditorSelector.selectedImage())
+    const { fitWidth: selectedFitWidth, rotation: selectedRotation, filter: selectedFilter } = useSelector(imageEditorSelector.imageProcesses())
     const fitWidth = props.forceSquareImage ? true : selectedFitWidth
 
     React.useEffect(() => {
@@ -20,17 +19,17 @@ export default function ImageEditor(props) {
             const myImage = new Image(200, 200);
             myImage.src = `${imagePath}/filters/Normal.jpg`;
             myImage.onload = () => {
-                dispatch(ImageActions.imageSelectSuccess(myImage))
+                dispatch(imageEditorActions.imageSelectSuccess(myImage))
             }
         }
     })
 
     const fit = () => {
-        dispatch(ImageActions.updateImageFilters({ fitWidth: !fitWidth }))
+        dispatch(imageEditorActions.updateFilters({ fitWidth: !fitWidth }))
     }
 
     const rotate = () => {
-        dispatch(ImageActions.updateImageFilters({ rotation: selectedRotation + 90 }))
+        dispatch(imageEditorActions.updateFilters({ rotation: selectedRotation + 90 }))
     }
 
     const save = () => {
@@ -46,7 +45,7 @@ export default function ImageEditor(props) {
         myCanvas.current.height = 400
         myCanvas.current.getContext("2d").drawImage(displayImage, 0, 0);
 
-        dispatch(ImageActions.imageSavedSuccess(tempImage))
+        dispatch(imageEditorActions.imageSavedSuccess(tempImage))
     }
 
     const fitButton = props.forceSquareImage ?
@@ -107,7 +106,7 @@ function FilterButton(props) {
         <a
             className="filter-buttons__button"
             onClick={() => {
-                dispatch(ImageActions.updateImageFilters({ filter: props.filterName }))
+                dispatch(imageEditorActions.updateFilters({ filter: props.filterName }))
             }}>
             <span className={cName}>
                 {props.filterName}

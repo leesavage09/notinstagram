@@ -1,17 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
-import * as SessionActions from '../../redux/actions/session_actions'
-import * as SessionSelector from '../../redux/selectors/session_selector'
-import * as UISelector from '../../redux/selectors/ui_selector'
-import { showChangeAvatarModal } from '../../redux/actions/ui_actions'
-import {TopNavBackWithTitle} from '../../components/top_nav'
+import { sessionActions, sessionSelector } from '../../redux/slice/session_slice'
+import { modalActions } from '../../redux/slice/modal_slice'
+import { TopNavBackWithTitle } from '../../components/top_nav'
 import BottomNav from '../../components/bottom_nav'
+import { uiLoadingSelector } from '../../redux/slice/ui_loading_slice'
 import UserAvatar, { SMALL_LOADING_SPINNER } from '../../components/user_avatar';
 
 export default function Edit() {
     const dispatch = useDispatch()
-    const loading = useSelector(UISelector.isButton_loading())
-    const user = useSelector(SessionSelector.loggedInUser())
+    const loading = useSelector(uiLoadingSelector.disable_buttons())
+    const user = useSelector(sessionSelector.loggedInUser())
     const nameInput = React.createRef();
     const usernameInput = React.createRef();
     const emailInput = React.createRef();
@@ -25,7 +24,7 @@ export default function Edit() {
             email: emailInput.current.value,
             bio: bioInput.current.value
         }
-        dispatch(SessionActions.updateUser(newUser))
+        dispatch(sessionActions.updateUser(newUser))
     }
 
     return (
@@ -36,11 +35,11 @@ export default function Edit() {
                     className="edit-details__image"
                     spinnerStyle={SMALL_LOADING_SPINNER}
                     user={user}
-                    onClick={() => { dispatch(showChangeAvatarModal(true)) }}
+                    onClick={() => { dispatch(modalActions.showChangeAvatarModal(true)) }}
                 />
                 <div>
                     <h2 className='edit-details__username'>{user.username}</h2>
-                    <a onClick={() => { dispatch(showChangeAvatarModal(true)) }}>
+                    <a onClick={() => { dispatch(modalActions.showChangeAvatarModal(true)) }}>
                         Change Profile Photo
                     </a>
                 </div>

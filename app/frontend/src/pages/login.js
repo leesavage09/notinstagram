@@ -1,28 +1,29 @@
 import { useSelector, useDispatch } from 'react-redux'
 import React from 'react';
 import { Link } from "react-router-dom";
-import * as Actions from '../redux/actions/session_actions'
 import NoAuthContainer from '../components/auth_container'
-import * as UISelector from '../redux/selectors/ui_selector'
+import { uiLoadingSelector } from '../redux/slice/ui_loading_slice'
+import { toastSelector } from '../redux/slice/toast_slice'
+import { sessionActions } from '../redux/slice/session_slice'
 
 export default function Signup() {
     const dispatch = useDispatch()
 
-    const loading = useSelector(UISelector.isButton_loading())
-    const errorsMessages = useSelector(UISelector.allErrors())
+    const loading = useSelector(uiLoadingSelector.disable_buttons())
+    const errorsMessages = useSelector(toastSelector.allErrors())
 
     const usernameInput = React.createRef();
     const passwordInput = React.createRef();
 
     function loginClicked() {
-        dispatch(Actions.loginUser({
+        dispatch(sessionActions.login({
             username: usernameInput.current.value,
             password: passwordInput.current.value
         }))
     }
 
     function loginGuest() {
-        dispatch(Actions.loginUser({
+        dispatch(sessionActions.login({
             username: 'guest',
             password: 'guestaccount'
         }))

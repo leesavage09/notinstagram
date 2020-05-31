@@ -1,16 +1,14 @@
 import React from 'react';
-import {TopNavCreatePost} from '../components/top_nav'
-import * as ImageActions from '../redux/actions/component/image_actions'
-import * as ImageSelector from '../redux/selectors/component/image_selector'
+import { TopNavCreatePost } from '../components/top_nav'
+import { imageEditorSelector, imageEditorActions } from '../redux/slice/image_editor_slice'
 import UserAvatar from '../components/user_avatar';
-
 import { useSelector, useDispatch } from 'react-redux'
-import { loggedInUser } from '../redux/selectors/session_selector'
+import { sessionSelector } from '../redux/slice/session_slice'
 
 export default function CreatePost() {
     const dispatch = useDispatch()
-    const user = useSelector(loggedInUser)
-    const selectedImage = useSelector(ImageSelector.processedImage())
+    const user = useSelector(sessionSelector.loggedInUser)
+    const selectedImage = useSelector(imageEditorSelector.processedImage())
     const outerContainer = React.createRef()
     const textArea = React.createRef()
     const imageSrc = selectedImage ? selectedImage.toDataURL() : ''
@@ -20,7 +18,7 @@ export default function CreatePost() {
             const myImage = new Image(200, 200);
             myImage.src = `/filters/Normal.jpg`;
             myImage.onload = () => {
-                dispatch(ImageActions.imageSelectSuccess(myImage))
+                dispatch(imageEditorActions.imageSelectSuccess(myImage))
             }
         }
     })

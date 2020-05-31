@@ -2,14 +2,14 @@ import { useSelector } from 'react-redux'
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserAvatar from './user_avatar';
-import * as PostSelector from '../redux/selectors/normalized/post_selector'
-import * as CommentsSelector from '../redux/selectors/normalized/comment_selector'
-import * as UserSelector from '../redux/selectors/normalized/users_selector'
+import { normalizedCommentsSelector } from '../redux/slice/normalized_comments_slice'
+import { normalizedPostsSelector } from '../redux/slice/normalized_posts_slice'
+import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 
 export default function PostFeed(props) {
     const postImages = []
     if (props.user.post_ids) {
-        const posts = useSelector(PostSelector.getPosts(props.user.post_ids))
+        const posts = useSelector(normalizedPostsSelector.getPosts(props.user.post_ids))
         posts.forEach((post) => {
             postImages.push(<FeedItem key={post.id} post={post} />)
         })
@@ -24,7 +24,7 @@ export default function PostFeed(props) {
 
 function FeedItem(props) {
     const post = props.post
-    const author = useSelector(UserSelector.getUser(props.post.author_id))
+    const author = useSelector(normalizedUsersSelector.getUser(props.post.author_id))
 
 
     return (
@@ -77,7 +77,7 @@ function FeedItem(props) {
 function Likes(props) {
     if (props.liker_ids.length === 0) return (<div />)
 
-    const primaryLiker = props.liker_ids.length > 0 ? useSelector(UserSelector.getUser(props.liker_ids[0])) : null
+    const primaryLiker = props.liker_ids.length > 0 ? useSelector(normalizedUsersSelector.getUser(props.liker_ids[0])) : null
 
     return (
         <div className="post-feed__likes">Liked by
@@ -95,7 +95,7 @@ function Likes(props) {
 }
 
 function PostCaption(props) {
-    const author = useSelector(UserSelector.getUser(props.post.author_id))
+    const author = useSelector(normalizedUsersSelector.getUser(props.post.author_id))
 
     const regex = /\B\#\w\w+\b/g
 
@@ -121,11 +121,11 @@ function PostCaption(props) {
 }
 
 function Comments(props) {
-    const comments = props.comment_ids.length > 0 ? useSelector(CommentsSelector.getComments(props.comment_ids)) : []
+    const comments = props.comment_ids.length > 0 ? useSelector(normalizedCommentsSelector.getComments(props.comment_ids)) : []
     const commentBodys = []
 
     comments.slice(0, 2).forEach((comment) => {
-        const user = useSelector(UserSelector.getUser(comment.author_id))
+        const user = useSelector(normalizedUsersSelector.getUser(comment.author_id))
         commentBodys.push(
             <UserText key={comment.id} user={user} text={comment.body} />
         )
