@@ -47,9 +47,9 @@ class Index extends React.Component {
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
+            <ProtectedRoute component={ToastNotification} />
             <ChangeAvatarModal />
             <LogoutModal />
-            <ToastNotification />
           </Router>
         </Provider>
       </React.StrictMode>

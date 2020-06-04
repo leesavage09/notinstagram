@@ -67,3 +67,34 @@
   width: 24px;
   height: 12px;
 }
+
+.big-photo-icon {
+  background-image: url(#{$asset-path}/sprites3.png);
+  background-position: -192px -224px;
+  height: 62px;
+  width: 62px;
+}
+
+.big-like-icon {
+  background-image: url(#{$asset-path}/sprites3.png);
+  background-size: 411px 396px;
+  background-position: -273px -130px;
+  width: 62px;
+  height: 62px;
+}
+
+.big-bookmark-icon {
+  background-image: url(#{$asset-path}/sprites1.png);
+  background-repeat: no-repeat;
+  background-position: -256px -224px;
+  height: 62px;
+  width: 62px;
+}
+
+.big-user-icon {
+  background-image: url(#{$asset-path}/sprites1.png);
+  background-repeat: no-repeat;
+  background-position: -341px 0;
+  height: 62px;
+  width: 62px;
+}

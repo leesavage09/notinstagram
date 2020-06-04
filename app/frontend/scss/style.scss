@@ -25,6 +25,8 @@
 @import './components/user_avatar';
 @import './components/posts_grid';
 @import './components/posts_feed';
+@import './components/profile-activity';
+@import "./components/no-content-placeholder";
 
 
 // // Page Styles
@@ -34,3 +36,4 @@
 @import "./pages/account/password_change";
 @import "./pages/create_post";
 @import "./pages/explore";
+@import "./pages/home";

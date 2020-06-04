@@ -5,6 +5,7 @@ import UserAvatar from './user_avatar';
 import { normalizedCommentsSelector } from '../redux/slice/normalized_comments_slice'
 import { normalizedPostsSelector } from '../redux/slice/normalized_posts_slice'
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
+import { NoPosts } from './no-content-placeholders';
 
 export default function PostFeed(props) {
     const postImages = []
@@ -13,6 +14,10 @@ export default function PostFeed(props) {
         posts.forEach((post) => {
             postImages.push(<FeedItem key={post.id} post={post} />)
         })
+    }
+
+    if (postImages.length <= 0) {
+        return <NoPosts />
     }
 
     return (
@@ -112,6 +117,7 @@ function PostCaption(props) {
             >{hashtag} </Link>
         )
     })
+
 
     return (
         <div className="post-feed__caption">

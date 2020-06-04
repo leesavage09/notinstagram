@@ -1,0 +1,20 @@
+.home-feed {
+  min-height: 100vh;
+  background-color: $off-white;
+
+  &__body {
+    padding: 24px 32px;
+    margin: 8px 0 0 0;
+    text-align: center;
+    font-weight: 400;
+    color: $dark-grey;
+  }
+
+  &__title {
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 26px;
+    color: $off-black;
+    margin: 0 0 8px 0;
+  }
+}

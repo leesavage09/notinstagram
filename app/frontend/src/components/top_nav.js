@@ -4,6 +4,7 @@ import SVGIcon from './svg_icon';
 import SearchInput from './search_input'
 import { useSelector } from 'react-redux'
 import { sessionSelector } from '../redux/slice/session_slice'
+import ImageSelectButton from './image_select_button';
 
 export const TopNavFeed = () => (
     <TopNav>
@@ -56,7 +57,7 @@ export const TopNavOptions = () => (
 )
 
 export const TopNavAccount = () => {
-    const user = useSelector(sessionSelector.loggedInUser)
+    const user = useSelector(sessionSelector.loggedInUser())
     return (
         <TopNav>
             <AccountOptionsButton />
@@ -106,11 +107,17 @@ const FindUsersButton = () => (
     </button>
 )
 
-const CreatePostButton = () => (
-    <Link to="/create-post-image" className="top-nav__icon" >
-        <SVGIcon iconName='svg-camera-icon' />
-    </Link>
-)
+const CreatePostButton = () => {
+    const history = useHistory()
+    return (
+        <ImageSelectButton
+            className='text-button top-nav__icon'
+            imageSelected={() => history.push("/create-post-image")}
+        >
+            <SVGIcon iconName='svg-camera-icon' />
+        </ImageSelectButton>
+    )
+}
 
 const GoBackCloseButton = () => {
     const history = useHistory()

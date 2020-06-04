@@ -6,25 +6,23 @@ import { modalActions } from '../redux/slice/modal_slice'
 import BottomNav from '../components/bottom_nav'
 import { TopNavAccount } from '../components/top_nav'
 import { TopNavBackWithTitle } from '../components/top_nav'
-import SVGIcon from '../components/svg_icon'
 import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
 import queryString from 'query-string';
 import { profileActions } from '../redux/slice/profile_slice'
-import PostGrid from '../components/posts_grid';
-import PostFeed from '../components/posts_feed';
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
+import ProfileActivity from '../components/profile-activity'
 
 export default function Profile(props) {
+  const [lastGetURL, setLestGetURL] = useState()
   const dispatch = useDispatch()
   const queryStr = props.location.search
-  const params = queryString.parse(queryStr)
+  const user_id = queryString.parse(queryStr).user_id
   const sessionUser = useSelector(sessionSelector.loggedInUser())
-  const [lastGetURL, setLestGetURL] = useState()
-  const Options = sessionUser.id == params.user_id ? <LoggedInProfile /> : <PublicProfile user_id={params.user_id} />
+  const Options = sessionUser.id == user_id ? <LoggedInProfile /> : <PublicProfile user_id={user_id} />
 
   useEffect(() => {
-    if (lastGetURL !== props.location.search) {
-      dispatch(profileActions.fetchDetails(params.user_id))
+    if (lastGetURL !== queryStr) {
+      dispatch(profileActions.fetchDetails(user_id))
       setLestGetURL(queryStr)
     }
   }, [props.location.search]);
@@ -99,59 +97,3 @@ function PublicProfile(props) {
     </div>
   )
 }
-
-function ProfileActivity(props) {
-  const [feedTypeFull, setFeedTypeFull] = useState(false);
-
-  const POST_GRID_BUTTON_STYLE = "account-icons__svg account-icons__svg"
-  const POST_GRID_BUTTON_STYLE_SELECTED = "account-icons__svg account-icons__svg--selected"
-
-  const POST_FEED_BUTTON_STYLE = "feed-logo--dark-grey account-icons__sprite"
-  const POST_FEED_BUTTON_STYLE_SELECTED = "feed-logo--blue account-icons__sprite"
-
-  return (
-    <div>
-      <ul className='account-activity'>
-        <li className='account-activity__item'>
-          <span className='account-activity__count'>
-            {props.user.number_posts}
-          </span>
-          posts
-        </li>
-        <li className='account-activity__item'>
-          <span className='account-activity__count'>
-            {props.user.number_followers}
-          </span>
-          followers
-        </li>
-        <li className='account-activity__item'>
-          <span className='account-activity__count'>
-            {props.user.number_following}
-          </span>
-          following
-        </li>
-      </ul>
-
-      <div className='account-icons'>
-        <a onClick={() => setFeedTypeFull(false)} className='account-icons__icon'>
-          <SVGIcon className={feedTypeFull ? POST_GRID_BUTTON_STYLE : POST_GRID_BUTTON_STYLE_SELECTED} iconName='svg-post-grid-icon' />
-        </a>
-        <a onClick={() => setFeedTypeFull(true)} className='account-icons__icon'>
-          <div className={feedTypeFull ? POST_FEED_BUTTON_STYLE_SELECTED : POST_FEED_BUTTON_STYLE} />
-        </a>
-        <a href="#" className='account-icons__icon'>
-          <SVGIcon className='account-icons__svg' iconName='svg-bookmark-icon' />
-        </a>
-        <a href="#" className='account-icons__icon'>
-          <SVGIcon className='account-icons__svg' iconName='svg-tagged-icon' />
-        </a>
-      </div>
-
-      <div>
-        {feedTypeFull ? <PostFeed user={props.user} /> : <PostGrid user={props.user} />}
-      </div>
-
-    </div>
-  )
-}
-

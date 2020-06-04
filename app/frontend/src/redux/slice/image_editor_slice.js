@@ -20,7 +20,6 @@ const imageEditorSlice = createSlice({
         imageSelectSuccess: (state, action) => {
             merge(state, _default)
             state.selected_image = action.payload
-            return state
         },
         imageSelectFailure: state => state,
         imageSavedSuccess: (state, action) => {
