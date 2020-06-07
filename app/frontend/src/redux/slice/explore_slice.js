@@ -3,17 +3,9 @@ import * as ApiUtil from '../../util/api'
 
 const slice_name = 'explore'
 
-const searchUsers = createAsyncThunk(
+const searchUsers = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/searchUsers`,
-    async (searchQuery, thunkAPI) => {
-        try {
-            const response = await ApiUtil.findUser(searchQuery)
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.findUser
 )
 
 const exploreSlice = createSlice({

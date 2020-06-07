@@ -13,7 +13,7 @@ class Follow < ApplicationRecord
             presence: { message: "Something must be followed" }
   validates :follower,
             uniqueness: { scope: :followed,
-                          message: "User is already following this hashtag" }
+                          message: "User is already following this" }
 
   belongs_to :follower,
              class_name: "User",

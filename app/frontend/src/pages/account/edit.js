@@ -75,7 +75,7 @@ export default function Edit() {
                     defaultValue={user.bio}
                 />
                 <button
-                    className='colour-button edit-form__button'
+                    className='blue-button edit-form__button'
                     disabled={loading}
                     onClick={updateClicked}
                 >Submit</button>

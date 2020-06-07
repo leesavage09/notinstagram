@@ -11,25 +11,27 @@ import queryString from 'query-string';
 import { profileActions } from '../redux/slice/profile_slice'
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 import ProfileActivity from '../components/profile-activity'
+import { IconFollowButton } from '../components/followButtons';
 
 export default function Profile(props) {
-  const [lastGetURL, setLestGetURL] = useState()
   const dispatch = useDispatch()
-  const queryStr = props.location.search
-  const user_id = queryString.parse(queryStr).user_id
-  const sessionUser = useSelector(sessionSelector.loggedInUser())
-  const Options = sessionUser.id == user_id ? <LoggedInProfile /> : <PublicProfile user_id={user_id} />
+  const [lastUserID, setLastUserID] = useState()
+  const user_id = queryString.parse(props.location.search).user_id
+  const loggedInUser = useSelector(sessionSelector.loggedInUser())
 
   useEffect(() => {
-    if (lastGetURL !== queryStr) {
+    if (lastUserID !== user_id) {
       dispatch(profileActions.fetchDetails(user_id))
-      setLestGetURL(queryStr)
+      setLastUserID(user_id)
     }
   }, [props.location.search]);
 
   return (
     <div>
-      {Options}
+      {
+        loggedInUser.id == user_id ?
+          <LoggedInProfile /> : <PublicProfile user_id={user_id} />
+      }
       <BottomNav />
     </div>
   );
@@ -82,9 +84,7 @@ function PublicProfile(props) {
         />
         <div className='profile-details__info--user'>
           <h2 className='profile-details__username'>{user.username}</h2>
-          <button className='ghost-button profile-details__action-button'>
-            <div className="follow-user" />
-          </button>
+          <IconFollowButton user_id={user.id} />
         </div>
       </div >
       <p className='profile-details__bio'>

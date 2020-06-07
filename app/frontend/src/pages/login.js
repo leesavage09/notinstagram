@@ -43,7 +43,7 @@ export default function Signup() {
     return (
         <NoAuthContainer>
 
-            <button className='colour-button'
+            <button className='blue-button'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
@@ -70,7 +70,7 @@ export default function Signup() {
                 autoComplete="password"
             />
 
-            <button className='colour-button'
+            <button className='blue-button'
                 disabled={loading}
                 onClick={loginClicked}
             >Log In</button>

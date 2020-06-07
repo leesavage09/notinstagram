@@ -27,7 +27,7 @@ h3 {
 
 // Buttons
 .text-button,
-.colour-button,
+.blue-button,
 .ghost-button {
   outline: none;
   border: none;
@@ -40,7 +40,7 @@ h3 {
   line-height: 18px;
 }
 
-.colour-button {
+.blue-button {
   background-color: $blue;
   color: $white;
   border-radius: 4px;
@@ -55,6 +55,11 @@ h3 {
   @include thin-border;
   box-sizing: border-box;
   color: $off_black;
+
+  &:disabled {
+    color: $light_grey;
+    border-color: $light_grey;
+  }
 }
 
 // Links

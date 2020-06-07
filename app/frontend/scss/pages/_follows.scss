@@ -1,0 +1,16 @@
+.follows-list {
+  margin: 0;
+  padding: 0;
+
+  .user-list-item__image {
+    width: 29px;
+
+    .user-avatar__image {
+      padding: 7.5px 0;
+    }
+  }
+
+  &__follow-button {
+    margin: auto 0 auto auto;
+  }
+}

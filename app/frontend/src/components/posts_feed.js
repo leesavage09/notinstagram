@@ -35,10 +35,10 @@ function FeedItem(props) {
     return (
         <div>
             <div className="post-feed__author">
-                <Link className="dark-link" to={`/profile/?user_id=${author.id}&page=0`}>
+                <Link className="dark-link" to={`/profile/?user_id=${author.id}`}>
                     <UserAvatar className="post-feed__author-img" user={author} />
                 </Link>
-                <Link className="dark-link" to={`/profile/?user_id=${author.id}&page=0`}>
+                <Link className="dark-link" to={`/profile/?user_id=${author.id}`}>
                     <div className="post-feed__author-username">{author.username}<span className="post-feed__author-name">{author.name}</span></div>
                 </Link>
             </div>
@@ -88,7 +88,7 @@ function Likes(props) {
         <div className="post-feed__likes">Liked by
             <Link
                 className="dark-link"
-                to={`/profile/?user_id=${primaryLiker.id}&page=0`}
+                to={`/profile/?user_id=${primaryLiker.id}`}
             > {primaryLiker.username}
             </Link> and<Link
                 className="dark-link"
@@ -166,7 +166,7 @@ function UserText(props) {
 
     return (
         <div className="post-feed__comment-body">
-            <Link className="dark-link" to={`/profile/?user_id=${props.user.id}&page=0`} >{props.user.username} </Link>
+            <Link className="dark-link" to={`/profile/?user_id=${props.user.id}`} >{props.user.username} </Link>
             {showText}
             {textIsTruncated ? <a className="light-link" onClick={showFullText}  >... more</a> : ""}
             {textIsTruncated ? "" : props.hashtag_links}

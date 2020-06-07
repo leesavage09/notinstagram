@@ -59,7 +59,7 @@ export default function PasswordChange() {
                     type="password"
                 />
                 <button
-                    className='colour-button edit-form__button'
+                    className='blue-button edit-form__button'
                     disabled={loading}
                     onClick={changePasswordClicked}
                 >Change Password</button>

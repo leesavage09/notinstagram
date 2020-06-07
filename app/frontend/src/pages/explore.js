@@ -19,7 +19,7 @@ export default function Explore() {
                 key={user.id}
                 user={user}
                 onClick={() => {
-                    history.push(`profile/?user_id=${user.id}&page=${0}`)
+                    history.push(`profile/?user_id=${user.id}`)
                 }}
             />)
     });

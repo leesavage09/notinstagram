@@ -1,4 +1,6 @@
 class Api::SessionsController < ApplicationController
+  before_action :require_user_logged_in, except: [:create]
+
   def create
     @user = User.find_by_credentials(user_params[:username], user_params[:password])
     if @user
@@ -11,15 +13,11 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     @user = self.logged_in_user
-    if @user
-      logout
-      render :show
-    else
-      render json: { errors: { auth: ["already logged out"] } }, status: 404
-    end
+    logout
+    render :show
   end
 
-  def get_s3_presigned
+  def avatar_presigned_url
     data = logged_in_user.image_s3_post_url
     render json: data, status: :ok
   end

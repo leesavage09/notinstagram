@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import SVGIcon from './svg_icon'
 import PostGrid from './posts_grid';
 import PostFeed from './posts_feed';
@@ -10,7 +11,7 @@ const POST_FEED_BUTTON_STYLE = "feed-logo--dark-grey account-icons__sprite"
 const POST_FEED_BUTTON_STYLE_SELECTED = "feed-logo--blue account-icons__sprite"
 
 function ProfileActivity(props) {
-
+    const history = useHistory();
     const [feedType, setFeedType] = useState("PostGrid");
     const [postGridButtonStyle, setpostGridButtonStyle] = useState(SVG_SELECTED_STYLE);
     const [postFeedButtonStyle, setpostFeedButtonStyle] = useState(POST_FEED_BUTTON_STYLE);
@@ -55,13 +56,21 @@ function ProfileActivity(props) {
                     </span>
                     posts
           </li>
-                <li className='profile-activity__item'>
+                <li
+                    className='profile-activity__item'
+                    onClick={() => {
+                        history.push("/followers?user_id=" + props.user.id)
+                    }}>
                     <span className='profile-activity__count'>
                         {props.user.number_followers}
                     </span>
                     followers
           </li>
-                <li className='profile-activity__item'>
+                <li
+                    className='profile-activity__item'
+                    onClick={() => {
+                        history.push("/followings?user_id=" + props.user.id)
+                    }}>
                     <span className='profile-activity__count'>
                         {props.user.number_following}
                     </span>

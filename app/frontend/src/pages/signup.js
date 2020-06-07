@@ -53,7 +53,7 @@ export default function Signup() {
             <h2>Sign up to see photos and videos from your friends.</h2>
 
             <button
-                className='colour-button'
+                className='blue-button'
                 disabled={loading}
                 onClick={loginGuest}
             >Continue as guest</button>
@@ -94,7 +94,7 @@ export default function Signup() {
             />
 
             <button
-                className='colour-button'
+                className='blue-button'
                 disabled={loading}
                 onClick={signUpClicked}>Sign-up</button>
 

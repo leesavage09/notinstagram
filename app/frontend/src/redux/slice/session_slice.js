@@ -1,63 +1,31 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as ApiUtil from '../../util/api'
-import merge from 'lodash/merge'
 import { imageEditorSelector } from '../slice/image_editor_slice'
 import { Utilitys as ImageUtil } from '../../util/image'
 import * as AmazonS3 from '../../util/amazon_s3'
 import { profileActions } from '../slice/profile_slice'
+import {followersActions} from '../slice/followers_slice'
 
 const slice_name = 'session'
 
-const login = createAsyncThunk(
+const login = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/login`,
-    async (user, thunkAPI) => {
-        try {
-            const response = await ApiUtil.loginUser(user.username, user.password)
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.loginUser
 )
 
-const logout = createAsyncThunk(
+const logout = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/logout`,
-    async (arg, thunkAPI) => {
-        try {
-            const response = await ApiUtil.logoutUser()
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.logoutUser
 )
 
-const createUser = createAsyncThunk(
+const createUser =  ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/createUser`,
-    async (user, thunkAPI) => {
-        try {
-            const response = await ApiUtil.createUser(user)
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.createUser
 )
 
-const updateUser = createAsyncThunk(
+const updateUser =  ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/updateUser`,
-    async (user, thunkAPI) => {
-        try {
-            const response = await ApiUtil.updateUser(user)
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.updateUser
 )
 
 const updatePassword = createAsyncThunk(
@@ -130,7 +98,10 @@ const sessionSlice = createSlice({
         [removeAvatar.fulfilled]: (state, action) => setUser(state, action.payload),
         [logout.fulfilled]: state => setUser(state, null),
 
-        [profileActions.fetchDetails.fulfilled]: (state, action) => mergeUser(state, action.payload.user)
+        [profileActions.fetchDetails.fulfilled]: (state, action) => assign(state, action.payload.user),
+        
+        [followersActions.follow.fulfilled]: (state, action) => assign(state, action.payload),
+        [followersActions.unfollow.fulfilled]: (state, action) => assign(state, action.payload),
     }
 })
 export default sessionSlice
@@ -139,9 +110,9 @@ function setUser(state, user) {
     state.user = user
 }
 
-function mergeUser(state, user) {
+function assign(state, user) {
     if (user.id === state.user.id) {
-        merge(state.user, user);
+        Object.assign(state.user, user);
     }
 }
 

@@ -7,14 +7,20 @@
 # put     'users/:id', to: 'users#update',  as: 'update_user_2'
 # delete  'users/:id', to: 'users#destroy',  as: 'destroy_user'
 
+# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
-    resources :users, only: [:index, :show, :create, :update]
-    get "users/:id/posts/:page", to: "users#show_posts", as: "show_posts"
+    resources :users, only: [:index, :create, :update]
+    resources :users, only: [:show] do
+      resources :follows, only: [:index]
+    end
 
-    resource :session, only: [:create, :destroy]
-    get "session/s3presigned", to: "sessions#get_s3_presigned", as: "get_s3_presigned"
+    resource :session, only: [:create, :destroy] do
+      resources :follows, only: [:create, :destroy]
+    end
+    
+    get "session/avatar_presigned_url", to: "sessions#avatar_presigned_url", as: "avatar_presigned_url"
+  
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

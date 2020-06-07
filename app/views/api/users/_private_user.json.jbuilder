@@ -4,3 +4,6 @@ json.username user.username
 json.email user.email
 json.bio user.bio
 json.image_url user.image_url
+json.follower_ids user.followers.ids
+json.followed_user_ids user.followed_users.ids
+json.followed_hashtag_ids user.followed_hashtags.ids

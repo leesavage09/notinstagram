@@ -9,6 +9,7 @@ import UILoadingSlice from './slice/ui_loading_slice'
 import normalizedCommentsSlice from './slice/normalized_comments_slice'
 import normalizedPostsSlice from './slice/normalized_posts_slice'
 import normalizedUsersSlice from './slice/normalized_users_slice'
+import followersSlice from './slice/followers_slice'
 
 const rootReducer = combineReducers({
     [modalSlice.name]: modalSlice.reducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     [normalizedCommentsSlice.name]: normalizedCommentsSlice.reducer,
     [normalizedPostsSlice.name]: normalizedPostsSlice.reducer,
     [normalizedUsersSlice.name]: normalizedUsersSlice.reducer,
+    [followersSlice.name]: followersSlice.reducer,
 });
 
 export default rootReducer;

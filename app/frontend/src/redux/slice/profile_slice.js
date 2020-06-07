@@ -1,19 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import * as ApiUtil from '../../util/api'
 
 const slice_name = 'profile'
 
-const fetchDetails = createAsyncThunk(
+const fetchDetails = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/fetchDetails`,
-    async (id, thunkAPI) => {
-        try {
-            const response = await ApiUtil.getUser(id)
-            return response.data
-        }
-        catch (e) {
-            return thunkAPI.rejectWithValue(e)
-        }
-    }
+    ApiUtil.getUser
 )
 
 const profileSlice = createSlice({

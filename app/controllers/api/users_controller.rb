@@ -11,34 +11,27 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: id_param)
-    render :show
-  end
-
-  def show_posts
     user_id = params.require(:id)
     limit = 4
-    offset = params.require(:page).to_i * limit
 
     @user = User.find_by(id: user_id)
-    
-    @posts = Post.includes(:likes, :comments).where(author_id: user_id).order("created_at DESC").limit(limit).offset(offset)
+    @posts = Post.includes(:likes, :comments).where(author_id: user_id).order("created_at DESC").limit(4).offset(0)
     @post_comments = []
-    preload_user_ids = []
+    associated_user_ids = []
 
     @posts.each do |post|
       post.likes.each do |like|
-        preload_user_ids << like.liker_id
+        associated_user_ids << like.liker_id
       end
       post.comments.each do |comment|
         @post_comments << comment
-        preload_user_ids << comment.author_id
+        associated_user_ids << comment.author_id
       end
     end
 
-    @associated_users = User.where(id: preload_user_ids)
+    @associated_users = User.where(id: associated_user_ids)
 
-    render :show_posts
+    render :show_details
   end
 
   def create

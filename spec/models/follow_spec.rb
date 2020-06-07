@@ -59,7 +59,7 @@ RSpec.describe Follow, type: :model do
       followed: @user2,
     })
     expect(follow2).not_to be_valid
-    expect(follow2.errors[:follower]).to include("User is already following this hashtag")
+    expect(follow2.errors[:follower]).to include("User is already following this")
   end
 
 end

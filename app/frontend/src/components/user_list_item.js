@@ -15,6 +15,7 @@ export default function UserListItem(props) {
                 <div className="user-list-item__username">{props.user.username}</div>
                 <div className="user-list-item__name">{props.user.name}</div>
             </div>
+            {props.children}
         </li>
     );
 }
