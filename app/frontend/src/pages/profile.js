@@ -6,35 +6,77 @@ import { modalActions } from '../redux/slice/modal_slice'
 import BottomNav from '../components/bottom_nav'
 import { TopNavAccount } from '../components/top_nav'
 import { TopNavBackWithTitle } from '../components/top_nav'
-import UserAvatar, { LARGE_LOADING_SPINNER } from '../components/user_avatar';
+import UserAvatar, { LARGE_LOADING_SPINNER, HashtagAvatar } from '../components/user_avatar';
 import queryString from 'query-string';
 import { profileActions } from '../redux/slice/profile_slice'
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
+import { normalizedHashtagsSelector } from '../redux/slice/normalized_hashtags_slice'
 import ProfileActivity from '../components/profile-activity'
-import { IconFollowButton } from '../components/followButtons';
+import { IconFollowButton, TextFollowButton } from '../components/followButtons';
+import PostGrid from '../components/posts_grid';
 
 export default function Profile(props) {
   const dispatch = useDispatch()
   const [lastUserID, setLastUserID] = useState()
-  const user_id = queryString.parse(props.location.search).user_id
-  const loggedInUser = useSelector(sessionSelector.loggedInUser())
+  const [lastHashtagName, setLastHashtagName] = useState()
+  const query = queryString.parse(props.location.search)
+  const user_id = query.user_id
+  const hashtag_name = query.hashtag_name
 
   useEffect(() => {
-    if (lastUserID !== user_id) {
-      dispatch(profileActions.fetchDetails(user_id))
+    if (user_id && lastUserID !== user_id) {
+      dispatch(profileActions.fetchUserActivityDetails(user_id))
       setLastUserID(user_id)
     }
-  }, [props.location.search]);
+  }, [user_id]);
+
+  useEffect(() => {
+    if (hashtag_name && lastHashtagName !== hashtag_name) {
+      dispatch(profileActions.fetchHashtagActivityDetails(hashtag_name))
+      setLastHashtagName(hashtag_name)
+    }
+  }, [hashtag_name]);
+
 
   return (
     <div>
-      {
-        loggedInUser.id == user_id ?
-          <LoggedInProfile /> : <PublicProfile user_id={user_id} />
-      }
+      <SelectedProfileType user_id={user_id} hashtag_name={hashtag_name} />
       <BottomNav />
     </div>
   );
+}
+
+function SelectedProfileType(props) {
+  const loggedInUser = useSelector(sessionSelector.loggedInUser())
+  if (props.hashtag_name != undefined) {
+    return (<HastagProfile hashtag_name={props.hashtag_name} />)
+  }
+  else if (loggedInUser.id == props.user_id) {
+    return <LoggedInProfile />
+  }
+  else {
+    return <PublicProfile user_id={props.user_id} />
+  }
+}
+
+function HastagProfile(props) {
+  let hashtag = useSelector(normalizedHashtagsSelector.getHashtag("#" + props.hashtag_name))
+  if (!hashtag) {
+    return (<div></div>)
+  }
+  return (
+    <div>
+      <TopNavBackWithTitle title={hashtag.name} />
+      <div className='profile-details'>
+        <HashtagAvatar className="profile-details__image" hashtag={hashtag} />
+        <div className='profile-details__info--user'>
+          <p className='profile-details__hashtags-posts'><span className="profile-details__bold">{hashtag.number_posts}</span> posts</p>
+          <TextFollowButton className="profile-details__block-button" hashtag_id={hashtag.id} />
+        </div>
+      </div >
+      <PostGrid user={hashtag} />
+    </div>
+  )
 }
 
 function LoggedInProfile() {
@@ -54,7 +96,7 @@ function LoggedInProfile() {
           <h2 className='profile-details__username'>{user.username}</h2>
 
           <Link to='/account/edit'
-            className='ghost-button profile-details__action-button'>
+            className='ghost-button profile-details__block-button'>
             Edit Profile
     </Link>
         </div>

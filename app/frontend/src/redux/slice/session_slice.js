@@ -98,10 +98,12 @@ const sessionSlice = createSlice({
         [removeAvatar.fulfilled]: (state, action) => setUser(state, action.payload),
         [logout.fulfilled]: state => setUser(state, null),
 
-        [profileActions.fetchDetails.fulfilled]: (state, action) => assign(state, action.payload.user),
+        [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => updateUserState(state, action.payload.user),
         
-        [followersActions.follow.fulfilled]: (state, action) => assign(state, action.payload),
-        [followersActions.unfollow.fulfilled]: (state, action) => assign(state, action.payload),
+        [followersActions.followUser.fulfilled]: (state, action) => updateUserState(state, action.payload),
+        [followersActions.unfollowUser.fulfilled]: (state, action) => updateUserState(state, action.payload),
+        [followersActions.followHashtag.fulfilled]: (state, action) => updateUserState(state, action.payload),
+        [followersActions.unfollowHashtag.fulfilled]: (state, action) => updateUserState(state, action.payload),       
     }
 })
 export default sessionSlice
@@ -110,7 +112,7 @@ function setUser(state, user) {
     state.user = user
 }
 
-function assign(state, user) {
+function updateUserState(state, user) {
     if (user.id === state.user.id) {
         Object.assign(state.user, user);
     }

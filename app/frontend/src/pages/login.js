@@ -71,6 +71,7 @@ export default function Signup() {
             />
 
             <button className='blue-button'
+            style={{marginTop:"6px"}}
                 disabled={loading}
                 onClick={loginClicked}
             >Log In</button>

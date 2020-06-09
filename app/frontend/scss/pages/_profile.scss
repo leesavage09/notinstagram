@@ -1,43 +1,58 @@
 .profile-details {
-    display: flex;
-    flex-direction: row;
-    margin: 30px 16px 24px 16px;
-  
-    &__image {
-      width: 77px;
-      height: 77px;
-      margin-right: 28px;
-    }
-  
-    &__info {
-      flex: 1 1 auto;
-    }
-  
-    &__info--user {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-    }
-  
-    &__username {
-      color: $off_black;
-      font-weight: 300;
-      font-size: 28px;
-      line-height: 32px;
-      margin: -5px 0px 6px 0px;
-    }
+  display: flex;
+  flex-direction: row;
+  margin: 30px 16px 24px 16px;
 
-    &__bio {
-      padding: 0px 16px 21px 16px;
-      display: block;
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 300;
-      margin: 0;
-    }
-    &__name {
-      display: block;
-      font-weight: 600;
-    }
+  &__image {
+    width: 77px;
+    height: 77px;
+    margin-right: 28px;
   }
+
+  &__info {
+    flex: 1 1 auto;
+  }
+
+  &__info--user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width:100%;
+  }
+
+  &__username {
+    color: $off_black;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    margin: -5px 0px 6px 0px;
+  }
+
+  &__bio {
+    padding: 0px 16px 21px 16px;
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 300;
+    margin: 0;
+  }
+  &__name {
+    display: block;
+    font-weight: 600;
+  }
+  &__block-button {
+    display: block;
+    width: 100%;
+  }
+
+  &__hashtags-posts {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  &__bold {
+    font-weight: 600;
+  }
+}

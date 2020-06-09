@@ -113,7 +113,7 @@ function PostCaption(props) {
             <Link
                 className="post-feed__hashtag-link"
                 key={hashtag}
-                to={`/hastag?tag=${hashtag.split('#')[1]}`}
+                to={`/profile?hashtag_name=${hashtag.split('#')[1]}`}
             >{hashtag} </Link>
         )
     })

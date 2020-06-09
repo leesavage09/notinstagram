@@ -2,16 +2,24 @@ class Api::FollowsController < ApplicationController
   before_action :require_user_logged_in
 
   def index
-    user = User.includes(:followers).find_by(id: params.require(:user_id))
-
     case params.require(:type)
     when "followers"
-      @ids = user.followers.ids
-      @users = user.followers
+      follows = Follow.includes(:follower).where(followed_id: params.require(:user_id), followed_type: "User")
+      @ids = []
+      @users = []
+      follows.each { |follow|
+        @ids << follow.follower_id
+        @users << follow.follower
+      }
       render :index
     when "followed_users"
-      @ids = user.followed_users.ids
-      @users = user.followed_users
+      follows = Follow.includes(:followed).where(follower_id: params.require(:user_id), followed_type: "User")
+      @ids = []
+      @users = []
+      follows.each { |follow|
+        @ids << follow.followed_id
+        @users << follow.followed
+      }
       render :index
     else
       render json: { errors: ["wrong type parameter"] }, status: :unprocessable_entity
@@ -19,15 +27,18 @@ class Api::FollowsController < ApplicationController
   end
 
   def create
-    user = User.find_by(id: params.require(:user_id))
-    if !user
-      render json: { errors: ["can't follow as user can't be found"] }, status: 404
-      return
+    follow = Follow.new
+    follow.follower = logged_in_user
+
+    if params[:user_id]
+      follow.followed = User.find_by(id: params[:user_id])
+    elsif params[:hashtag_id]
+      follow.followed = Hashtag.find_by(id: params[:hashtag_id])
     else
-      follow = Follow.new
-      follow.follower = logged_in_user
-      follow.followed = user
+      render json: { errors: ["No user_id or hashtag_id provided"] }, status: 404
+      return
     end
+
     if follow.save()
       @user = logged_in_user
       render :show

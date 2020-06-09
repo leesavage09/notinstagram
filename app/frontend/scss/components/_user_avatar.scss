@@ -6,4 +6,13 @@
     width: 100%;
   }
 
+  &__hashtag-icon {
+    @include thin-border;
+    border-radius: 50%;
+    width: 77px;
+    height: 77px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

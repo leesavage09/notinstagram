@@ -22,12 +22,8 @@ const imageEditorSlice = createSlice({
             state.selected_image = action.payload
         },
         imageSelectFailure: state => state,
-        imageSavedSuccess: (state, action) => {
-            state.processed_image = action.payload
-        },
-        updateFilters: (state, action) => {
-            state.image_processes = merge(state.image_processes, action.payload)
-        },
+        imageSavedSuccess: (state, action) => {state.processed_image = action.payload},
+        updateFilters: (state, action) => {state.image_processes = merge(state.image_processes, action.payload)},
     }
 })
 

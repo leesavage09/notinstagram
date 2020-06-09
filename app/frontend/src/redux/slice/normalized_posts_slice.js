@@ -8,11 +8,8 @@ const normalizedPostsSlice = createSlice({
     name: slice_name,
     initialState: {},
     extraReducers: {
-        [profileActions.fetchDetails.fulfilled]: (state, action) => {
-            if (action.payload.posts) {
-                merge(state, action.payload.posts);
-            }
-        }
+        [profileActions.fetchUserActivityDetails.fulfilled]: mergePosts,
+        [profileActions.fetchHashtagActivityDetails.fulfilled]: mergePosts,
     }
 })
 
@@ -26,5 +23,11 @@ export const normalizedPostsSelector = {
             Posts.push(state[slice_name][id])
         });
         return Posts
+    }
+}
+
+function mergePosts(state, action) {
+    if (action.payload.posts) {
+        merge(state, action.payload.posts);
     }
 }

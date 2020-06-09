@@ -16,16 +16,9 @@ const exploreSlice = createSlice({
         hashtags: []
     },
     extraReducers: {
-        [searchUsers.pending]: state => {
-            state.loading = true
-        },
-        [searchUsers.fulfilled]: (state, action) => {
-            state.users = action.payload.users ? Object.keys(action.payload.users) : []
-            state.loading = false
-        },
-        [searchUsers.rejected]: state => {
-            state.loading = false
-        }
+        [searchUsers.pending]: loadingTrue,
+        [searchUsers.fulfilled]: usersFound,
+        [searchUsers.rejected]: loadingFalse
     }
 })
 
@@ -44,4 +37,15 @@ export const exploreSelector = {
         return ids
     },
     loading: () => state => state[slice_name].loading
+}
+
+function loadingTrue(state) {
+    state.loading = true
+}
+function loadingFalse(state) {
+    state.loading = true
+}
+function usersFound(state, action) {
+    state.users = action.payload.users ? Object.keys(action.payload.users) : []
+    state.loading = false
 }

@@ -24,3 +24,16 @@ export default function UserAvatar(props) {
         </div>
     );
 }
+
+export function HashtagAvatar(props) {
+    return (
+        <div className={`${props.className} user-avatar`}>
+            <div className="user-avatar__hashtag-icon">
+                <div
+                    className="hashtag-big-image"
+                    alt={`${props.hashtag.name} icon`}
+                />
+            </div>
+        </div>
+    )
+}

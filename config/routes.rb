@@ -15,12 +15,12 @@ Rails.application.routes.draw do
       resources :follows, only: [:index]
     end
 
-    resource :session, only: [:create, :destroy] do
-      resources :follows, only: [:create, :destroy]
-    end
-    
+    resource :session, only: [:create, :destroy]
     get "session/avatar_presigned_url", to: "sessions#avatar_presigned_url", as: "avatar_presigned_url"
-  
+
+    resources :hashtags, only: [:show]
+
+    resources :follows, only: [:create, :destroy]
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

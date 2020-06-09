@@ -4,86 +4,93 @@ import { followersActions, followersSelector } from '../redux/slice/followers_sl
 import { sessionSelector } from '../redux/slice/session_slice';
 
 export function TextFollowButton(props) {
+    const dispatch = useDispatch()
+    const userLoading = useSelector(followersSelector.loadingUser())[props.user_id]
+    const hashtagLoading = useSelector(followersSelector.loadingHashtag())[props.hashtag_id]
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
-    if (loggedInUser.followed_user_ids.includes(props.user_id)) {
-        return <UnfollowButton
-            className={props.className}
-            user_id={props.user_id} />
+    if (props.user_id && loggedInUser.followed_user_ids.includes(props.user_id)) {
+        return (//unfollow button
+            <button
+                className={props.className + " ghost-button"}
+                disabled={userLoading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.unfollowUser(props.user_id))
+                }}>
+                Following
+        </button>
+        )
+    }
+    else if (props.user_id) {
+        return (//follow button
+            <button
+                className={props.className + " blue-button"}
+                disabled={userLoading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.followUser(props.user_id))
+                }}>
+                Follow
+        </button>
+        )
+    }
+    else if (props.hashtag_id && loggedInUser.followed_hashtag_ids.includes(props.hashtag_id)) {
+        return (//unfollow button
+            <button
+                className={props.className + " ghost-button"}
+                disabled={hashtagLoading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.unfollowHashtag(props.hashtag_id))
+                }}>
+                Following
+        </button>
+        )
     }
     else {
-        return <FollowButton
-            className={props.className}
-            user_id={props.user_id} />
+        return (//follow button
+            <button
+                className={props.className + " blue-button"}
+                disabled={hashtagLoading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.followHashtag(props.hashtag_id))
+                }}>
+                Follow
+        </button>
+        )
     }
 }
 
 export function IconFollowButton(props) {
+    const dispatch = useDispatch()
+    const loading = useSelector(followersSelector.loadingUser())[props.user_id]
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
     if (loggedInUser.followed_user_ids.includes(props.user_id)) {
-        return <UnfollowIconButton user_id={props.user_id} />
+        return (//unfollow button
+            <button
+                className='ghost-button'
+                disabled={loading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.unfollowUser(props.user_id))
+                }} >
+                <div className="follow-user" />
+            </button>
+        )
     }
     else {
-        return <FollowIconButton user_id={props.user_id} />
+        return (//follow button
+            <button
+                className='blue-button'
+                style={{ width: "200px" }}
+                disabled={loading}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    dispatch(followersActions.followUser(props.user_id))
+                }}>
+                Follow
+            </button>
+        )
     }
-}
-
-const FollowButton = (props) => {
-    const dispatch = useDispatch()
-    const loading = useSelector(followersSelector.loading())[props.user_id]
-    return (
-        <button
-            className={props.className + " blue-button"}
-            disabled={loading}
-            onClick={(e) => {
-                e.stopPropagation()
-                dispatch(followersActions.follow(props.user_id))
-            }}>
-            Follow
-        </button>
-    )
-}
-
-const UnfollowButton = (props) => {
-    const dispatch = useDispatch()
-    const loading = useSelector(followersSelector.loading())[props.user_id]
-    return (
-        <button
-            className={props.className + " ghost-button"}
-            disabled={loading}
-            onClick={(e) => {
-                e.stopPropagation()
-                dispatch(followersActions.unfollow(props.user_id))
-            }}>
-            Following
-        </button>
-    )
-}
-
-const FollowIconButton = (props) => {
-    const dispatch = useDispatch()
-    const loading = useSelector(followersSelector.loading())[props.user_id]
-    return (<button
-        className='blue-button'
-        style={{width:"200px"}}
-        disabled={loading}
-        onClick={(e) => {
-            e.stopPropagation()
-            dispatch(followersActions.follow(props.user_id))
-        }}>
-        Follow
-</button>)
-}
-
-const UnfollowIconButton = (props) => {
-    const dispatch = useDispatch()
-    const loading = useSelector(followersSelector.loading())[props.user_id]
-    return (<button
-        className='ghost-button'
-        disabled={loading}
-        onClick={(e) => {
-            e.stopPropagation()
-            dispatch(followersActions.unfollow(props.user_id))
-        }} >
-        <div className="follow-user" />
-    </button>)
 }

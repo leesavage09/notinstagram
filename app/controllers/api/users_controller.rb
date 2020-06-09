@@ -12,24 +12,10 @@ class Api::UsersController < ApplicationController
 
   def show
     user_id = params.require(:id)
-    limit = 4
 
     @user = User.find_by(id: user_id)
-    @posts = Post.includes(:likes, :comments).where(author_id: user_id).order("created_at DESC").limit(4).offset(0)
-    @post_comments = []
-    associated_user_ids = []
 
-    @posts.each do |post|
-      post.likes.each do |like|
-        associated_user_ids << like.liker_id
-      end
-      post.comments.each do |comment|
-        @post_comments << comment
-        associated_user_ids << comment.author_id
-      end
-    end
-
-    @associated_users = User.where(id: associated_user_ids)
+    @posts, @number_posts, @post_ids, @post_comments, @associated_users = Post.get_details_by_author(user_id, 4, 0)
 
     render :show_details
   end

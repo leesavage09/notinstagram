@@ -3,31 +3,23 @@ import * as ApiUtil from '../../util/api'
 
 const slice_name = 'profile'
 
-const fetchDetails = ApiUtil.createSimpelAsyncThunk(
-    `${slice_name}/fetchDetails`,
-    ApiUtil.getUser
+const fetchUserActivityDetails = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/fetchUserActivityDetails`,
+    ApiUtil.getUserDetails
+)
+
+const fetchHashtagActivityDetails = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/fetchHashtagActivityDetails`,
+    ApiUtil.getHashtagDetails
 )
 
 const profileSlice = createSlice({
     name: slice_name,
-    initialState: {
-        user_id: null
-    },
-    extraReducers: {
-        [fetchDetails.fulfilled]: (state, action) => {
-            state.user_id = action.payload.user.id
-        },
-        [fetchDetails.rejected]: state => {
-            state.user_id = null
-        }
-    }
+    initialState: {}
 })
 export default profileSlice
 
-profileSlice.actions.fetchDetails = fetchDetails
+profileSlice.actions.fetchUserActivityDetails = fetchUserActivityDetails
+profileSlice.actions.fetchHashtagActivityDetails = fetchHashtagActivityDetails
 
 export const profileActions = profileSlice.actions
-
-export const profileSelector = {
-    user_id: () => state => state[slice_name].user_id
-}

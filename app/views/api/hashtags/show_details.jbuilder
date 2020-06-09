@@ -1,9 +1,7 @@
-json.user do
-    json.partial! "api/users/user", user: @user
+json.hashtag do
+    json.partial! "api/hashtags/hashtag", hashtag: @hashtag
     
     json.number_posts @number_posts
-    json.number_followers @user.followers.count
-    json.number_following @user.followed_users.count
     json.post_ids @post_ids
 end
 

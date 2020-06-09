@@ -8,11 +8,8 @@ const normalizedCommentsSlice = createSlice({
     name: slice_name,
     initialState: {},
     extraReducers: {
-        [profileActions.fetchDetails.fulfilled]: (state, action) => {
-            if (action.payload.comments) {
-                merge(state, action.payload.comments);
-            }
-        }
+        [profileActions.fetchUserActivityDetails.fulfilled]: mergeComments,
+        [profileActions.fetchHashtagActivityDetails.fulfilled]: mergeComments,
     }
 })
 
@@ -26,5 +23,11 @@ export const normalizedCommentsSelector = {
             comments.push(state[slice_name][id])
         });
         return comments
+    }
+}
+
+function mergeComments(state, action) {
+    if (action.payload.comments) {
+        merge(state, action.payload.comments);
     }
 }

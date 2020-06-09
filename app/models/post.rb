@@ -75,5 +75,48 @@ class Post < ApplicationRecord
         break key unless Post.where(image_key: key).exists?
       end
     end
+
+    def get_details_by_author(author_id, limit, offset)
+      posts = Post.includes(:likes, :comments).where(author_id: author_id).order("created_at DESC").limit(limit).offset(offset)
+      number_posts = Post.select(:id).where(author_id: author_id).count
+
+      post_ids, post_comments, associated_users = get_associated_details(posts)
+      return posts, number_posts, post_ids, post_comments, associated_users
+    end
+
+    def get_details_by_hashtag(hashtag_id, limit, offset)
+      taggings = Tagging.includes(post: [:likes, :comments]).where(hashtag_id: hashtag_id).order("created_at DESC").limit(limit).offset(offset)
+      number_posts = Tagging.select(:id).where(hashtag_id: hashtag_id).count
+      posts = []
+      taggings.each { |tag|
+        posts << tag.post
+      }
+
+      post_ids, post_comments, associated_users = get_associated_details(posts)
+      return posts, number_posts, post_ids, post_comments, associated_users
+    end
+
+    def get_associated_details(posts)
+      post_comments = []
+      associated_user_ids = []
+      post_ids = []
+
+      posts.each do |post|
+        post_ids << post.id
+
+        post.likes.each do |like|
+          associated_user_ids << like.liker_id
+        end
+
+        post.comments.each do |comment|
+          post_comments << comment
+          associated_user_ids << comment.author_id
+        end
+      end
+
+      associated_users = User.where(id: associated_user_ids)
+
+      return post_ids, post_comments, associated_users
+    end
   end
 end

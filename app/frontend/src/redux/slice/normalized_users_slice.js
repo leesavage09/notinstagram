@@ -11,7 +11,7 @@ const normalizedUsersSlice = createSlice({
     initialState: {},
     extraReducers: {
         [exploreActions.searchUsers.fulfilled]: (state, action) => mergeUsers(state, action.payload.users),
-        [profileActions.fetchDetails.fulfilled]: (state, action) => {
+        [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => {
             const allUsers = merge({}, action.payload.users, { [action.payload.user.id]: action.payload.user })
             merge(state, allUsers);
         },
