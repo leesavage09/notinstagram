@@ -9,16 +9,37 @@
 require "net/http"
 require "json"
 
-
-url = "https://randomuser.me/api/?results=15&password=upper,lower,7-14&seed=notinsta&inc=name,email,login,picture"
-uri = URI(url)
-response = Net::HTTP.get(uri)
-jsonSeeds = JSON.parse(response)
-
 @allPosts = []
 @allUsers = []
 @allHashtags = []
 @allComments = []
+
+def create_users
+  url = "https://randomuser.me/api/?results=70&password=upper,lower,7-14&seed=notinsta&inc=name,email,login,picture"
+  uri = URI(url)
+  response = Net::HTTP.get(uri)
+  jsonSeeds = JSON.parse(response)
+
+  # create guest account
+  user = User.new
+  user.name = "Guest Account"
+  user.username = "guest"
+  user.email = "guest@example.com"
+  user.password = "guestaccount"
+  user.save()
+  @allUsers << user if user.valid?
+
+  jsonSeeds["results"].each { |data|
+    user = User.new
+    user.name = data["name"]["first"] + " " + data["name"]["last"]
+    user.email = data["email"]
+    user.username = data["login"]["username"]
+    user.password = data["login"]["password"]
+    user.image_url = data["picture"]["large"]
+    user.save()
+    @allUsers << user
+  }
+end
 
 def tag_post(hashtags, post)
   hashtags.each { |hashtag|
@@ -37,56 +58,42 @@ def create_notification(user, message, activity)
   note.save()
 end
 
-# create guest account
-user = User.new
-user.name = "Guest Account"
-user.username = "guest"
-user.email = "guest@example.com"
-user.password = "guestaccount"
-user.save()
-@allUsers << user if user.valid?
-
-#create hastags
-30.times do
-  hashtag = FactoryBot.build(:hashtag)
-  hashtag.save()
-  @allHashtags << hashtag
+def create_hashtags
+  Faker::Hipster.unique.words(number: 30).each do |word|
+    hashtag = Hashtag.new
+    hashtag.name = "#" + word
+    @allHashtags << hashtag if hashtag.save()
+  end
 end
 
-jsonSeeds["results"].each { |data|
-  user = User.new
-  user.name = data["name"]["first"] + " " + data["name"]["last"]
-  user.email = data["email"]
-  user.username = data["login"]["username"]
-  user.password = data["login"]["password"]
-  user.image_url = data["picture"]["large"]
-  user.save()
-  @allUsers << user
-}
+def create_posts
+  num = 10 #range = 10..992
+  @allUsers.each { |user|
+    rand(3..6).times do
+      hashtags = @allHashtags.sample(rand(2..8))
+      post = FactoryBot.build(:post)
+      post.author = user
+      hashtags.each { |hashtag|
+        post.caption << " " + hashtag.name
+      }
+      tag_post(hashtags, post)
+      post.image_url = "photo-seeds/#{num}.jpg"
+      num = num + 1
+      post.save()
 
-#create posts
-@allUsers.each { |user|
-  8.times do
-    hashtags = @allHashtags.sample(4)
-    post = FactoryBot.build(:post)
-    post.author = user
-    hashtags.each { |hashtag|
-      post.caption << " " + hashtag.name
-    }
-    tag_post(hashtags, post)
+      @allPosts << post
+    end
+  }
+end
 
-    post.save()
-    post.image_url = "https://picsum.photos/seed/#{post.id}/411/308"
-    post.save()
-
-    @allPosts << post
-  end
-}
+create_hashtags
+create_users
+create_posts
 
 # comment
 @allUsers.each { |user|
   #comment on posts
-  @allPosts.sample(5).each { |post|
+  @allPosts.sample(4).each { |post|
     comment = FactoryBot.build(:comment)
     comment.author = user
     comment.parent = post
@@ -98,7 +105,7 @@ jsonSeeds["results"].each { |data|
   }
 
   #reply to comments
-  @allComments.sample(5).each { |parentComment|
+  @allComments.sample(1).each { |parentComment|
     comment = FactoryBot.build(:comment)
     comment.author = user
     comment.parent = parentComment
@@ -112,7 +119,7 @@ jsonSeeds["results"].each { |data|
 
 #follows
 @allUsers.each { |user|
-  @allUsers.sample(10).each { |other_user|
+  @allUsers.sample(13).each { |other_user|
     follow = Follow.new
     follow.follower = user
     follow.followed = other_user
@@ -121,7 +128,7 @@ jsonSeeds["results"].each { |data|
     create_notification(other_user, Notification::STARTED_FOLLOWING, follow)
   }
 
-  @allHashtags.sample(4).each { |hashtag|
+  @allHashtags.sample(1).each { |hashtag|
     follow = Follow.new
     follow.follower = user
     follow.followed = hashtag
@@ -131,7 +138,7 @@ jsonSeeds["results"].each { |data|
 
 #likes
 @allUsers.each { |user|
-  @allComments.sample(15).each { |comment|
+  @allComments.sample(1).each { |comment|
     like = Like.new
     like.liker = user
     like.liked = comment
@@ -140,7 +147,7 @@ jsonSeeds["results"].each { |data|
     create_notification(comment.author, Notification::LIKED_COMMENT, like)
   }
 
-  @allPosts.sample(15).each { |post|
+  @allPosts.sample(40).each { |post|
     like = Like.new
     like.liker = user
     like.liked = post
