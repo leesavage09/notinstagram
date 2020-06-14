@@ -76,3 +76,15 @@ export function followHashtag(hashtag_id) {
 export function unfollowHashtag(hashtag_id) {
   return axios.delete('/api/follows/' + encodeURI(hashtag_id), { data: { followed_type: "Hashtag" } })
 }
+
+export function createPost(arg) {
+  return axios.post('/api/posts', { caption: arg.caption })
+}
+
+export function updatePost(arg) {
+  return axios.patch(`/api/posts/${arg.id}`, { image_url: arg.image_url })
+}
+
+export function showPost(arg) {
+  return axios.get(`/api/posts/${arg.id}`)
+}

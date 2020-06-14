@@ -14,8 +14,6 @@ class Post < ApplicationRecord
 
   validates :caption,
             length: { maximum: 2200, message: "Post captions must under 2200 characters" }
-  validates :image_url,
-            presence: { message: "The post must have a photo URL" }
   validates :author,
             presence: { message: "The post must have an author" }
   validate :validate_post_max_taggings
@@ -76,6 +74,13 @@ class Post < ApplicationRecord
       end
     end
 
+    def get_details_by_post_id(post_id)
+      post = Post.find_by(id: post_id)
+      post_ids, post_comments, associated_users = get_associated_details([post])
+
+      return post, post_comments, associated_users
+    end
+
     def get_details_by_author(author_id, limit, offset)
       posts = Post.includes(:likes, :comments).where(author_id: author_id).order("created_at DESC").limit(limit).offset(offset)
       number_posts = Post.select(:id).where(author_id: author_id).count
@@ -103,6 +108,8 @@ class Post < ApplicationRecord
 
       posts.each do |post|
         post_ids << post.id
+
+        associated_user_ids << post.author_id
 
         post.likes.each do |like|
           associated_user_ids << like.liker_id

@@ -9,19 +9,11 @@ export default function ImageEditor(props) {
     const dispatch = useDispatch();
     const myCanvas = React.useRef();
     const container = React.useRef();
-    const selectedImage = useSelector(imageEditorSelector.selectedImage())
     const { fitWidth: selectedFitWidth, rotation: selectedRotation, filter: selectedFilter } = useSelector(imageEditorSelector.imageProcesses())
     const fitWidth = props.forceSquareImage ? true : selectedFitWidth
 
     React.useEffect(() => {
-        if (selectedImage) save()
-        else { //TODO remove after testing //for dev only
-            const myImage = new Image(200, 200);
-            myImage.src = `${imagePath}/filters/Normal.jpg`;
-            myImage.onload = () => {
-                dispatch(imageEditorActions.imageSelectSuccess(myImage))
-            }
-        }
+        if (props.image) save()
     })
 
     const fit = () => {
@@ -33,7 +25,7 @@ export default function ImageEditor(props) {
     }
 
     const save = () => {
-        let tempImage = selectedImage
+        let tempImage = props.image
         tempImage = Transformations.rotateImg(tempImage, selectedRotation)
         tempImage = fitWidth ? Transformations.cropFitToSquareImg(tempImage) : tempImage
         tempImage = Transformations.cropImageBetweenRatios(tempImage, (4 / 5), (16 / 9))
@@ -50,7 +42,6 @@ export default function ImageEditor(props) {
 
     const fitButton = props.forceSquareImage ?
         '' : <a className="image-editor__fit-button image-fit" onClick={fit} />
-
 
     return (
         <div ref={container} className="edit-mode">

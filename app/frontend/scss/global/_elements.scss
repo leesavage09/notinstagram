@@ -40,6 +40,12 @@ h3 {
   line-height: 18px;
 }
 
+.text-button {
+  &:disabled {
+    color: $light_grey;
+  }
+}
+
 .blue-button {
   background-color: $blue;
   color: $white;

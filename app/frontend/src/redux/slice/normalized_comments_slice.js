@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { profileActions } from './profile_slice'
 import merge from 'lodash/merge'
+import { PostActions } from './post_slice';
 
 const slice_name = 'normalized_comments'
 
@@ -10,6 +11,8 @@ const normalizedCommentsSlice = createSlice({
     extraReducers: {
         [profileActions.fetchUserActivityDetails.fulfilled]: mergeComments,
         [profileActions.fetchHashtagActivityDetails.fulfilled]: mergeComments,
+        [PostActions.createPost.fulfilled]: mergeComments,
+        [PostActions.showPost.fulfilled]: mergeComments,
     }
 })
 

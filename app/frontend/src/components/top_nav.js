@@ -5,6 +5,7 @@ import SearchInput from './search_input'
 import { useSelector } from 'react-redux'
 import { sessionSelector } from '../redux/slice/session_slice'
 import ImageSelectButton from './image_select_button';
+import { PostSelector } from '../redux/slice/post_slice';
 
 export const TopNavFeed = () => (
     <TopNav>
@@ -30,15 +31,19 @@ export const TopNavCreatePhoto = (props) => (
     </TopNav>
 )
 
-export const TopNavCreatePost = (props) => (
-    <TopNav>
-        <GoBackArrowButton />
-        <h1>New Post</h1>
-        <a className='top-nav__link'
-            onClick={props.createPost}
-        >Share</a>
-    </TopNav>
-)
+export const TopNavCreatePost = (props) => {
+    const loading = useSelector(PostSelector.loading())
+    return (
+        <TopNav>
+            <GoBackArrowButton />
+            <h1>New Post</h1>
+            <button className='text-button top-nav__link'
+                disabled={loading}
+                onClick={props.createPost}
+            >Share</button>
+        </TopNav>
+    )
+}
 
 export const TopNavActivity = () => (
     <TopNav>

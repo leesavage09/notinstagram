@@ -3,6 +3,7 @@ import { exploreActions } from './explore_slice'
 import { profileActions } from './profile_slice'
 import { followersActions } from './followers_slice'
 import merge from 'lodash/merge'
+import { PostActions } from './post_slice';
 
 const slice_name = 'normalized_users'
 
@@ -10,13 +11,16 @@ const normalizedUsersSlice = createSlice({
     name: slice_name,
     initialState: {},
     extraReducers: {
-        [exploreActions.searchUsers.fulfilled]: (state, action) => mergeUsers(state, action.payload.users),
         [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => {
             const allUsers = merge({}, action.payload.users, { [action.payload.user.id]: action.payload.user })
             merge(state, allUsers);
         },
-        [followersActions.fetchFollowers.fulfilled]: (state, action) => mergeUsers(state, action.payload.users),
-        [followersActions.fetchFollowings.fulfilled]: (state, action) => mergeUsers(state, action.payload.users),
+        [exploreActions.searchUsers.fulfilled]: mergeUsers,
+        [followersActions.fetchFollowers.fulfilled]: mergeUsers,
+        [followersActions.fetchFollowings.fulfilled]: mergeUsers,
+        [profileActions.fetchHashtagActivityDetails.fulfilled]: mergeUsers,
+        [PostActions.createPost.fulfilled]: mergeUsers,
+        [PostActions.showPost.fulfilled]: mergeUsers,
     }
 })
 
@@ -34,7 +38,8 @@ export const normalizedUsersSelector = {
     }
 }
 
-function mergeUsers(state, users) {
+function mergeUsers(state, action) {
+    const users = action.payload.users
     if (users) {
         merge(state, users);
     }

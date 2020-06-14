@@ -3,7 +3,9 @@ import { TopNavCreatePost } from '../components/top_nav'
 import { imageEditorSelector, imageEditorActions } from '../redux/slice/image_editor_slice'
 import UserAvatar from '../components/user_avatar';
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
 import { sessionSelector } from '../redux/slice/session_slice'
+import { PostActions, PostSelector } from '../redux/slice/post_slice'
 
 export default function CreatePost() {
     const dispatch = useDispatch()
@@ -12,20 +14,21 @@ export default function CreatePost() {
     const outerContainer = React.createRef()
     const textArea = React.createRef()
     const imageSrc = selectedImage ? selectedImage.toDataURL() : ''
+    const created_post_id = useSelector(PostSelector.created_post_id())
+    const history = useHistory();
 
     React.useEffect(() => {
-        if (!selectedImage) { //TODO remove after testing //for dev only
-            const myImage = new Image(200, 200);
-            myImage.src = `/filters/Normal.jpg`;
-            myImage.onload = () => {
-                dispatch(imageEditorActions.imageSelectSuccess(myImage))
-            }
+        if (!selectedImage) {
+            history.push("/")
+        }
+        if (created_post_id) {
+            history.push("post?id=" + created_post_id)
         }
     })
 
     const createPost = () => {
         dispatch(PostActions.createPost({
-            body: textArea.current.value
+            caption: textArea.current.value
         }))
     }
 

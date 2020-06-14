@@ -11,6 +11,7 @@ import normalizedPostsSlice from './slice/normalized_posts_slice'
 import normalizedUsersSlice from './slice/normalized_users_slice'
 import normalizedHashtagsSlice from './slice/normalized_hashtags_slice'
 import followersSlice from './slice/followers_slice'
+import PostSlice from './slice/post_slice'
 
 const rootReducer = combineReducers({
     [modalSlice.name]: modalSlice.reducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     [normalizedUsersSlice.name]: normalizedUsersSlice.reducer,
     [normalizedHashtagsSlice.name]: normalizedHashtagsSlice.reducer,
     [followersSlice.name]: followersSlice.reducer,
+    [PostSlice.name]: PostSlice.reducer,
 });
 
 export default rootReducer;

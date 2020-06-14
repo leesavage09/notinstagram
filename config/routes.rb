@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :hashtags, only: [:show]
 
     resources :follows, only: [:create, :destroy]
+
+    resources :posts, only: [:show, :create, :update]
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

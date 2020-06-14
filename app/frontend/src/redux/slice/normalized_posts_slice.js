@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { profileActions } from './profile_slice'
 import merge from 'lodash/merge'
+import { PostActions } from './post_slice';
 
 const slice_name = 'normalized_posts'
 
@@ -10,6 +11,8 @@ const normalizedPostsSlice = createSlice({
     extraReducers: {
         [profileActions.fetchUserActivityDetails.fulfilled]: mergePosts,
         [profileActions.fetchHashtagActivityDetails.fulfilled]: mergePosts,
+        [PostActions.createPost.fulfilled]: mergePost,
+        [PostActions.showPost.fulfilled]: mergePost,
     }
 })
 
@@ -29,5 +32,10 @@ export const normalizedPostsSelector = {
 function mergePosts(state, action) {
     if (action.payload.posts) {
         merge(state, action.payload.posts);
+    }
+}
+function mergePost(state, action) {
+    if (action.payload) {
+        merge(state, { [action.payload.post.id]: action.payload.post });
     }
 }
