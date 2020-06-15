@@ -4,7 +4,7 @@ class Api::HashtagsController < ApplicationController
   def show
     hashtag_name = "#" + params.require(:id)
     @hashtag = Hashtag.find_by(name: hashtag_name)
-    @posts, @number_posts, @post_ids, @post_comments, @associated_users = Post.get_details_by_hashtag(@hashtag.id, 4, 0)
+    @posts, @number_posts, @post_ids, @post_comments, @associated_users = Post.get_details_by_hashtag(@hashtag.id, 400, 0)
     render :show_details
   end
 end

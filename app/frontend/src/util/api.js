@@ -88,3 +88,11 @@ export function updatePost(arg) {
 export function showPost(arg) {
   return axios.get(`/api/posts/${arg.id}`)
 }
+
+export function likePost(arg) {
+  return axios.post(`/api/posts/${arg.id}/likes`)
+}
+
+export function unlikePost(arg) {
+  return axios.delete(`/api/posts/${arg.id}/likes/1`)
+}

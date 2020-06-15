@@ -15,7 +15,7 @@ class Api::UsersController < ApplicationController
 
     @user = User.find_by(id: user_id)
 
-    @posts, @number_posts, @post_ids, @post_comments, @associated_users = Post.get_details_by_author(user_id, 4, 0)
+    @posts, @number_posts, @post_ids, @post_comments, @associated_users = Post.get_details_by_author(user_id, 400, 0)
 
     render :show_details
   end

@@ -13,6 +13,8 @@ const normalizedPostsSlice = createSlice({
         [profileActions.fetchHashtagActivityDetails.fulfilled]: mergePosts,
         [PostActions.createPost.fulfilled]: mergePost,
         [PostActions.showPost.fulfilled]: mergePost,
+        [PostActions.likePost.fulfilled]: mergePost,
+        [PostActions.unlikePost.fulfilled]: updatePost,
     }
 })
 
@@ -35,7 +37,12 @@ function mergePosts(state, action) {
     }
 }
 function mergePost(state, action) {
-    if (action.payload) {
+    if (action.payload.post) {
         merge(state, { [action.payload.post.id]: action.payload.post });
+    }
+}
+function updatePost(state, action) {
+    if (action.payload.post && state[action.payload.post.id]) {
+        state[action.payload.post.id] = action.payload.post
     }
 }

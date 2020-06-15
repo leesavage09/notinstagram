@@ -9,17 +9,17 @@
   font-weight: 400;
   box-sizing: border-box;
 
-  -webkit-transition: -webkit-transform 0.2s ease-out;
+  // -webkit-transition: -webkit-transform 0.2s ease-out;
   transition: transform 0.2s ease-out;
   transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
 
   &--show {
-    -webkit-transform: translateY(-100%);
+    // -webkit-transform: translateY(-100%);
     transform: translateY(-45px);
   }
 
   &--hide {
-    -webkit-transform: translateY(0px);
+    // -webkit-transform: translateY(0px);
     transform: translateY(100%);
   }
 }

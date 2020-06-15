@@ -1,13 +1,41 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserAvatar from './user_avatar';
 import { normalizedCommentsSelector } from '../redux/slice/normalized_comments_slice'
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
+import { PostActions } from '../redux/slice/post_slice';
+import { sessionSelector } from '../redux/slice/session_slice';
 
 export default function Post(props) {
+    const dispatch = useDispatch()
     const post = props.post
+    const loggedInUser = useSelector(sessionSelector.loggedInUser())
+    const isLiked = post.liker_ids.includes(loggedInUser.id)
     const author = useSelector(normalizedUsersSelector.getUser(props.post.author_id))
+    const [likeAnimation, setlikeAnimation] = useState("svg-icon");
+
+    const likePost = () => {
+        dispatch(PostActions.likePost({ id: post.id }))
+        setlikeAnimation("svg-icon svg-like-animation")
+    }
+
+    const unlikePost = () => {
+        dispatch(PostActions.unlikePost({ id: post.id }))
+        setlikeAnimation("svg-icon svg-unlike-animation")
+    }
+
+    let lastClickTime = 0;
+    const handleImageClick = () => {
+        const clickNow = Date.now()
+        if ((clickNow - lastClickTime) < 500) {
+            like_action()
+        }
+        lastClickTime = clickNow
+    }
+
+    const like_style = isLiked ? "svg-unlike-icon" : "svg-like-icon"
+    const like_action = isLiked ? unlikePost : likePost
 
     return (
         <div>
@@ -19,12 +47,12 @@ export default function Post(props) {
                     <div className="post-feed__author-username">{author.username}<span className="post-feed__author-name">{author.name}</span></div>
                 </Link>
             </div>
-            <img className="post-feed__photo" key={post.id} src={post.image_url} />
+            <img className="post-feed__photo" key={post.id} src={post.image_url} onClick={null} onClick={handleImageClick} />
             <div className="post-feed__details">
                 <div className="post-feed__buttons">
-                    <button className="post-feed__button text-button">
-                        <svg className="svg-icon" viewBox="0 0 48 48">
-                            <path className="svg-like-icon"></path>
+                    <button className="post-feed__button text-button" onClick={like_action}>
+                        <svg className={likeAnimation} viewBox="0 0 48 48">
+                            <path className={like_style}></path>
                         </svg>
                     </button>
                     <button className="post-feed__button text-button">
@@ -46,9 +74,9 @@ export default function Post(props) {
                     </span>
                 </div>
 
-                <Likes liker_ids={post.liker_ids} />
+                <Likes post={post} />
                 <PostCaption post={post} />
-                <Comments comment_ids={post.comment_ids} />
+                <Comments post={post} />
                 <div className="post-feed__time">{post.time_ago} ago</div>
             </div>
 
@@ -57,20 +85,26 @@ export default function Post(props) {
 }
 
 function Likes(props) {
-    if (props.liker_ids.length === 0) return (<div />)
+    const liker_ids = props.post.liker_ids
+    if (liker_ids.length === 0) return (<div />)
 
-    const primaryLiker = props.liker_ids.length > 0 ? useSelector(normalizedUsersSelector.getUser(props.liker_ids[0])) : null
+    const primaryLiker = liker_ids.length > 0 ? useSelector(normalizedUsersSelector.getUser(liker_ids[0])) : null
 
     return (
-        <div className="post-feed__likes">Liked by
+        <div className="post-feed__likes">
+            <UserAvatar className="post-feed__liker-avatar" user={primaryLiker} />
+            Liked by&nbsp;
             <Link
                 className="dark-link"
                 to={`/profile/?user_id=${primaryLiker.id}`}
-            > {primaryLiker.username}
-            </Link> and<Link
+            >{primaryLiker.username}
+            </Link>
+            &nbsp;and&nbsp;
+            <Link
                 className="dark-link"
-                to="/likes"
-            > {props.liker_ids.length} others
+                to={`/likes?post_id=${props.post.id}`}
+            >
+                {liker_ids.length}&nbsp;others
             </Link>
         </div>
     )
@@ -87,7 +121,8 @@ function PostCaption(props) {
 }
 
 function Comments(props) {
-    const comments = props.comment_ids.length > 0 ? useSelector(normalizedCommentsSelector.getComments(props.comment_ids)) : []
+    const comment_ids = props.post.comment_ids
+    const comments = comment_ids.length > 0 ? useSelector(normalizedCommentsSelector.getComments(comment_ids)) : []
     const commentBodys = []
 
     comments.slice(0, 2).forEach((comment) => {
@@ -107,8 +142,10 @@ function Comments(props) {
             <div className="post-feed__comments-link">
                 <Link
                     className=" light-link"
-                    to="/comments"
-                >{comments.length > 1 ? `View all ${comments.length} comments` : "View comment"}</Link>
+                    to={`/comments?post_id=${props.post.id}`}
+                >
+                    {comments.length > 1 ? `View all ${comments.length} comments` : "View comment"}
+                </Link>
             </div>
             {commentBodys}
         </div>

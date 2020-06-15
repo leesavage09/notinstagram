@@ -30,6 +30,16 @@ const showPost = ApiUtil.createSimpelAsyncThunk(
     ApiUtil.showPost
 )
 
+const likePost = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/likePost`,
+    ApiUtil.likePost
+)
+
+const unlikePost = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/unlikePost`,
+    ApiUtil.unlikePost
+)
+
 const PostSlice = createSlice({
     name: slice_name,
     initialState: {
@@ -50,6 +60,8 @@ export default PostSlice
 
 PostSlice.actions.createPost = createPost
 PostSlice.actions.showPost = showPost
+PostSlice.actions.likePost = likePost
+PostSlice.actions.unlikePost = unlikePost
 export const PostActions = PostSlice.actions
 
 export const PostSelector = {

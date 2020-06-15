@@ -20,7 +20,7 @@ import LogoutModal from './components/options_modal/logout_modal'
 import ToastNotification from './components/toast_notification'
 import Profile from './pages/profile'
 import { sessionActions } from './redux/slice/session_slice'
-import {Followers, Followings} from './pages/follows'
+import {Followers, Followings, PostLikes} from './pages/pages_listing_users'
 import PostPage from './pages/post_page'
 
 class Index extends React.Component {
@@ -50,6 +50,7 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/followers" component={Followers} />
               <ProtectedRoute exact path="/followings" component={Followings} />
               <ProtectedRoute exact path="/post" component={PostPage} />
+              <ProtectedRoute exact path="/likes" component={PostLikes} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ProtectedRoute component={ToastNotification} />

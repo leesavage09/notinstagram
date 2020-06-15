@@ -57,6 +57,17 @@
     font-weight: 400;
   }
 
+  &__liker-avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  &__likes {
+    display: flex;
+  }
+
   &__likes,
   &__caption,
   &__comments,

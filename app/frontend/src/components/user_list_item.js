@@ -1,11 +1,16 @@
 import React from 'react';
 import UserAvatar from './user_avatar';
+import { useHistory } from "react-router-dom";
+import { TextFollowButton } from '../components/followButtons';
 
 export default function UserListItem(props) {
+    const history = useHistory();
     return (
         <li
             className="user-list-item"
-            onClick={props.onClick}
+            onClick={() => {
+                history.push(`profile/?user_id=${props.user.id}`)
+            }}
         >
             <UserAvatar
                 className="user-list-item__image"
@@ -18,4 +23,18 @@ export default function UserListItem(props) {
             {props.children}
         </li>
     );
+}
+
+export function FollowableUserListItem(props) {
+    return (
+        <UserListItem
+            key={props.user.id}
+            user={props.user}
+        >
+            <TextFollowButton
+                className="follows-list__follow-button"
+                user_id={props.user.id}
+            />
+        </UserListItem>
+    )
 }

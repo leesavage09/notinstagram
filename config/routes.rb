@@ -22,7 +22,12 @@ Rails.application.routes.draw do
 
     resources :follows, only: [:create, :destroy]
 
-    resources :posts, only: [:show, :create, :update]
+    resources :posts, only: [:create, :update]
+
+    resources :posts, only: [:show] do
+      resources :likes, only: [:create, :destroy]
+    end
+    
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

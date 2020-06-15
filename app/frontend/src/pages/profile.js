@@ -17,26 +17,18 @@ import PostGrid from '../components/posts_grid';
 
 export default function Profile(props) {
   const dispatch = useDispatch()
-  const [lastUserID, setLastUserID] = useState()
-  const [lastHashtagName, setLastHashtagName] = useState()
   const query = queryString.parse(props.location.search)
   const user_id = query.user_id
   const hashtag_name = query.hashtag_name
 
   useEffect(() => {
-    if (user_id && lastUserID !== user_id) {
+    if (user_id) {
       dispatch(profileActions.fetchUserActivityDetails(user_id))
-      setLastUserID(user_id)
     }
-  }, [user_id]);
-
-  useEffect(() => {
-    if (hashtag_name && lastHashtagName !== hashtag_name) {
+    if (hashtag_name) {
       dispatch(profileActions.fetchHashtagActivityDetails(hashtag_name))
-      setLastHashtagName(hashtag_name)
     }
-  }, [hashtag_name]);
-
+  }, [props.location.search]);
 
   return (
     <div>
