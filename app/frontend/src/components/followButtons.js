@@ -8,7 +8,10 @@ export function TextFollowButton(props) {
     const userLoading = useSelector(followersSelector.loadingUser())[props.user_id]
     const hashtagLoading = useSelector(followersSelector.loadingHashtag())[props.hashtag_id]
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
-    if (props.user_id && loggedInUser.followed_user_ids.includes(props.user_id)) {
+    if (loggedInUser.id === props.user_id) {
+        return (<div />)
+    }
+    else if (props.user_id && loggedInUser.followed_user_ids.includes(props.user_id)) {
         return (//unfollow button
             <button
                 className={props.className + " ghost-button"}
@@ -66,7 +69,10 @@ export function IconFollowButton(props) {
     const dispatch = useDispatch()
     const loading = useSelector(followersSelector.loadingUser())[props.user_id]
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
-    if (loggedInUser.followed_user_ids.includes(props.user_id)) {
+    if (loggedInUser.id === props.user_id) {
+        return (<div />)
+    }
+    else if (loggedInUser.followed_user_ids.includes(props.user_id)) {
         return (//unfollow button
             <button
                 className='ghost-button'

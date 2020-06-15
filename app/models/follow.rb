@@ -14,6 +14,7 @@ class Follow < ApplicationRecord
   validates :follower,
             uniqueness: { scope: :followed,
                           message: "User is already following this" }
+  validate :validate_self_follows
 
   belongs_to :follower,
              class_name: "User",
@@ -22,6 +23,10 @@ class Follow < ApplicationRecord
   belongs_to :followed, polymorphic: true
 
   after_destroy :destroy_notification
+
+  def validate_self_follows
+    errors.add(:followed, "The follower and the followed can't be the same") if follower === followed
+  end
 
   def destroy_notification
     note = Notification.find_by(activity_type: "Follow", activity_id: id)

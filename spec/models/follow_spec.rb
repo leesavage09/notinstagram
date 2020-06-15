@@ -47,6 +47,17 @@ RSpec.describe Follow, type: :model do
     expect(follow.errors[:follower]).to include("There must be a follower")
   end
 
+
+  it "Throws an error if you follow yourself" do
+    follow = Follow.create({
+      follower: @user1,
+      followed: @user1,
+    })
+
+    expect(follow).not_to be_valid
+    expect(follow.errors[:followed]).to include("The follower and the followed can't be the same")
+  end
+
   it "Throws an error if the same thing is followed again" do
     follow = Follow.create({
       follower: @user1,

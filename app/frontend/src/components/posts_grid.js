@@ -7,9 +7,10 @@ import { useHistory } from "react-router-dom";
 export default function PostGrid(props) {
     const postImages = []
 
-    if (props.user.post_ids) {
+    if (props.post_ids) {
         const history = useHistory()
-        const posts = useSelector(normalizedPostsSelector.getPosts(props.user.post_ids))
+        const posts = useSelector(normalizedPostsSelector.getPosts(props.post_ids))
+        
         posts.forEach((post) => {
             postImages.push(
                 <img

@@ -4,7 +4,7 @@ import { imageEditorSelector } from './image_editor_slice'
 import { Utilitys as ImageUtil } from '../../util/image'
 import * as AmazonS3 from '../../util/amazon_s3'
 
-const slice_name = 'createPost'
+const slice_name = 'post'
 
 const createPost = createAsyncThunk(
     `${slice_name}/createPost`,

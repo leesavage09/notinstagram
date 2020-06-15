@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { profileActions } from './profile_slice'
 import merge from 'lodash/merge'
 import { PostActions } from './post_slice';
+import { FeedActions } from './feed_slice';
 
 const slice_name = 'normalized_comments'
 
@@ -13,6 +14,7 @@ const normalizedCommentsSlice = createSlice({
         [profileActions.fetchHashtagActivityDetails.fulfilled]: mergeComments,
         [PostActions.createPost.fulfilled]: mergeComments,
         [PostActions.showPost.fulfilled]: mergeComments,
+        [FeedActions.getFeed.fulfilled]: mergeComments,
     }
 })
 

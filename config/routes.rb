@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
     resources :follows, only: [:create, :destroy]
 
-    resources :posts, only: [:create, :update]
+    resources :posts, only: [:index, :create, :update]
 
     resources :posts, only: [:show] do
       resources :likes, only: [:create, :destroy]

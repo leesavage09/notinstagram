@@ -106,9 +106,9 @@ export default ProfileActivity
 function getFeedType(type, user) {
     switch (type) {
         case "PostGrid":
-            return <PostGrid user={user} />
+            return <PostGrid post_ids={user.post_ids} />
         case "PostFeed":
-            return <PostFeed user={user} />
+            return <PostFeed post_ids={user.post_ids} />
         case "NoSavedPosts":
             return <NoSavedPosts />
         case "NoTaggedPosts":

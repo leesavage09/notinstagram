@@ -96,3 +96,7 @@ export function likePost(arg) {
 export function unlikePost(arg) {
   return axios.delete(`/api/posts/${arg.id}/likes/1`)
 }
+
+export function getFeed() {
+  return axios.get(`/api/posts`)
+}

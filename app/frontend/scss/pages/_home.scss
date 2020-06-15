@@ -1,6 +1,9 @@
 .home-feed {
   min-height: 100vh;
-  background-color: $off-white;
+
+  &--off-white {
+    background-color: $off-white;
+  }
 
   &__body {
     padding: 24px 32px;

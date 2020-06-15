@@ -41,7 +41,7 @@ export function NoTaggedPosts() {
         <IconHeadingTitleLink
             iconClassName="big-user-icon"
             heading="Photos of you"
-            subheading="When people tag you in photos, they wont appear here as this is not a feature of notinstagram yet...            ."
+            subheading="When people tag you in photos, they wont appear here as this is not a feature of notinstagram yet..."
         />
     )
 }

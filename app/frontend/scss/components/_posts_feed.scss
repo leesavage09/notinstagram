@@ -3,6 +3,10 @@
   flex-wrap: wrap;
   font-weight: 400;
 
+  &__body {
+    margin-bottom: 15px;
+  }
+
   &__author {
     padding: 16px;
     display: flex;

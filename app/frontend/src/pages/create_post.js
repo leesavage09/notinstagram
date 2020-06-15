@@ -9,7 +9,7 @@ import { PostActions, PostSelector } from '../redux/slice/post_slice'
 
 export default function CreatePost() {
     const dispatch = useDispatch()
-    const user = useSelector(sessionSelector.loggedInUser)
+    const user = useSelector(sessionSelector.loggedInUser())
     const selectedImage = useSelector(imageEditorSelector.processedImage())
     const outerContainer = React.createRef()
     const textArea = React.createRef()

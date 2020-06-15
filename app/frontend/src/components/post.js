@@ -38,7 +38,7 @@ export default function Post(props) {
     const like_action = isLiked ? unlikePost : likePost
 
     return (
-        <div>
+        <div className="post-feed__body">
             <div className="post-feed__author">
                 <Link className="dark-link" to={`/profile/?user_id=${author.id}`}>
                     <UserAvatar className="post-feed__author-img" user={author} />
@@ -90,6 +90,17 @@ function Likes(props) {
 
     const primaryLiker = liker_ids.length > 0 ? useSelector(normalizedUsersSelector.getUser(liker_ids[0])) : null
 
+    const otherLikes = liker_ids.length >= 2 ? (
+        <div>
+            &nbsp;and&nbsp;
+            <Link
+                className="dark-link"
+                to={`/likes?post_id=${props.post.id}`}>
+                {liker_ids.length - 1}&nbsp;others
+            </Link>
+        </div>
+    ) : (<div/>)
+
     return (
         <div className="post-feed__likes">
             <UserAvatar className="post-feed__liker-avatar" user={primaryLiker} />
@@ -99,13 +110,7 @@ function Likes(props) {
                 to={`/profile/?user_id=${primaryLiker.id}`}
             >{primaryLiker.username}
             </Link>
-            &nbsp;and&nbsp;
-            <Link
-                className="dark-link"
-                to={`/likes?post_id=${props.post.id}`}
-            >
-                {liker_ids.length}&nbsp;others
-            </Link>
+            {otherLikes}
         </div>
     )
 }

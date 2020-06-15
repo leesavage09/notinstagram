@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { sessionSelector } from '../redux/slice/session_slice'
 import { Link } from 'react-router-dom';
 import { modalActions } from '../redux/slice/modal_slice'
@@ -66,7 +66,7 @@ function HastagProfile(props) {
           <TextFollowButton className="profile-details__block-button" hashtag_id={hashtag.id} />
         </div>
       </div >
-      <PostGrid user={hashtag} />
+      <PostGrid post_ids={hashtag.post_ids} />
     </div>
   )
 }

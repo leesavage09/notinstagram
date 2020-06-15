@@ -1,9 +1,15 @@
 class Api::PostsController < ApplicationController
   before_action :require_user_logged_in
 
+  def index
+    @posts = Post.order(created_at: :desc).limit(10).offset(0)
+    @post_ids, @post_comments, @associated_users = Post.get_associated_details(@posts)
+    render :index, status: :ok
+  end
+
   def show
     @post, @post_comments, @associated_users = Post.get_details_by_post_id(params.require(:id))
-    
+
     render json: { errors: { post: ["Post not found"] } }, status: 404 unless @post
     render :show, status: :ok
   end

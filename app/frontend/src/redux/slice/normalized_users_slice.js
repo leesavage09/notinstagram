@@ -4,6 +4,7 @@ import { profileActions } from './profile_slice'
 import { followersActions } from './followers_slice'
 import merge from 'lodash/merge'
 import { PostActions } from './post_slice';
+import { FeedActions } from './feed_slice';
 
 const slice_name = 'normalized_users'
 
@@ -21,6 +22,7 @@ const normalizedUsersSlice = createSlice({
         [profileActions.fetchHashtagActivityDetails.fulfilled]: mergeUsers,
         [PostActions.createPost.fulfilled]: mergeUsers,
         [PostActions.showPost.fulfilled]: mergeUsers,
+        [FeedActions.getFeed.fulfilled]: mergeUsers,
     }
 })
 

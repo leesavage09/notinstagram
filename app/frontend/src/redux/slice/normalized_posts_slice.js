@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { profileActions } from './profile_slice'
 import merge from 'lodash/merge'
 import { PostActions } from './post_slice';
+import { FeedActions } from './feed_slice';
 
 const slice_name = 'normalized_posts'
 
@@ -15,6 +16,7 @@ const normalizedPostsSlice = createSlice({
         [PostActions.showPost.fulfilled]: mergePost,
         [PostActions.likePost.fulfilled]: mergePost,
         [PostActions.unlikePost.fulfilled]: updatePost,
+        [FeedActions.getFeed.fulfilled]: mergePosts,
     }
 })
 
