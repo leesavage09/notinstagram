@@ -10,7 +10,7 @@ export default function Home() {
     const post_ids = useSelector(FeedSelector.post_ids())
 
     useEffect(() => {
-        dispatch(FeedActions.getFeed())
+        dispatch(FeedActions.getFeed({page:0}))
     }, []);
 
     const content = post_ids.length === 0 ? (

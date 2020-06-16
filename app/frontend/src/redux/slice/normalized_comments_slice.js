@@ -3,6 +3,7 @@ import { profileActions } from './profile_slice'
 import merge from 'lodash/merge'
 import { PostActions } from './post_slice';
 import { FeedActions } from './feed_slice';
+import { exploreActions } from './explore_slice';
 
 const slice_name = 'normalized_comments'
 
@@ -15,6 +16,7 @@ const normalizedCommentsSlice = createSlice({
         [PostActions.createPost.fulfilled]: mergeComments,
         [PostActions.showPost.fulfilled]: mergeComments,
         [FeedActions.getFeed.fulfilled]: mergeComments,
+        [exploreActions.getRandomPosts.fulfilled]: mergeComments,
     }
 })
 

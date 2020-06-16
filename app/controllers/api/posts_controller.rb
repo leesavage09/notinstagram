@@ -2,14 +2,30 @@ class Api::PostsController < ApplicationController
   before_action :require_user_logged_in
 
   def index
-    @posts = Post.order(created_at: :desc).limit(10).offset(0)
+    case params.require(:type)
+    when "feed"
+      followed_users = logged_in_user.followed_users.pluck(:id)
+      followed_hashtags = logged_in_user.followed_hashtags.pluck(:id)
+      tagged_posts = Tagging.where(hashtag_id: [followed_hashtags]).order(created_at: :desc).limit(10).offset(params.require(:page)).pluck(:post_id)
+
+      @posts = Post
+        .includes(:likes, :comments)
+        .where(author_id: [followed_users])
+        .or(Post.includes(:likes, :comments).where(id: [tagged_posts]))
+        .order(created_at: :desc).limit(20).offset(params.require(:page))
+    when "discover"
+      @posts = Post.order("RANDOM()").limit(18)
+    else
+      render json: { errors: ["wrong type parameter"] }, status: :unprocessable_entity
+      return
+    end
+
     @post_ids, @post_comments, @associated_users = Post.get_associated_details(@posts)
     render :index, status: :ok
   end
 
   def show
     @post, @post_comments, @associated_users = Post.get_details_by_post_id(params.require(:id))
-
     render json: { errors: { post: ["Post not found"] } }, status: 404 unless @post
     render :show, status: :ok
   end

@@ -34,6 +34,7 @@ export default function SearchInput() {
         cancelBtn.current.className = CANCLE_BUTTON_HIDDEN_STYLE
         searchBox.current.className = SEARCH_INPUT_DEFAULT_STYLE
         searchBox.current.value = '';
+        dispatch(exploreActions.cancelSearch())
     }
 
     return (

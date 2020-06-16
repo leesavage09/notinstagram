@@ -8,23 +8,37 @@ const searchUsers = ApiUtil.createSimpelAsyncThunk(
     ApiUtil.findUser
 )
 
+const getRandomPosts = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/getRandomPosts`,
+    ApiUtil.getRandomPosts
+)
+
 const exploreSlice = createSlice({
     name: slice_name,
     initialState: {
         loading: false,
         users: [],
-        hashtags: []
+        hashtags: [],
+        posts: [],
+        loading_posts: false,
+    },
+    reducers: {
+        cancelSearch: state => { state.users = [] }
     },
     extraReducers: {
         [searchUsers.pending]: loadingTrue,
         [searchUsers.fulfilled]: usersFound,
-        [searchUsers.rejected]: loadingFalse
+        [searchUsers.rejected]: loadingFalse,
+        [getRandomPosts.pending]: loadingPostsTrue,
+        [getRandomPosts.fulfilled]: postsFound,
+        [getRandomPosts.rejected]: loadingPostsFalse
     }
 })
 
 export default exploreSlice
 
 exploreSlice.actions.searchUsers = searchUsers
+exploreSlice.actions.getRandomPosts = getRandomPosts
 
 export const exploreActions = exploreSlice.actions
 
@@ -36,7 +50,9 @@ export const exploreSelector = {
         });
         return ids
     },
-    loading: () => state => state[slice_name].loading
+    loading: () => state => state[slice_name].loading,
+    posts: () => state => state[slice_name].posts,
+    loading_posts: () => state => state[slice_name].loading_posts,
 }
 
 function loadingTrue(state) {
@@ -48,4 +64,15 @@ function loadingFalse(state) {
 function usersFound(state, action) {
     state.users = action.payload.users ? Object.keys(action.payload.users) : []
     state.loading = false
+}
+
+function loadingPostsTrue(state) {
+    state.loading_posts = true
+}
+function loadingPostsFalse(state) {
+    state.loading_posts = false
+}
+function postsFound(state, action) {
+    state.posts = action.payload.posts ? Object.keys(action.payload.posts) : []
+    state.loading_posts = false
 }

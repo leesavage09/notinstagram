@@ -23,6 +23,7 @@ const normalizedUsersSlice = createSlice({
         [PostActions.createPost.fulfilled]: mergeUsers,
         [PostActions.showPost.fulfilled]: mergeUsers,
         [FeedActions.getFeed.fulfilled]: mergeUsers,
+        [exploreActions.getRandomPosts.fulfilled]: mergeUsers,
     }
 })
 

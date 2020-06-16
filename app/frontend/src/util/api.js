@@ -97,6 +97,10 @@ export function unlikePost(arg) {
   return axios.delete(`/api/posts/${arg.id}/likes/1`)
 }
 
-export function getFeed() {
-  return axios.get(`/api/posts`)
+export function getFeed(arg) {
+  return axios.get(`/api/posts?type=feed&page=${arg.page}`)
+}
+
+export function getRandomPosts() {
+  return axios.get(`/api/posts?type=discover`)
 }
