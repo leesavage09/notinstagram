@@ -104,3 +104,7 @@ export function getFeed(arg) {
 export function getRandomPosts() {
   return axios.get(`/api/posts?type=discover`)
 }
+
+export function getNotifications() {
+  return axios.get(`/api/notifications`)
+}

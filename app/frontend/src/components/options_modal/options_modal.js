@@ -12,10 +12,10 @@ export default function OptionsModal(props) {
                 <p className='options-modal__text'>{props.text}</p>
                 <div className='options-modal__list'>
                     {props.elements}
-                    <button
+                    {props.onClose ? (<button
                         className='options-modal__item'
                         onClick={props.onClose}
-                    >Cancel</button>
+                    >Cancel</button>) : ''}
                 </div>
             </div>
         </div>

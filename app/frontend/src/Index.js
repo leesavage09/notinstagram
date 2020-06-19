@@ -20,8 +20,10 @@ import LogoutModal from './components/options_modal/logout_modal'
 import ToastNotification from './components/toast_notification'
 import Profile from './pages/profile'
 import { sessionActions } from './redux/slice/session_slice'
-import {Followers, Followings, PostLikes} from './pages/pages_listing_users'
+import { Followers, Followings, PostLikes } from './pages/pages_listing_users'
 import PostPage from './pages/post_page'
+import DesktopModal from './components/options_modal/desktop_modal';
+import { DirectMessageModal, SavePostModal } from './components/options_modal/no-feature_modal';
 
 class Index extends React.Component {
   render() {
@@ -54,8 +56,11 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ProtectedRoute component={ToastNotification} />
+            <DesktopModal />
             <ChangeAvatarModal />
             <LogoutModal />
+            <DirectMessageModal />
+            <SavePostModal />
           </Router>
         </Provider>
       </React.StrictMode>

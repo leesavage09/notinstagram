@@ -2,6 +2,7 @@
 # t.string "body", limit: 2200, null: false
 # t.string "parent_type", null: false
 # t.integer "parent_id", null: false
+#parent_post_id
 # t.datetime "created_at", precision: 6, null: false
 # t.datetime "updated_at", precision: 6, null: false
 # t.index ["author_id"], name: "index_comments_on_author_id"
@@ -15,6 +16,8 @@ class Comment < ApplicationRecord
             presence: { message: "The comment must have an author" }
   validates :parent,
             presence: { message: "The comment must have a parent" }
+  validates :parent_post,
+            presence: { message: "The comment must have a parent_post_id" }
 
   belongs_to :author,
              class_name: "User",
@@ -23,7 +26,11 @@ class Comment < ApplicationRecord
   belongs_to :parent,
              polymorphic: true
 
-  has_many :comments, -> { where parent_type: 'Comment' },
+  belongs_to :parent_post,
+             class_name: "Post",
+             foreign_key: :parent_post_id
+
+  has_many :comments, -> { where parent_type: "Comment" },
            class_name: "Comment",
            foreign_key: :parent_id,
            dependent: :destroy
@@ -32,7 +39,6 @@ class Comment < ApplicationRecord
            class_name: "Like",
            foreign_key: :liked_id,
            dependent: :destroy
-
 
   after_destroy :destroy_notification
 

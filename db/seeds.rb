@@ -26,8 +26,9 @@ def create_users
   user.username = "guest"
   user.email = "guest@example.com"
   user.password = "guestaccount"
-  user.save()
-  @allUsers << user if user.valid?
+  if user.save()
+    @allUsers << user
+  end
 
   jsonSeeds["results"].each { |data|
     user = User.new
@@ -36,8 +37,9 @@ def create_users
     user.username = data["login"]["username"]
     user.password = data["login"]["password"]
     user.image_url = data["picture"]["large"]
-    user.save()
-    @allUsers << user
+    if user.save()
+      @allUsers << user
+    end
   }
 end
 
@@ -46,7 +48,7 @@ def tag_post(hashtags, post)
     tagging = Tagging.new
     tagging.hashtag = hashtag
     tagging.post = post
-    tagging.save()
+    tagging.save!()
   }
 end
 
@@ -55,7 +57,7 @@ def create_notification(user, message, activity)
   note.notified_user = user
   note.message = message
   note.activity = activity
-  note.save()
+  note.save!()
 end
 
 def create_hashtags
@@ -79,9 +81,9 @@ def create_posts
       tag_post(hashtags, post)
       post.image_url = "photo-seeds/#{num}.jpg"
       num = num + 1
-      post.save()
-
-      @allPosts << post
+      if post.save()
+        @allPosts << post
+      end
     end
   }
 end
@@ -93,15 +95,16 @@ create_posts
 # comment
 @allUsers.each { |user|
   #comment on posts
-  @allPosts.sample(rand(1..4)).each { |post|
+  @allPosts.sample(rand(1..4)).each { |post| #1..4
     comment = FactoryBot.build(:comment)
     comment.author = user
     comment.parent = post
-    comment.save()
+    comment.parent_post = post
 
-    @allComments << comment
-
-    create_notification(user, Notification::COMMENTED_POST, comment)
+    if comment.save()
+      @allComments << comment
+      create_notification(user, Notification::COMMENTED_POST, comment)
+    end
   }
 
   #reply to comments
@@ -109,11 +112,12 @@ create_posts
     comment = FactoryBot.build(:comment)
     comment.author = user
     comment.parent = parentComment
-    comment.save()
+    comment.parent_post = parentComment.parent_post
 
-    @allComments << comment
-
-    create_notification(user, Notification::REPLIED_COMMENTED, comment)
+    if comment.save()
+      @allComments << comment
+      create_notification(user, Notification::REPLIED_COMMENTED, comment)
+    end
   }
 }
 
@@ -123,16 +127,16 @@ create_posts
     follow = Follow.new
     follow.follower = user
     follow.followed = other_user
-    follow.save()
-
-    create_notification(other_user, Notification::STARTED_FOLLOWING, follow)
+    if follow.save()
+      create_notification(other_user, Notification::STARTED_FOLLOWING, follow)
+    end
   }
 
   @allHashtags.sample(rand(0..1)).each { |hashtag|
     follow = Follow.new
     follow.follower = user
     follow.followed = hashtag
-    follow.save()
+    follow.save!()
   }
 }
 
@@ -142,17 +146,17 @@ create_posts
     like = Like.new
     like.liker = user
     like.liked = comment
-    like.save()
-
-    create_notification(comment.author, Notification::LIKED_COMMENT, like)
+    if like.save()
+      create_notification(comment.author, Notification::LIKED_COMMENT, like)
+    end
   }
 
   @allPosts.sample(rand(20..40)).each { |post|
     like = Like.new
     like.liker = user
     like.liked = post
-    like.save()
-
-    create_notification(post.author, Notification::LIKED_POST, like)
+    if like.save()
+      create_notification(post.author, Notification::LIKED_POST, like)
+    end
   }
 }

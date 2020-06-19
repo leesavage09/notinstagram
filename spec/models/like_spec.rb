@@ -3,22 +3,23 @@ require "rails_helper"
 RSpec.describe Like, type: :model do
   before(:each) do
     @user = build(:user)
-    @user.save()
+    @user.save!()
 
     user2 = build(:user)
-    user2.save()
+    user2.save!()
 
     user3 = build(:user)
-    user3.save()
+    user3.save!()
 
     @post = build(:post)
     @post.author = user2
-    @post.save()
+    @post.save!()
 
     @comment = build(:comment)
     @comment.author = user3
     @comment.parent = @post
-    @comment.save()
+    @comment.parent_post_id = @post.id
+    @comment.save!()
   end
 
   it "Like a post" do

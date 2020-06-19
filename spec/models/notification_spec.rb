@@ -3,58 +3,60 @@ require "rails_helper"
 RSpec.describe Notification, type: :model do
   before(:each) do
     @user = build(:user)
-    @user.save()
+    @user.save!()
 
     user2 = build(:user)
-    user2.save()
+    user2.save!()
 
     user3 = build(:user)
-    user3.save()
+    user3.save!()
 
     user4 = build(:user)
-    user4.save()
+    user4.save!()
 
     user5 = build(:user)
-    user5.save()
+    user5.save!()
 
     user6 = build(:user)
-    user6.save()
+    user6.save!()
 
     @post = build(:post)
     @post.author = user2
-    @post.save()
+    @post.save!()
 
     @likePost = Like.new
     @likePost.liker = user3
     @likePost.liked = @post
-    @likePost.save()
+    @likePost.save!()
 
     @commentPost = build(:comment)
     @commentPost.author = user4
     @commentPost.parent = @post
-    @commentPost.save()
+    @commentPost.parent_post = @post
+    @commentPost.save!()
 
     @likeComment = Like.new
     @likeComment.liker = user3
     @likeComment.liked = @commentPost
-    @likeComment.save()
+    @likeComment.save!()
 
     @commentComment = build(:comment)
     @commentComment.author = user4
     @commentComment.parent = @commentPost
-    @commentComment.save()
+    @commentComment.parent_post = @post
+    @commentComment.save!()
 
     @follow = Follow.create({
       follower: user5,
       followed: user6,
     })
 
-    @post.save()
+    @post.save!()
   end
 
   it "Create a notification when a post is liked" do
     note = Notification.new
-    note.notified_user =  @likePost.liked.author
+    note.notified_user = @likePost.liked.author
     note.activity = @likePost
     note.message = Notification::LIKED_POST
     note.save()
@@ -63,7 +65,7 @@ RSpec.describe Notification, type: :model do
 
   it "Create a notification when comment is liked" do
     note = Notification.new
-    note.notified_user =  @likeComment.liked.author
+    note.notified_user = @likeComment.liked.author
     note.activity = @likeComment
     note.message = Notification::LIKED_COMMENT
     note.save()
@@ -72,7 +74,7 @@ RSpec.describe Notification, type: :model do
 
   it "Create a notification when a post is commented on" do
     note = Notification.new
-    note.notified_user =  @commentPost.parent.author
+    note.notified_user = @commentPost.parent.author
     note.activity = @commentPost
     note.message = Notification::COMMENTED_POST
     note.save()
@@ -81,7 +83,7 @@ RSpec.describe Notification, type: :model do
 
   it "Create a notification when a comment is replied to" do
     note = Notification.new
-    note.notified_user =  @commentComment.parent.author
+    note.notified_user = @commentComment.parent.author
     note.activity = @commentComment
     note.message = Notification::REPLIED_COMMENTED
     note.save()
@@ -92,7 +94,7 @@ RSpec.describe Notification, type: :model do
     note = Notification.new
     note.message = Notification::STARTED_FOLLOWING
     note.activity = @follow
-    note.notified_user =  @follow.followed
+    note.notified_user = @follow.followed
     note.save()
     expect(note).to be_valid
   end
@@ -195,7 +197,23 @@ RSpec.describe Notification, type: :model do
     note.message = Notification::LIKED_POST
     note.save()
     expect(note).not_to be_valid
-    
+
     expect(note.errors[:notified_user]).to include("Notification already exists")
   end
+
+  it "Raise Error if activity id is set" do
+    note = Notification.new
+    expect {
+      note.activity_id = @likePost.id
+    }.to raise_error("you cant set the activity_id directly")
+  end
+
+  it "Raise Error if activity type is set" do
+    note = Notification.new
+    expect {
+      note.activity_type = "Like"
+    }.to raise_error("you cant set the activity_type directly")
+  end
+
+
 end

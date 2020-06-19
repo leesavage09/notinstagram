@@ -45,8 +45,8 @@ export default toastSlice
 export const toastActions = toastSlice.actions
 
 export const toastSelector = {
-    allErrors: () => state => state[slice_name].errors ? allMessages()(state) : [],
-    allSuccesses: () => state => !state[slice_name].errors ? allMessages()(state) : [],
+    allErrors: () => state => state[slice_name].error ? toastSelector.allMessages()(state) : [],
+    allSuccesses: () => state => !state[slice_name].error ? toastSelector.allMessages()(state) : [],
     allMessages: () => state => {
         const messages = []
         Object.keys(state[slice_name].messages).forEach(key => {

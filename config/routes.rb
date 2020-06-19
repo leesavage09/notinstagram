@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     resources :posts, only: [:show] do
       resources :likes, only: [:create, :destroy]
     end
-    
+
+    resources :notifications, only: [:index]
+
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

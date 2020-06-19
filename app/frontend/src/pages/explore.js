@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { exploreSelector, exploreActions } from '../redux/slice/explore_slice'
 import UserListItem from '../components/user_list_item';
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice';
-import PostGrid from '../components/posts_grid';
+import {PostGrid, PostFeed} from '../components/display_posts';
 
 export default function Explore() {
     const dispatch = useDispatch()

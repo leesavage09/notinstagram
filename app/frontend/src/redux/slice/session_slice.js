@@ -4,7 +4,7 @@ import { imageEditorSelector } from '../slice/image_editor_slice'
 import { Utilitys as ImageUtil } from '../../util/image'
 import * as AmazonS3 from '../../util/amazon_s3'
 import { profileActions } from '../slice/profile_slice'
-import {followersActions} from '../slice/followers_slice'
+import { followersActions } from '../slice/followers_slice'
 
 const slice_name = 'session'
 
@@ -18,12 +18,12 @@ const logout = ApiUtil.createSimpelAsyncThunk(
     ApiUtil.logoutUser
 )
 
-const createUser =  ApiUtil.createSimpelAsyncThunk(
+const createUser = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/createUser`,
     ApiUtil.createUser
 )
 
-const updateUser =  ApiUtil.createSimpelAsyncThunk(
+const updateUser = ApiUtil.createSimpelAsyncThunk(
     `${slice_name}/updateUser`,
     ApiUtil.updateUser
 )
@@ -84,10 +84,16 @@ const removeAvatar = createAsyncThunk(
     }
 )
 
+const getNotifications = ApiUtil.createSimpelAsyncThunk(
+    `${slice_name}/getNotifications`,
+    ApiUtil.getNotifications
+)
+
 const sessionSlice = createSlice({
     name: slice_name,
     initialState: {
-        user: null
+        user: null,
+        notifications: []
     },
     extraReducers: {
         [login.fulfilled]: (state, action) => setUser(state, action.payload),
@@ -99,11 +105,13 @@ const sessionSlice = createSlice({
         [logout.fulfilled]: state => setUser(state, null),
 
         [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => updateUserState(state, action.payload.user),
-        
+
         [followersActions.followUser.fulfilled]: (state, action) => updateUserState(state, action.payload),
         [followersActions.unfollowUser.fulfilled]: (state, action) => updateUserState(state, action.payload),
         [followersActions.followHashtag.fulfilled]: (state, action) => updateUserState(state, action.payload),
-        [followersActions.unfollowHashtag.fulfilled]: (state, action) => updateUserState(state, action.payload),       
+        [followersActions.unfollowHashtag.fulfilled]: (state, action) => updateUserState(state, action.payload),
+
+        [getNotifications.fulfilled]: (state, action) => { state.notifications = action.payload.notifications },
     }
 })
 export default sessionSlice
@@ -125,9 +133,13 @@ sessionSlice.actions.updatePassword = updatePassword
 sessionSlice.actions.updateAvatar = updateAvatar
 sessionSlice.actions.removeAvatar = removeAvatar
 sessionSlice.actions.logout = logout
+sessionSlice.actions.getNotifications = getNotifications
 
 export const sessionActions = sessionSlice.actions
 
 export const sessionSelector = {
-    loggedInUser: () => state => state[slice_name].user
+    loggedInUser: () => state => state[slice_name].user,
+    getNotifications: () => {
+        return state => state[slice_name].notifications;
+    }
 }

@@ -1,8 +1,6 @@
-import { useSelector } from 'react-redux'
 import React from 'react';
 import ImageSelectButton from './image_select_button';
 import { useHistory } from "react-router-dom";
-import { normalizedPostsSelector } from '../redux/slice/normalized_posts_slice'
 
 export function NoNotifications() {
     return (
@@ -31,7 +29,7 @@ export function NoSavedPosts() {
         <IconHeadingTitleLink
             iconClassName="big-bookmark-icon"
             heading="Save"
-            subheading="Saving of posts is not yet a feature of notinstagram..."
+            subheading="Saving is not yet a feature of notinstagram..."
         />
     )
 }
@@ -41,7 +39,7 @@ export function NoTaggedPosts() {
         <IconHeadingTitleLink
             iconClassName="big-user-icon"
             heading="Photos of you"
-            subheading="When people tag you in photos, they wont appear here as this is not a feature of notinstagram yet..."
+            subheading="Tagging is not yet a feature of notinstagram..."
         />
     )
 }

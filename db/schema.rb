@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_094900) do
+ActiveRecord::Schema.define(version: 2020_06_19_081937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2020_05_18_094900) do
     t.integer "parent_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "parent_post_id", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["parent_post_id"], name: "index_comments_on_parent_post_id"
     t.index ["parent_type", "parent_id"], name: "index_comments_on_parent_type_and_parent_id"
   end
 
@@ -60,6 +62,9 @@ ActiveRecord::Schema.define(version: 2020_05_18_094900) do
     t.integer "activity_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "source_user_id", null: false
+    t.integer "source_post_id"
+    t.integer "source_comment_id"
     t.index ["notified_user_id", "activity_type", "activity_id"], name: "index_on_notified_user_id_and_activity_type_and_activity_id", unique: true
     t.index ["notified_user_id", "created_at"], name: "index_notifications_on_notified_user_id_and_created_at"
   end

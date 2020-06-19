@@ -6,6 +6,7 @@ import { normalizedCommentsSelector } from '../redux/slice/normalized_comments_s
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 import { PostActions } from '../redux/slice/post_slice';
 import { sessionSelector } from '../redux/slice/session_slice';
+import { modalActions } from '../redux/slice/modal_slice';
 
 export default function Post(props) {
     const dispatch = useDispatch()
@@ -14,6 +15,14 @@ export default function Post(props) {
     const isLiked = post.liker_ids.includes(loggedInUser.id)
     const author = useSelector(normalizedUsersSelector.getUser(props.post.author_id))
     const [likeAnimation, setlikeAnimation] = useState("svg-icon");
+
+    const save_action = () => {
+        dispatch(modalActions.showSaveModal(true))
+    }
+
+    const direct_message_action = () => {
+        dispatch(modalActions.showDMModal(true))
+    }
 
     const likePost = () => {
         dispatch(PostActions.likePost({ id: post.id }))
@@ -60,13 +69,13 @@ export default function Post(props) {
                             <path className="svg-comment-icon"></path>
                         </svg>
                     </button>
-                    <button className="post-feed__button text-button">
+                    <button className="post-feed__button text-button" onClick={direct_message_action}>
                         <svg className="svg-icon" viewBox="0 0 48 48">
                             <path className="svg-share-icon"></path>
                         </svg>
                     </button>
                     <span className="post-feed__button--right">
-                        <button className="post-feed__button text-button">
+                        <button className="post-feed__button text-button" onClick={save_action}>
                             <svg className="svg-icon" viewBox="0 0 48 48">
                                 <path className="svg-bookmark-icon"></path>
                             </svg>
@@ -99,7 +108,7 @@ function Likes(props) {
                 {liker_ids.length - 1}&nbsp;others
             </Link>
         </div>
-    ) : (<div/>)
+    ) : (<div />)
 
     return (
         <div className="post-feed__likes">

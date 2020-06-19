@@ -13,7 +13,7 @@ import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 import { normalizedHashtagsSelector } from '../redux/slice/normalized_hashtags_slice'
 import ProfileActivity from '../components/profile-activity'
 import { IconFollowButton, TextFollowButton } from '../components/followButtons';
-import PostGrid from '../components/posts_grid';
+import {PostGrid} from '../components/display_posts';
 
 export default function Profile(props) {
   const dispatch = useDispatch()

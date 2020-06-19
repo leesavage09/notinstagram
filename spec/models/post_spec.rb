@@ -30,13 +30,13 @@ RSpec.describe Post, type: :model do
     expect(post.errors[:author]).to include("The post must have an author")
   end
 
-  it "Throws an error if a post has no photo" do
-    @post.image_url = nil
-    @post.save()
-    expect(@post).not_to be_valid
+  # it "Throws an error if a post has no photo" do
+  #   @post.image_url = nil
+  #   @post.save()
+  #   expect(@post).not_to be_valid
 
-    expect(@post.errors[:image_url]).to include("The post must have a photo URL")
-  end
+  #   expect(@post.errors[:image_url]).to include("The post must have a photo URL")
+  # end
 
   it "Throws an error if a caption exceeds 2200 characters" do
     @post.caption = "0" * 2200

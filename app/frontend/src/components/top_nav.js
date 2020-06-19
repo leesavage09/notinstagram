@@ -2,10 +2,11 @@ import React from 'react';
 import { Link, useHistory } from "react-router-dom";
 import SVGIcon from './svg_icon';
 import SearchInput from './search_input'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { sessionSelector } from '../redux/slice/session_slice'
 import ImageSelectButton from './image_select_button';
 import { PostSelector } from '../redux/slice/post_slice';
+import { modalActions } from '../redux/slice/modal_slice';
 
 export const TopNavFeed = () => (
     <TopNav>
@@ -90,13 +91,16 @@ const TopNav = (props) => (
 
 const NoButton = () => <div className='top-nav__icon-spacer'></div>
 
-const ChatButton = () => (
-    <button className='text-button top-nav__icon' onClick={() => {
-        alert("Direct messaging, coming soon!")
-    }}>
-        <SVGIcon iconName='svg-chat-icon' />
-    </button>
-)
+const ChatButton = () => {
+    const dispatch = useDispatch()
+    return (
+        <button className='text-button top-nav__icon' onClick={() => {
+            dispatch(modalActions.showDMModal(true))
+        }}>
+            <SVGIcon iconName='svg-chat-icon' />
+        </button>
+    )
+}
 
 const AccountOptionsButton = () => (
     <Link to="/account/options" className='top-nav__icon'>

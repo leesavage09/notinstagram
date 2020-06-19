@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import SVGIcon from './svg_icon'
-import PostGrid from './posts_grid';
-import PostFeed from './posts_feed';
+import {PostFeed, PostGrid} from './display_posts';
 import { NoSavedPosts, NoTaggedPosts } from './no-content-placeholders';
 
 const SVG_STYLE = "account-icons__svg account-icons__svg"

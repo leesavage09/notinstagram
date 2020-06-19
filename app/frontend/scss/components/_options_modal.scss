@@ -32,9 +32,9 @@
   }
 
   &__list {
-      list-style: none;
-      margin:0;
-      padding:0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     display: flex;
     flex-direction: column;
@@ -53,15 +53,38 @@
     border-width: 1px 0 0 0;
     line-height: 21px;
     font-weight: 400;
-    
+
     &--danger {
-        color: $red;
-        font-weight: 600;
+      color: $red;
+      font-weight: 600;
     }
 
     &--primary {
-        color: $blue;
-        font-weight: 600;
+      color: $blue;
+      font-weight: 600;
+    }
+  }
+}
+
+.desktop-modal {
+  &__list {
+    list-style: none;
+    text-align: left;
+    padding: 0px 25px;
+    font-weight: 400;
+    li {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .desktop-modal {
+    display: none;
+
+    &__list {
+      list-style: none;
+      text-align: left;
     }
   }
 }

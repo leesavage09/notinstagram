@@ -3,7 +3,7 @@ import BottomNav from '../components/bottom_nav'
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect } from 'react';
 import { FeedSelector, FeedActions } from '../redux/slice/feed_slice';
-import PostFeed from '../components/posts_feed';
+import {PostFeed} from '../components/display_posts';
 
 export default function Home() {
     const dispatch = useDispatch()
