@@ -139,7 +139,14 @@ export const sessionActions = sessionSlice.actions
 
 export const sessionSelector = {
     loggedInUser: () => state => state[slice_name].user,
-    getNotifications: () => {
-        return state => state[slice_name].notifications;
+    getNotifications: () => state => {
+        if (!state[slice_name].notifications) {
+            return []
+        }
+        const notes = []
+        Object.keys(state[slice_name].notifications).forEach(note => {
+            notes.push(state[slice_name].notifications[note])
+        });
+        return notes
     }
 }

@@ -1,15 +1,28 @@
 class Api::NotificationsController < ApplicationController
   before_action :require_user_logged_in
 
-  def index #TODO can improve efficiency by only getting post images 
-    @notes = Notification.includes(:source_user, source_post: [:likes, :comments]).where(notified_user_id: logged_in_user.id).order(created_at: :desc).limit(10)
-    @source_users = []
-    @source_posts = []
+  def index
+    @notes = Notification
+      .includes(:source_user, source_post: [:author, likes: [:liker], comments: [:author]])
+      .where(notified_user_id: logged_in_user.id)
+      .order(created_at: :desc)
+      .limit(20)
+    @users = []
+    @posts = []
+    @comments = []
 
     @notes.each do |note|
-      @source_users << note.source_user
-      @source_posts << note.source_post if note.source_post
+      @users << note.source_user
+
+      if note.source_post
+        @posts << note.source_post if note.source_post
+        post_ids, post_comments, associated_users = Post.get_associated_details(@posts)
+        @users = @users + associated_users
+        @comments = @comments + post_comments
+      end
     end
+
+    @users = User.where(id: @users)
 
     render :index
   end

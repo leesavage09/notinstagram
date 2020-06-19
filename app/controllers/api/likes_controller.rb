@@ -13,6 +13,8 @@ class Api::LikesController < ApplicationController
         like.save!()
 
         @post = Post.find_by(id: params.require(:post_id))
+
+        Notification.save_notification(@post.author_id, Notification::LIKED_POST, like)
         render :show_post, status: :ok
       end
     rescue Exception => e

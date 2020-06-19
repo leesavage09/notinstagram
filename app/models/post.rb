@@ -76,17 +76,17 @@ class Post < ApplicationRecord
 
     def get_details_by_post_id(post_id)
       post = Post.find_by(id: post_id)
-      post_ids, post_comments, associated_users = get_associated_details([post])
+      post_ids, post_comments, associated_user_ids = get_associated_details([post])
 
-      return post, post_comments, associated_users
+      return post, post_comments, User.where(id: associated_user_ids)
     end
 
     def get_details_by_author(author_id, limit, offset)
       posts = Post.includes(:likes, :comments).where(author_id: author_id).order("created_at DESC").limit(limit).offset(offset)
       number_posts = Post.select(:id).where(author_id: author_id).count
 
-      post_ids, post_comments, associated_users = get_associated_details(posts)
-      return posts, number_posts, post_ids, post_comments, associated_users
+      post_ids, post_comments, associated_user_ids = get_associated_details(posts)
+      return posts, number_posts, post_ids, post_comments, User.where(id: associated_user_ids)
     end
 
     def get_details_by_hashtag(hashtag_id, limit, offset)
@@ -97,8 +97,8 @@ class Post < ApplicationRecord
         posts << tag.post
       }
 
-      post_ids, post_comments, associated_users = get_associated_details(posts)
-      return posts, number_posts, post_ids, post_comments, associated_users
+      post_ids, post_comments, associated_user_ids = get_associated_details(posts)
+      return posts, number_posts, post_ids, post_comments, User.where(id: associated_user_ids)
     end
 
     def get_associated_details(posts)
@@ -121,9 +121,7 @@ class Post < ApplicationRecord
         end
       end
 
-      associated_users = User.where(id: associated_user_ids)
-
-      return post_ids, post_comments, associated_users
+      return post_ids, post_comments, associated_user_ids
     end
   end
 end

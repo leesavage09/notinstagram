@@ -72,18 +72,18 @@ class Notification < ApplicationRecord
   end
 
   STARTED_FOLLOWING = " started following you"
-  LIKED_POST = " liked your post"
+  LIKED_POST = " liked your photo"
   LIKED_COMMENT = " liked your comment"
-  COMMENTED_POST = " commented on your post"
+  COMMENTED_POST = " commented on your photo"
   REPLIED_COMMENTED = " replied to your comment"
+
+  class << self
+    def save_notification(notified_user_id, message, activity)
+      note = Notification.new
+      note.notified_user_id = notified_user_id
+      note.message = message
+      note.activity = activity
+      note.save!()
+    end
+  end
 end
-
-# max 20 notifications then delete them....
-
-# STARTED_FOLLOWING = " started following you" #GOTO user page (need source user only)
-
-# LIKED_POST = " liked your post" #GOTO post page (source_user & post_id)
-
-# LIKED_COMMENT = " liked your comment" #GOTO post/comments/id (source_user & post_id & comment_id)
-# COMMENTED_POST = " commented on your post" #GOTO post/comments/id (source_user & post_id & comment_id)
-# REPLIED_COMMENTED = " replied to your comment" #GOTO post/comments/id (source_user & post_id & comment_id)

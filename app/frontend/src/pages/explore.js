@@ -3,9 +3,9 @@ import BottomNav from '../components/bottom_nav';
 import { TopNavExplore } from '../components/top_nav';
 import { useSelector, useDispatch } from 'react-redux'
 import { exploreSelector, exploreActions } from '../redux/slice/explore_slice'
-import UserListItem from '../components/user_list_item';
+import { SimpleUserListItem } from '../components/user_list_item';
 import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice';
-import {PostGrid, PostFeed} from '../components/display_posts';
+import { PostGrid } from '../components/display_posts';
 
 export default function Explore() {
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ export default function Explore() {
     const selectedUsers = useSelector(normalizedUsersSelector.getUsers(selected_user_ids))
     const UserListItems = []
     const randomPost_ids = useSelector(exploreSelector.posts())
-    
+
     useEffect(() => {
         dispatch(exploreActions.getRandomPosts())
     }, []);
@@ -21,7 +21,7 @@ export default function Explore() {
     if (selectedUsers.length > 0) {
         selectedUsers.forEach(user => {
             UserListItems.push(
-                <UserListItem key={user.id} user={user} />)
+                <SimpleUserListItem key={user.id} user={user} />)
         });
     }
     else {

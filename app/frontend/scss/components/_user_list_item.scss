@@ -1,6 +1,7 @@
 .user-list-item {
   display: flex;
   padding: 8px 16px;
+  align-items: center;
 
   &__image {
     width: 44px;
@@ -9,17 +10,28 @@
   }
 
   &__details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1 1 auto;
   }
 
   &__username {
     font-weight: 600;
+    display: inline;
   }
 
   &__name {
     font-weight: 400;
+    color: $dark-grey;
+  }
+
+  &__post-image {
+    height: 48px;
+  }
+
+  &__message {
+    font-weight: 400;
+  }
+
+  &__time {
     color: $dark-grey;
   }
 }

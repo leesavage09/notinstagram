@@ -40,6 +40,7 @@ class Api::FollowsController < ApplicationController
     end
 
     if follow.save()
+      Notification.save_notification(follow.followed.id, Notification::STARTED_FOLLOWING, follow)
       @user = logged_in_user
       render :show
     else

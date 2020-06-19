@@ -20,7 +20,8 @@ class Api::PostsController < ApplicationController
       return
     end
 
-    @post_ids, @post_comments, @associated_users = Post.get_associated_details(@posts)
+    @post_ids, @post_comments, associated_user_ids = Post.get_associated_details(@posts)
+    @associated_users = User.where(id: associated_user_ids)
     render :index, status: :ok
   end
 
