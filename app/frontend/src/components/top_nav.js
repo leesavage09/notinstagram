@@ -26,9 +26,9 @@ export const TopNavCreatePhoto = (props) => (
     <TopNav>
         <GoBackCloseButton />
         <h1>{props.title}</h1>
-        <a className='top-nav__link'
+        <button className='text-button text-button--blue'
             onClick={props.button_action}
-        >{props.button_title}</a>
+        >{props.button_title}</button>
     </TopNav>
 )
 
@@ -38,7 +38,7 @@ export const TopNavCreatePost = (props) => {
         <TopNav>
             <GoBackArrowButton />
             <h1>New Post</h1>
-            <button className='text-button top-nav__link'
+            <button className='text-button text-button--blue'
                 disabled={loading}
                 onClick={props.createPost}
             >Share</button>

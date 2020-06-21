@@ -48,7 +48,7 @@ export function createFileWithImage(img) {
     return new Promise((resolve, reject) => {
         img.toBlob((blob)=>{
             resolve(blob)
-        }, "image/jpeg", 0.1);//0.75); //TODO going to want to increse the quality
+        }, "image/jpeg", 1);
     });
 
 }

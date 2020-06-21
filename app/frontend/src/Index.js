@@ -21,6 +21,7 @@ import ToastNotification from './components/toast_notification'
 import Profile from './pages/profile'
 import { sessionActions } from './redux/slice/session_slice'
 import { Followers, Followings, PostLikes } from './pages/pages_listing_users'
+import CommentsPage from './pages/comments_page'
 import PostPage from './pages/post_page'
 import DesktopModal from './components/options_modal/desktop_modal';
 import { DirectMessageModal, SavePostModal } from './components/options_modal/no-feature_modal';
@@ -53,6 +54,7 @@ class Index extends React.Component {
               <ProtectedRoute exact path="/followings" component={Followings} />
               <ProtectedRoute exact path="/post" component={PostPage} />
               <ProtectedRoute exact path="/likes" component={PostLikes} />
+              <ProtectedRoute exact path="/comments" component={CommentsPage} />
               <ProtectedRoute exact path="/" component={Home} />
             </Switch>
             <ProtectedRoute component={ToastNotification} />

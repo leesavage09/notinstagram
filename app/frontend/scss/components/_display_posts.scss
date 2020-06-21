@@ -32,6 +32,8 @@
   &__photo {
     width: 100vw;
     flex: 1 1 100%;
+    display: block;
+    margin-bottom: 4px;
   }
 
   &__details {
@@ -40,6 +42,7 @@
 
   &__buttons {
     display: flex;
+    padding: 0 16px 4px 16px;
   }
   &__button:first-child {
     margin-left: -8px;
@@ -51,6 +54,7 @@
     padding: 8px;
     width: 40px;
     height: 40px;
+    box-sizing: border-box;
   }
   &__button--right {
     margin-left: auto;

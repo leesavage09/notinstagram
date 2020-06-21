@@ -96,13 +96,14 @@ const sessionSlice = createSlice({
         notifications: []
     },
     extraReducers: {
-        [login.fulfilled]: (state, action) => setUser(state, action.payload),
-        [createUser.fulfilled]: (state, action) => setUser(state, action.payload),
-        [updateUser.fulfilled]: (state, action) => setUser(state, action.payload),
-        [updatePassword.fulfilled]: (state, action) => setUser(state, action.payload),
-        [updateAvatar.fulfilled]: (state, action) => setUser(state, action.payload),
-        [removeAvatar.fulfilled]: (state, action) => setUser(state, action.payload),
-        [logout.fulfilled]: state => setUser(state, null),
+        [login.fulfilled]: setUser,
+        [createUser.fulfilled]: setUser,
+        [updateUser.fulfilled]: setUser,
+        [updatePassword.fulfilled]: setUser,
+        [updateAvatar.fulfilled]: setUser,
+        [removeAvatar.fulfilled]: setUser,
+        
+        [logout.fulfilled]: resetUser,
 
         [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => updateUserState(state, action.payload.user),
 
@@ -116,8 +117,12 @@ const sessionSlice = createSlice({
 })
 export default sessionSlice
 
-function setUser(state, user) {
-    state.user = user
+function setUser(state, action) {
+    state.user = action.payload
+}
+
+function resetUser(state){
+    state.user = null
 }
 
 function updateUserState(state, user) {

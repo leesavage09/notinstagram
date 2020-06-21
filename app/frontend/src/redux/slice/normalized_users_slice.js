@@ -13,6 +13,13 @@ const normalizedUsersSlice = createSlice({
     name: slice_name,
     initialState: {},
     extraReducers: {
+        [sessionActions.login.fulfilled]: mergeUser,
+        [sessionActions.createUser.fulfilled]: mergeUser,
+        [sessionActions.updateUser.fulfilled]: mergeUser,
+        [sessionActions.updatePassword.fulfilled]: mergeUser,
+        [sessionActions.updateAvatar.fulfilled]: mergeUser,
+        [sessionActions.removeAvatar.fulfilled]: mergeUser,
+
         [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => {
             const allUsers = merge({}, action.payload.users, { [action.payload.user.id]: action.payload.user })
             merge(state, allUsers);
@@ -48,4 +55,10 @@ function mergeUsers(state, action) {
     if (users) {
         merge(state, users);
     }
+}
+
+function mergeUser(state, action) {
+    if (action.payload) {
+        merge(state, { [action.payload.id]: action.payload  });
+}
 }

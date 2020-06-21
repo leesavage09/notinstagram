@@ -1,0 +1,42 @@
+.comment-input {
+  &__container {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    @include thin-border;
+    border-width: 0 0 1px 0;
+    background-color: $very-light_grey;
+  }
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    margin: 0 16px;
+  }
+  &__area {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    @include thin-border;
+    padding: 11px 16px;
+    margin-right: 16px;
+    border-radius: 30px;
+    background-color: $white;
+  }
+  &__text {
+    flex: 1 1 auto;
+    border: none;
+    outline: none;
+    padding: 0;
+    height: 17px;
+    line-height: 17px;
+
+  }
+  &__button {
+    padding: 0;
+    height: 17px;
+    font-size: 14px;
+  }
+  &__spinner {
+    
+  }
+}

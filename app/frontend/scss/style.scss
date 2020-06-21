@@ -26,6 +26,7 @@
 @import './components/display_posts';
 @import './components/profile-activity';
 @import "./components/no-content-placeholder";
+@import "./components/comments_list_item";
 
 
 // // Page Styles
@@ -37,3 +38,4 @@
 @import "./pages/explore";
 @import "./pages/home";
 @import "./pages/follows";
+@import "./pages/comments-page";
