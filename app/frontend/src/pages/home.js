@@ -1,16 +1,31 @@
 import { TopNavFeed } from '../components/top_nav'
 import BottomNav from '../components/bottom_nav'
 import { useSelector, useDispatch } from 'react-redux'
-import React, { useEffect } from 'react';
+import { debounce } from '../util/helpers'
+import React, { useEffect, useState } from 'react';
 import { FeedSelector, FeedActions } from '../redux/slice/feed_slice';
-import {PostFeed} from '../components/display_posts';
+import { PostFeed } from '../components/display_posts';
 
 export default function Home() {
     const dispatch = useDispatch()
     const post_ids = useSelector(FeedSelector.post_ids())
+    const loading = useSelector(FeedSelector.loading())
+    const no_more_posts = useSelector(FeedSelector.no_more_posts())
+    const [page, setpage] = useState(1);
+
+    const loadMore = () => {
+        // if 70% of the way down the page
+        if (!loading && document.documentElement.scrollTop > document.documentElement.offsetHeight * 0.50
+        ) {
+            dispatch(FeedActions.getFeed({ page: page }))
+            setpage(page + 1)
+        }
+    }
+
+    window.onscroll = no_more_posts ? null : debounce(loadMore, 50)
 
     useEffect(() => {
-        dispatch(FeedActions.getFeed({page:0}))
+        dispatch(FeedActions.getFeed({ page: 0 }))
     }, []);
 
     const content = post_ids.length === 0 ? (

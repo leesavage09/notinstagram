@@ -4,17 +4,19 @@ class Api::PostsController < ApplicationController
   def index
     case params.require(:type)
     when "feed"
+      limit = 8
+      offset = params.require(:page).to_i * limit
       followed_users = logged_in_user.followed_users.pluck(:id)
       followed_hashtags = logged_in_user.followed_hashtags.pluck(:id)
-      tagged_posts = Tagging.where(hashtag_id: [followed_hashtags]).order(created_at: :desc).limit(10).offset(params.require(:page)).pluck(:post_id)
+      tagged_posts = Tagging.where(hashtag_id: [followed_hashtags]).order(created_at: :desc).limit(limit).offset(offset).pluck(:post_id)
 
       @posts = Post
         .includes(:likes, :comments)
         .where(author_id: [followed_users])
         .or(Post.includes(:likes, :comments).where(id: [tagged_posts]))
-        .order(created_at: :desc).limit(20).offset(params.require(:page))
+        .order(created_at: :desc).limit(limit).offset(offset)
     when "discover"
-      @posts = Post.order("RANDOM()").limit(18)
+      @posts = Post.order("RANDOM()").limit(30)
     else
       render json: { errors: ["wrong type parameter"] }, status: :unprocessable_entity
       return

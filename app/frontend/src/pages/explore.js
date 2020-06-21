@@ -15,7 +15,8 @@ export default function Explore() {
     const randomPost_ids = useSelector(exploreSelector.posts())
 
     useEffect(() => {
-        dispatch(exploreActions.getRandomPosts())
+        dispatch(exploreActions.cancelSearch())
+        if (randomPost_ids.length < 1) dispatch(exploreActions.getRandomPosts())
     }, []);
 
     if (selectedUsers.length > 0) {
