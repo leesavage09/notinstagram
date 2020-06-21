@@ -5,6 +5,7 @@ import { PostActions } from './post_slice';
 import { FeedActions } from './feed_slice';
 import { exploreActions } from './explore_slice';
 import { sessionActions } from './session_slice';
+import { commentActions } from './comment_slice';
 
 const slice_name = 'normalized_posts'
 
@@ -21,6 +22,7 @@ const normalizedPostsSlice = createSlice({
         [FeedActions.getFeed.fulfilled]: mergePosts,
         [exploreActions.getRandomPosts.fulfilled]: mergePosts,
         [sessionActions.getNotifications.fulfilled]: mergePosts,
+        [commentActions.createComment.fulfilled]: mergePost,
     }
 })
 

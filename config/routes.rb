@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
     resources :notifications, only: [:index]
 
+    resources :comments, only: [:create]
+
   end
 
   get "*page", to: "static#index", constraints: ->(req) do

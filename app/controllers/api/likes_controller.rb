@@ -14,7 +14,7 @@ class Api::LikesController < ApplicationController
 
         @post = Post.find_by(id: params.require(:post_id))
 
-        Notification.save_notification(@post.author_id, Notification::LIKED_POST, like)
+        Notification.save_notification(@post.author_id, Notification::LIKED_POST, like) unless @post.author_id == logged_in_user.id
         render :show_post, status: :ok
       end
     rescue Exception => e

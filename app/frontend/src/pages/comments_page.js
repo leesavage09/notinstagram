@@ -9,9 +9,7 @@ import LoadingSpinner from '../components/loading_spinner';
 import { normalizedPostsSelector } from '../redux/slice/normalized_posts_slice';
 import { PostActions } from '../redux/slice/post_slice';
 import CommentsListItems from '../components/comments_list_item';
-import { modalActions } from '../redux/slice/modal_slice';
-import { PostCaption } from '../components/post';
-import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice';
+import { commentActions } from '../redux/slice/comment_slice';
 
 export default function CommentsPage(props) {
     const dispatch = useDispatch()
@@ -24,14 +22,15 @@ export default function CommentsPage(props) {
 
     return (
         <div>
-            <CommentInput />
+            <CommentInput post={post}/>
             <CommentsListItems post={post} />
             <BottomNav />
         </div>
     );
 }
 
-function CommentInput() {
+function CommentInput(props) {
+    const dispatch = useDispatch()
     const searchBox = React.createRef()
     const cancelBtn = React.createRef()
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
@@ -39,8 +38,7 @@ function CommentInput() {
     const spinnerElement = loading ? <LoadingSpinner spinnerStyle="" /> : ''
 
     const handleCancel = () => {
-        console.log("Post btn clicked, add comment and return result")
-        dispatch(PostActions.showPost({ id: query.post_id }))
+        dispatch(commentActions.createComment({ body: searchBox.current.value, post_id: props.post.id }))
     }
     return (
         <div className="comment-input">

@@ -5,6 +5,7 @@ import { PostActions } from './post_slice';
 import { FeedActions } from './feed_slice';
 import { exploreActions } from './explore_slice';
 import { sessionActions } from './session_slice';
+import { commentActions } from './comment_slice';
 
 const slice_name = 'normalized_comments'
 
@@ -19,6 +20,7 @@ const normalizedCommentsSlice = createSlice({
         [FeedActions.getFeed.fulfilled]: mergeComments,
         [exploreActions.getRandomPosts.fulfilled]: mergeComments,
         [sessionActions.getNotifications.fulfilled]: mergeComments,
+        [commentActions.createComment.fulfilled]: mergeComment,
     }
 })
 
@@ -38,5 +40,11 @@ export const normalizedCommentsSelector = {
 function mergeComments(state, action) {
     if (action.payload.comments) {
         merge(state, action.payload.comments);
+    }
+}
+
+function mergeComment(state, action) {
+    if (action.payload.comment) {
+        merge(state, { [action.payload.comment.id]: action.payload.comment });
     }
 }

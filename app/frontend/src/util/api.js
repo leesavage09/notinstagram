@@ -108,3 +108,7 @@ export function getRandomPosts() {
 export function getNotifications() {
   return axios.get(`/api/notifications`)
 }
+
+export function createComment(arg) {
+  return axios.post(`/api/comments`, arg)
+}
