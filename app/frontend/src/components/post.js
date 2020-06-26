@@ -7,6 +7,7 @@ import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 import { PostActions } from '../redux/slice/post_slice';
 import { sessionSelector } from '../redux/slice/session_slice';
 import { modalActions } from '../redux/slice/modal_slice';
+import { LikeIcon, CommentIcon, BookmarkIcon, ShareIcon, UnlikeIcon } from './svg_icon';
 
 export default function Post(props) {
     const post = props.post
@@ -43,7 +44,6 @@ function PostPhoto(props) {
     const dispatch = useDispatch()
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
     const isLiked = props.post.liker_ids.includes(loggedInUser.id)
-    const [likeAnimation, setlikeAnimation] = useState("svg-icon");
 
     const save_action = () => {
         dispatch(modalActions.showSaveModal(true))
@@ -55,12 +55,10 @@ function PostPhoto(props) {
 
     const likePost = () => {
         dispatch(PostActions.likePost({ id: props.post.id }))
-        setlikeAnimation("svg-icon svg-like-animation")
     }
 
     const unlikePost = () => {
         dispatch(PostActions.unlikePost({ id: props.post.id }))
-        setlikeAnimation("svg-icon svg-unlike-animation")
     }
 
     let lastClickTime = 0;
@@ -72,7 +70,6 @@ function PostPhoto(props) {
         lastClickTime = clickNow
     }
 
-    const like_style = isLiked ? "svg-unlike-icon" : "svg-like-icon"
     const like_action = isLiked ? unlikePost : likePost
 
     return (
@@ -80,26 +77,18 @@ function PostPhoto(props) {
             <img className="post-feed__photo" src={props.post.image_url} onClick={handleImageClick} />
             <div className="post-feed__buttons">
                 <button className="post-feed__button text-button" onClick={like_action}>
-                    <svg className={likeAnimation} viewBox="0 0 48 48">
-                        <path className={like_style}></path>
-                    </svg>
+                    {isLiked ? <UnlikeIcon className="svg-icon svg-like-animation" /> : <LikeIcon className="svg-icon svg-like-animation" />}
                 </button>
                 <Link className="post-feed__button text-button"
                     to={`/comments?post_id=${props.post.id}`}>
-                    <svg className="svg-icon" viewBox="0 0 48 48">
-                        <path className="svg-comment-icon"></path>
-                    </svg>
+                    <CommentIcon />
                 </Link>
                 <button className="post-feed__button text-button" onClick={direct_message_action}>
-                    <svg className="svg-icon" viewBox="0 0 48 48">
-                        <path className="svg-share-icon"></path>
-                    </svg>
+                    <ShareIcon />
                 </button>
                 <span className="post-feed__button--right">
                     <button className="post-feed__button text-button" onClick={save_action}>
-                        <svg className="svg-icon" viewBox="0 0 48 48">
-                            <path className="svg-bookmark-icon"></path>
-                        </svg>
+                        <BookmarkIcon />
                     </button>
                 </span>
             </div>

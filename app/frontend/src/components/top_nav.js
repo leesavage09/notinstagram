@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from "react-router-dom";
-import SVGIcon from './svg_icon';
+import { ChatIcon, OptionsIcon, PlusPeopleIcon, CameraIcon, CloseIcon, BackIcon } from './svg_icon';
 import SearchInput from './search_input'
 import { useSelector, useDispatch } from 'react-redux'
 import { sessionSelector } from '../redux/slice/session_slice'
@@ -97,14 +97,14 @@ const ChatButton = () => {
         <button className='text-button top-nav__icon' onClick={() => {
             dispatch(modalActions.showDMModal(true))
         }}>
-            <SVGIcon iconName='svg-chat-icon' />
+            <ChatIcon />
         </button>
     )
 }
 
 const AccountOptionsButton = () => (
     <Link to="/account/options" className='top-nav__icon'>
-        <SVGIcon iconName='svg-options-icon' />
+        <OptionsIcon />
     </Link>
 )
 
@@ -112,7 +112,7 @@ const FindUsersButton = () => (
     <button className='text-button top-nav__icon' onClick={() => {
         alert("Comming Soon")
     }}>
-        <SVGIcon iconName='svg-plus-people-icon' />
+        <PlusPeopleIcon />
     </button>
 )
 
@@ -123,7 +123,7 @@ const CreatePostButton = () => {
             className='text-button top-nav__icon'
             imageSelected={() => history.push("/create-post-image")}
         >
-            <SVGIcon iconName='svg-camera-icon' />
+            <CameraIcon />
         </ImageSelectButton>
     )
 }
@@ -132,7 +132,7 @@ const GoBackCloseButton = () => {
     const history = useHistory()
     return (
         <a onClick={history.goBack} className='top-nav__icon'>
-            <SVGIcon iconName='svg-close-icon' />
+            <CloseIcon />
         </a>
     )
 }
@@ -141,7 +141,7 @@ const GoBackArrowButton = () => {
     const history = useHistory()
     return (
         <button onClick={history.goBack} className='text-button top-nav__icon  top-nav__icon--rotated-270' >
-            <SVGIcon iconName='svg-back-icon' />
+            <BackIcon />
         </button>
     )
 }

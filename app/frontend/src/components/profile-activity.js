@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import SVGIcon from './svg_icon'
-import {PostFeed, PostGrid} from './display_posts';
+import { PostGridIcon, BookmarkIcon, TaggedIcon } from './svg_icon'
+import { PostFeed, PostGrid } from './display_posts';
 import { NoSavedPosts, NoTaggedPosts } from './no-content-placeholders';
 
 const SVG_STYLE = "account-icons__svg account-icons__svg"
@@ -78,16 +78,16 @@ function ProfileActivity(props) {
             </ul>
             <div className='account-icons'>
                 <a onClick={selectGridFeed} className='account-icons__icon'>
-                    <SVGIcon className={postGridButtonStyle} iconName='svg-post-grid-icon' />
+                    <PostGridIcon className={postGridButtonStyle} />
                 </a>
                 <a onClick={selectPostFeed} className='account-icons__icon'>
                     <div className={postFeedButtonStyle} />
                 </a>
                 <a onClick={selectSavePost} className='account-icons__icon'>
-                    <SVGIcon className={savedPostButtonStyle} iconName='svg-bookmark-icon' />
+                    <BookmarkIcon className={savedPostButtonStyle} />
                 </a>
                 <a onClick={selectTaggedPost} className='account-icons__icon'>
-                    <SVGIcon className={taggedPostButtonStyle} iconName='svg-tagged-icon' />
+                    <TaggedIcon className={taggedPostButtonStyle} />
                 </a>
             </div>
 

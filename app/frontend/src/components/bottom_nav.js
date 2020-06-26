@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import SVGIcon from './svg_icon'
+import { HomeIcon, HomeIconSelected, ExploreIconSelected, ExploreIcon, CreateIcon, ActivityIconSelected, ActivityIcon } from './svg_icon'
 import { sessionSelector } from '../redux/slice/session_slice'
 
 import { useSelector } from 'react-redux'
@@ -18,26 +18,26 @@ export default function BottomNav() {
             <div className='bottom-nav__container'>
 
                 <Link to="/" className="bottom-nav__button" >
-                    <SVGIcon iconName='svg-home-icon' selected={path === '/'} />
+                    {path === '/' ? <HomeIconSelected /> : <HomeIcon />}
                 </Link>
 
                 <Link to="/explore" className="bottom-nav__button" >
-                    <SVGIcon iconName='svg-explore-icon' selected={path === '/explore'} />
+                    {path === '/explore' ? <ExploreIconSelected /> : <ExploreIcon />}
                 </Link>
 
                 <ImageSelectButton
                     className="bottom-nav__button"
                     imageSelected={() => history.push("/create-post-image")}
                 >
-                    <SVGIcon iconName='svg-create-icon' />
+                    <CreateIcon />
                 </ImageSelectButton>
 
                 <Link to="/activity" className="bottom-nav__button" >
-                    <SVGIcon iconName='svg-activity-icon' selected={path === '/activity'} />
+                    {path === '/activity' ? <ActivityIconSelected /> : <ActivityIcon />}
                 </Link>
 
                 <Link to={`/profile?user_id=${user.id}`} className="bottom-nav__button" >
-                    <div className={path === '/account' ? 'bottom-nav__account-border' : ''}></div>
+                    <div className={path === '/profile' ? 'bottom-nav__account-border' : ''}></div>
                     <UserAvatar
                         className="bottom-nav__account-image"
                         user={user}
