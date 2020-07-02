@@ -21,7 +21,7 @@ class User < ApplicationRecord
             length: { maximum: 30, message: "Name must be less than 30 characters" }
   validates :username,
             presence: { message: "You must choose a username" },
-            uniqueness: { message: "This username has already been taken" },
+            uniqueness: { message: "This username has already been taken", case_sensitive: false },
             length: { maximum: 30, message: "Username must be less than 30 characters" },
             format: { with: /\A[\w.]+\z/, message: "Username can only use letters, numbers, underscores and periods" }
   validates :bio,
@@ -115,7 +115,7 @@ class User < ApplicationRecord
 
   class << self
     def find_by_credentials(username, password)
-      user = User.find_by(username: username)
+      user = User.where("lower(username) = ?", username.downcase).first
       return user if user && BCrypt::Password.new(user.password_digest).is_password?(password)
       nil
     end

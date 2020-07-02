@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { FeedSelector, FeedActions } from '../redux/slice/feed_slice';
 import { PostFeed } from '../components/display_posts';
 
-export default function Home() {
+export default function Home(props) {
     const dispatch = useDispatch()
     const post_ids = useSelector(FeedSelector.post_ids())
     const loading = useSelector(FeedSelector.loading())
@@ -23,6 +23,10 @@ export default function Home() {
     }
 
     window.onscroll = no_more_posts ? null : debounce(loadMore, 50)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [props.location]);
 
     useEffect(() => {
         dispatch(FeedActions.getFeed({ page: 0 }))

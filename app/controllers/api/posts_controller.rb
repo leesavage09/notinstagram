@@ -7,6 +7,7 @@ class Api::PostsController < ApplicationController
       limit = 8
       offset = params.require(:page).to_i * limit
       followed_users = logged_in_user.followed_users.pluck(:id)
+      followed_users << logged_in_user.id
       followed_hashtags = logged_in_user.followed_hashtags.pluck(:id)
       tagged_posts = Tagging.where(hashtag_id: [followed_hashtags]).order(created_at: :desc).limit(limit).offset(offset).pluck(:post_id)
 

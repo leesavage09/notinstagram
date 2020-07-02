@@ -35,7 +35,10 @@ const updatePassword = createAsyncThunk(
             return thunkAPI.rejectWithValue("Make sure both passwords match")
         }
         try {
-            await ApiUtil.loginUser(user.username, oldPassword)
+            await ApiUtil.loginUser({
+                username: user.username,
+                password: oldPassword
+            })
             const responce = await ApiUtil.updateUser({ ...user, password: newPassword })
 
             return responce.data
@@ -95,6 +98,9 @@ const sessionSlice = createSlice({
         user: null,
         notifications: []
     },
+    reducers: {
+        reauthenticate: resetUser
+    },
     extraReducers: {
         [login.fulfilled]: setUser,
         [createUser.fulfilled]: setUser,
@@ -102,7 +108,7 @@ const sessionSlice = createSlice({
         [updatePassword.fulfilled]: setUser,
         [updateAvatar.fulfilled]: setUser,
         [removeAvatar.fulfilled]: setUser,
-        
+
         [logout.fulfilled]: resetUser,
 
         [profileActions.fetchUserActivityDetails.fulfilled]: (state, action) => updateUserState(state, action.payload.user),
@@ -121,7 +127,7 @@ function setUser(state, action) {
     state.user = action.payload
 }
 
-function resetUser(state){
+function resetUser(state) {
     state.user = null
 }
 

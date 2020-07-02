@@ -31,14 +31,15 @@ export default function CommentsPage(props) {
 
 function CommentInput(props) {
     const dispatch = useDispatch()
-    const searchBox = React.createRef()
-    const cancelBtn = React.createRef()
+    const commentBody = React.createRef()
+    const postBtn = React.createRef()
     const loggedInUser = useSelector(sessionSelector.loggedInUser())
     const loading = false;
     const spinnerElement = loading ? <LoadingSpinner spinnerStyle="" /> : ''
 
-    const handleCancel = () => {
-        dispatch(commentActions.createComment({ body: searchBox.current.value, post_id: props.post.id }))
+    const handlePost = () => {
+        dispatch(commentActions.createComment({ body: commentBody.current.value, post_id: props.post.id }))
+        commentBody.current.value = ""
     }
     return (
         <div className="comment-input">
@@ -51,15 +52,15 @@ function CommentInput(props) {
                 <div className="comment-input__area">
                     <input
                         className="comment-input__text"
-                        ref={searchBox}
+                        ref={commentBody}
                         type="text"
                         placeholder='Add a comment...'
                     />
                     <div className="comment-input__spinner">{spinnerElement}</div>
                     <button
                         className="text-button text-button--blue comment-input__button"
-                        ref={cancelBtn}
-                        onClick={handleCancel}>
+                        ref={postBtn}
+                        onClick={handlePost}>
                         Post
                 </button>
                 </div>

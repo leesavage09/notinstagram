@@ -13,13 +13,17 @@ import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice'
 import { normalizedHashtagsSelector } from '../redux/slice/normalized_hashtags_slice'
 import ProfileActivity from '../components/profile-activity'
 import { IconFollowButton, TextFollowButton } from '../components/followButtons';
-import {PostGrid} from '../components/display_posts';
+import { PostGrid } from '../components/display_posts';
 
 export default function Profile(props) {
   const dispatch = useDispatch()
   const query = queryString.parse(props.location.search)
   const user_id = query.user_id
   const hashtag_name = query.hashtag_name
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+  });
 
   useEffect(() => {
     if (user_id) {

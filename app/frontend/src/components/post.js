@@ -132,7 +132,7 @@ export function PostCaption(props) {
 
     return (
         <div className="post-feed__caption">
-            <UserText user={author} text={props.post.caption} />
+            <UserText user={author} text={addHashtagLinks(props.post.caption)} />
         </div>
     )
 }
@@ -142,7 +142,7 @@ function Comments(props) {
     const comments = comment_ids.length > 0 ? useSelector(normalizedCommentsSelector.getComments(comment_ids)) : []
     const commentBodys = []
 
-    comments.slice(0, 2).forEach((comment) => {
+    comments.slice(comments.length-2, comments.length).forEach((comment) => {
         const user = useSelector(normalizedUsersSelector.getUser(comment.author_id))
         commentBodys.push(
             <UserText key={comment.id} user={user} text={comment.body} />
@@ -170,7 +170,7 @@ function Comments(props) {
 }
 
 function UserText(props) {
-    const words = addHashtagLinks(props.text)
+    const words = props.text
 
     const [showWords, setShowWords] = useState(words.slice(0, 10));
     const textIsTruncated = words.length != showWords.length
