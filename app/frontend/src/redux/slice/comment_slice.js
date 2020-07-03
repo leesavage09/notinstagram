@@ -17,5 +17,3 @@ export default commentSlice
 
 commentSlice.actions.createComment = createComment
 export const commentActions = commentSlice.actions
-
-export const commentSelector = {}

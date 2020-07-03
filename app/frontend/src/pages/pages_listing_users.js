@@ -8,16 +8,7 @@ import { normalizedUsersSelector } from '../redux/slice/normalized_users_slice';
 import { followersActions, followersSelector } from '../redux/slice/followers_slice';
 import { PostActions } from '../redux/slice/post_slice';
 import { normalizedPostsSelector } from '../redux/slice/normalized_posts_slice';
-
-export function Followers(props) {
-    const user_id = queryString.parse(props.location.search).user_id
-    return (<FollowsPage title="Followers" user_id={user_id} selector={followersSelector.followerIDs} action={followersActions.fetchFollowers} />)
-}
-
-export function Followings(props) {
-    const user_id = queryString.parse(props.location.search).user_id
-    return (<FollowsPage title="Following" user_id={user_id} selector={followersSelector.followingIDs} action={followersActions.fetchFollowings} />)
-}
+import { discoverActions, discoverSelector } from '../redux/slice/discover_slice';
 
 export function PostLikes(props) {
     const dispatch = useDispatch()
@@ -34,6 +25,41 @@ export function PostLikes(props) {
     return (
         <DisplayUsers users={likers} title="Likes" />
     )
+}
+
+export function DiscoverUsers() {
+    const dispatch = useDispatch()
+    const user_ids = useSelector(discoverSelector.user_ids())
+    const users = useSelector(normalizedUsersSelector.getUsers(user_ids))
+    users.sort((a, b) => a.id < b.id ? 1 : -1)
+
+    useEffect(() => {
+        dispatch(discoverActions.fetchUsers())
+    }, []);
+
+    return (
+        <DisplayUsers users={users} title="Discover people" />
+    );
+}
+
+export function Followers(props) {
+    const user_id = queryString.parse(props.location.search).user_id
+    return (<FollowsPage
+        title="Followers"
+        user_id={user_id}
+        selector={followersSelector.followerIDs}
+        action={followersActions.fetchFollowers}
+    />)
+}
+
+export function Followings(props) {
+    const user_id = queryString.parse(props.location.search).user_id
+    return (<FollowsPage
+        title="Following"
+        user_id={user_id}
+        selector={followersSelector.followingIDs}
+        action={followersActions.fetchFollowings}
+    />)
 }
 
 function FollowsPage(props) {

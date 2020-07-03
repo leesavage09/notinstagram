@@ -108,13 +108,16 @@ const AccountOptionsButton = () => (
     </Link>
 )
 
-const FindUsersButton = () => (
-    <button className='text-button top-nav__icon' onClick={() => {
-        alert("Comming Soon")
-    }}>
-        <PlusPeopleIcon />
-    </button>
-)
+const FindUsersButton = () => {
+    const history = useHistory()
+    return (
+        <button className='text-button top-nav__icon' onClick={() => {
+            history.push("/discover")
+        }}>
+            <PlusPeopleIcon />
+        </button>
+    )
+}
 
 const CreatePostButton = () => {
     const history = useHistory()

@@ -8,7 +8,7 @@ class Api::CommentsController < ApplicationController
       @comment = Comment.new
       @comment.body = params.require(:body)
       @comment.author = logged_in_user
-      @comment.parent = post
+      @comment.parent = post #TODO later comments on other comments
       @comment.parent_post = post
       @comment.save!()
       @post = Post.find_by(id: params.require(:post_id))

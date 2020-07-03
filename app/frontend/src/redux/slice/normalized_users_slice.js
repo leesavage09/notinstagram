@@ -6,6 +6,7 @@ import merge from 'lodash/merge'
 import { PostActions } from './post_slice';
 import { FeedActions } from './feed_slice';
 import { sessionActions } from './session_slice';
+import { discoverActions } from './discover_slice';
 
 const slice_name = 'normalized_users'
 
@@ -33,6 +34,8 @@ const normalizedUsersSlice = createSlice({
         [FeedActions.getFeed.fulfilled]: mergeUsers,
         [exploreActions.getRandomPosts.fulfilled]: mergeUsers,
         [sessionActions.getNotifications.fulfilled]: mergeUsers,
+
+        [discoverActions.fetchUsers.fulfilled]: mergeUsers,
     }
 })
 

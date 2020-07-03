@@ -132,7 +132,7 @@ export function PostCaption(props) {
 
     return (
         <div className="post-feed__caption">
-            <UserText user={author} text={addHashtagLinks(props.post.caption)} />
+            <UserText user={author} words={addHashtagLinks(props.post.caption)} />
         </div>
     )
 }
@@ -145,7 +145,7 @@ function Comments(props) {
     comments.slice(comments.length-2, comments.length).forEach((comment) => {
         const user = useSelector(normalizedUsersSelector.getUser(comment.author_id))
         commentBodys.push(
-            <UserText key={comment.id} user={user} text={comment.body} />
+            <UserText key={comment.id} user={user} words={getWords(comment.body)} />
         )
     })
 
@@ -170,7 +170,7 @@ function Comments(props) {
 }
 
 function UserText(props) {
-    const words = props.text
+    const words = props.words
 
     const [showWords, setShowWords] = useState(words.slice(0, 10));
     const textIsTruncated = words.length != showWords.length
@@ -188,19 +188,23 @@ function UserText(props) {
     )
 }
 
+function getWords(text) {
+    return text.split(' ').map((word) => word + " ")
+}
+
 function addHashtagLinks(text) {
-    const words = text.split(' ').map((word) => {
+    const words = getWords(text).map((word,idx) => {
         if (word.match(/\B\#\w\w+\b/g)) {
             return (
                 <Link
-                    key={word}
+                    key={word + idx}
                     className="post-feed__hashtag-link"
                     to={`/profile?hashtag_name=${word.split('#')[1]}`}
                 >{word} </Link>
             )
         }
         else {
-            return word + " "
+            return word
         }
     })
 

@@ -85,6 +85,10 @@ export function updatePost(arg) {
   return axios.patch(`/api/posts/${arg.id}`, { image_url: arg.image_url })
 }
 
+export function destroyPost(arg) {
+  return axios.delete('/api/posts/' + arg.id)
+}
+
 export function showPost(arg) {
   return axios.get(`/api/posts/${arg.id}`)
 }
@@ -112,3 +116,7 @@ export function getNotifications() {
 export function createComment(arg) {
   return axios.post(`/api/comments`, arg)
 }
+
+export function discoverUsers() {
+  return axios.get(`/api/users`)
+} 

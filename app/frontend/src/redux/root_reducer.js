@@ -14,6 +14,7 @@ import followersSlice from './slice/followers_slice'
 import PostSlice from './slice/post_slice'
 import FeedSlice from './slice/feed_slice'
 import commentSlice from './slice/comment_slice'
+import discoverSlice from './slice/discover_slice'
 
 const rootReducer = combineReducers({
     [modalSlice.name]: modalSlice.reducer,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
     [followersSlice.name]: followersSlice.reducer,
     [PostSlice.name]: PostSlice.reducer,
     [FeedSlice.name]: FeedSlice.reducer,
-    [commentSlice]: commentSlice.reducer,
+    [commentSlice.name]: commentSlice.reducer,
+    [discoverSlice.name]: discoverSlice.reducer,
 });
 
 export default rootReducer;

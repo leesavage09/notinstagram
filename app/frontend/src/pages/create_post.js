@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopNavCreatePost } from '../components/top_nav'
-import { imageEditorSelector, imageEditorActions } from '../redux/slice/image_editor_slice'
+import { imageEditorSelector } from '../redux/slice/image_editor_slice'
 import UserAvatar from '../components/user_avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";

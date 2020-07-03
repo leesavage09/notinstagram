@@ -15,9 +15,15 @@ const createPost = createAsyncThunk(
                 ImageUtil.createFileWithImage(img),
                 ApiUtil.createPost({ caption: arg.caption })
             ])
-            const imageUrl = await AmazonS3.sendBlobToAmazonS3(p[0], p[1].data.s3data)
-            const responce = await ApiUtil.updatePost({ id: p[1].data.id, image_url: imageUrl })
-            return responce.data
+            try {
+                const imageUrl = await AmazonS3.sendBlobToAmazonS3(p[0], p[1].data.s3data)
+                const responce = await ApiUtil.updatePost({ id: p[1].data.id, image_url: imageUrl })
+                return responce.data
+            }
+            catch (e){
+                ApiUtil.destroyPost({ id: p[1].data.id})
+                return thunkAPI.rejectWithValue(e)
+            }
         }
         catch (e) {
             return thunkAPI.rejectWithValue(e)

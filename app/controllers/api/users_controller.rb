@@ -2,12 +2,21 @@ class Api::UsersController < ApplicationController
   before_action :require_user_logged_in, except: [:create]
 
   def index
-    @users = User.where("username ILIKE :q or name ILIKE :q",
-                        q: "%" + query_param + "%")
-      .where.not(id: logged_in_user.id)
-      .order(:username)
-      .limit(55)
-    render :index
+    if params[:q]
+      @users = User.where("username ILIKE :q or name ILIKE :q",
+                          q: "%" + params[:q] + "%")
+        .where.not(id: logged_in_user.id)
+        .order(:username)
+        .limit(55)
+      render :index
+    else
+      @users = User
+        .where.not(id: [logged_in_user.followed_users])
+        .where.not(id: logged_in_user.id)
+        .order(created_at: :desc)
+        .limit(25)
+      render :index
+    end
   end
 
   def show

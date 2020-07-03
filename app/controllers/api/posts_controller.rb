@@ -39,7 +39,8 @@ class Api::PostsController < ApplicationController
       post = Post.new
       post.author = logged_in_user
       post.caption = params.require(:caption)
-      tag_post(post.caption.scan(/#(\w+)/).flatten, post)
+      hashtags = post.caption.scan(/#(\w+)/).flatten.uniq
+      tag_post(hashtags, post)
       post.save!
       @post = post
       @s3data = post.image_s3_post_url
@@ -58,6 +59,19 @@ class Api::PostsController < ApplicationController
       render :show, status: :ok
     else
       render json: post.errors, status: 401
+    end
+  end
+
+  def destroy
+    @post = Post.find_by(id: params.require(:id))
+    if !@post
+      render json: { errors: ["Post not found"] }, status: 404
+    elsif @post.author_id != logged_in_user.id
+      render json: { errors: ["Not authorised to delete post"] }, status: 401
+    elsif @post.destroy
+      render json: { success: { post: ["Post was destroyed"] } }, status: :ok
+    else
+      render json: @post.errors, status: :unprocessable_entity
     end
   end
 
