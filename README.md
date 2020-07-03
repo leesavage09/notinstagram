@@ -1,11 +1,40 @@
 # notinstagram
 
-[Hosting](/README.md#Hosting)
+[What is notinstagram](/README.md#what-is-notinstagram)   
+* [Planning](/README.md#planning)   
 
+[Structure](/README.md#structure)   
+* [Back end](/README.md#back-end)   
+* [Amazon S3](/README.md#amazon-s3)   
+* [Front End](/README.md#front-end)   
+
+[Features and design chalanges](/README.md#features-and-design-chalanges)   
+
+* [Authentication bcrypt](/README.md#Authentication-bcrypt)
+* [Passing of hashtags](/README.md#Passing-of-hashtags)
+* [Seed data](/README.md#seed-data)   
+* [React hooks](/README.md#react-hooks)
+* [Custom redux middleware](/README.md#Custom-redux-middleware)
+* [debounce](/README.md#debounce-Higher-order-functions)
+* [Active record N+1 query's](/README.md#active-record-n1-querys)
 
 ## What is notinstagram
 
-Notinstagram is a clone of Instagram's mobile-web UI. This differs from their desktop and native app UI's.
+Notinstagram is a clone of Instagram's mobile-web UI. This differs from the desktop and native app UI's.
+
+Some of the main features of notinstagram are
+* View feed of post from followed hastags and users
+* Search for users & view random posts
+* Follow users and hashtags
+* Create a new post with a photo, caption and hashtags
+* View activity feed, notifications are created for all actions
+* View your profile and
+* * Chage your avatar photo
+* * Edit your profile change all details and set a bio
+* * Change your password
+* * Log out
+* * View your own and other users posts and followers 
+* Discover new users
 
 To view and compare [notinstagram](http://notinstagram.leesavage.co.uk) and [instagram](https://www.instagram.com/) you must have a recognised mobile User-Agent string. 
 
@@ -13,73 +42,294 @@ For the best experence use:
 * a mobile device
 * a mobile simulator from the browser developer tools 
 
+### Planning
+
+notinstagram started with a detailed design brief located [here](https://github.com/leesavage09/notinstagram/wiki) This included interactive wireframing with figma see [here](https://www.figma.com/proto/mPN3OAnSB9bZCmVttgZLhc/notinstagram?node-id=7%3A12&scaling=scale-down)
+
+The brief considered databse structure as well as redux state shape and REST api design
+
 ## Structure
 
 ### Back end
 
-notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. 
+notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/views/static/index.html.erb)
+
+This is hosted on the Heroku free tier. Please alow some time for the first request to process as the server may need to start.
 
 #### Significatnt Back end Libraries
 
-* jbuilder - to format JSON views
-* bcrypt - for password-hashing
-* react-rails - To serve a react app at [index.html.erb](/blob/master/app/views/static/index.html.erb)
-* aws-sdk - To provide access to amazon s3 services
-* factory_bot_rails - To genorate instances of the models for testing and seeding of the database
-* faker - TO genorate intresting realistic seed data
-* dotenv-rails - For easy envrioment configuration in development only
-* rspec-rails - All Rails databse models were developed using test driven developement
-
-## Front end
- 
-### Libraries
-  
-* react - The front end is a one page app 
-* redux - Initialy just vanilla redux was used
-* reduxjs/toolkit - after [this](/commit/6af7f80d075f52f82048061e43333232955296f9) commit notinstagram used redux toolkit to standadise best practises and DRY up code
-* redux-devtools-extension - is intentontaly left enabled on the prodection version of notinstagram
-* redux-thunk -  for async redux actions
-* axios - to make request to the back end api
-
-### Styling & Design
-
-notinstagram uses basic SCSS including a few mixins and variables, most of the SCSS is stand CSS
-
-notinstagram makes use of [BEM conventions](http://getbem.com/) to create reusable styled compentets 
-
-## Hosting
-
-### Heroku
-
-the Rails back end is hosted on the Heroku free tier. Please alow some time for the first request to process as the server may not be running. The Heroku server only serves the index.html and processes all REST API calls
+* [jbuilder](https://github.com/rails/jbuilder) - to format JSON views
+* [bcrypt](https://github.com/codahale/bcrypt-ruby) - for password-hashing
+* [react-rails](https://github.com/reactjs/react-rails) - To help serve a react app
+* [aws-sdk](https://aws.amazon.com/sdk-for-ruby/) - To access to amazon s3 services
+* [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails) - To genorate instances of the models for testing and seeding of the database
+* [faker](https://github.com/faker-ruby/faker) - TO genorate intresting seed data
+* [rspec-rails](https://github.com/rspec/rspec-rails) - All Rails models were developed using TDD
 
 ### Amazon S3
 
-Free Amazon S3 buckets are used to host all static assets. This provices speed and scalability and reduced load on the primary back end server. 
+Free Amazon S3 buckets are used to host static assets. 
 
-notinstagram users can uplaod an avatar photo and post as many photos as they like. Images are processed on the client side and sent directly to presigned amazon s3 buckes to reduce server costs and provide maimum proformace at minimal cost.
+All image uploads are processed on the client side and sent directly to the amazon s3 bucket.
+
+### Front end
+
+Notinstagram is a single page app built with React. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/src/Index.js)
+ 
+#### Libraries
+  
+* [React](https://reactjs.org/)  
+* [redux](https://github.com/reduxjs/react-redux) - Initialy vanilla redux was used
+* [reduxjs/toolkit](https://redux-toolkit.js.org/) - after [this](/commit/6af7f80d075f52f82048061e43333232955296f9) commit notinstagram used redux toolkit to standadise best practises and DRY up code
+* [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) - is intentontaly left enabled on the prodection version of notinstagram
+* [redux-thunk](https://github.com/reduxjs/redux-thunk) -  for async redux actions
+* [axios](https://www.npmjs.com/package/axios) - to make request to the back end api
+
+#### Styling & Design
+
+notinstagram uses SCSS and makes use of [BEM conventions](http://getbem.com/) to create reusable styled compentets 
+
+[style.scss](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/scss/style.scss) is the entry point and shows all SCSS partials used
+
+notinstagram makes use of flexbox for layout
 
 ## Features and design chalanges
 
-The following are some of the more intresting designe chalanges and solutions needed to create not instagram...
+The following are some of the more intresting designe chalanges and the solutions used to create not instagram...
 
 ### Authentication bcrypt
 
-### Passing for hashtags
+When a User is created Bcrypt is used to create a hashed password, the users password is never stored.
+```ruby
+  attr_reader :password
+
+  def password=(password)
+    @password = password
+    self.password_digest = BCrypt::Password.create(password)
+  end
+```
+
+Users are authenticated using BCrypt, note usernames are validated for case insensitive uniqueness
+```ruby
+ def find_by_credentials(username, password)
+   user = User.where("lower(username) = ?", username.downcase).first
+   return user if user && BCrypt::Password.new(user.password_digest).is_password?(password)
+   nil
+ end
+```
+
+When a user is authenticated a session tokens is sent
+```ruby
+ def generate_session_token
+   loop do
+     token = SecureRandom::urlsafe_base64(16)
+     break token unless User.where(session_token: token).exists?
+   end
+ end
+```
+
+The users session token is used for subsiquent requests
+```ruby
+ def logged_in_user
+     return nil unless session[:session_token]
+     @logged_in_user ||= User.find_by(session_token: session[:session_token])
+ end
+ ```
+ 
+The methord `require_user_logged_in` is defind on `ApplicationController` and used to secure relevent parts of the api
+```ruby
+before_action :require_user_logged_in, except: [:create]
+```
+
+### Passing of hashtags
+
+The post caption is passed hastags are created and joind with the post through the join table `taggings`
+```ruby
+def tag_post(post)
+    hashtags = post.caption.scan(/(#\w+)/).flatten.uniq
+
+    hashtags.each do |tag_name|
+    hashtag = Hashtag.find_by(name: tag_name)
+
+    if !hashtag
+      hashtag = Hashtag.new
+      hashtag.name = tag_name
+      hashtag.save!
+    end
+
+    tagging = Tagging.new
+    tagging.hashtag = hashtag
+    tagging.post = post
+    tagging.save!
+  end
+end
+```
+
+On the frontend the post caption is passed as an array of words. Hashtags are found and replaced with links to the hashtags page
+```js
+function replaceHashtagsWithLinks(words) {
+    return words.map((word, idx) => {
+        if (word.match(/\B\#\w\w+\b/g)) {
+            return (
+                <Link
+                    key={word + idx}
+                    className="post-feed__hashtag-link"
+                    to={`/profile?hashtag_name=${word.split('#')[1]}`}
+                >{word} </Link>
+            )
+        }
+        else {
+            return word
+        }
+    })
+}
+```
 
 ### Seed data
+
+`seeds.rb` is used to create seed data for testing. The production version of notinstagram is also initalised with seed data.
+
+The [randomuser.me](https://randomuser.me) API is used to create user accounts with avatar images
+
+```js
+url = "https://randomuser.me/api/?results=70&password=upper,lower,7-14&seed=notinsta&inc=name,email,login,picture"
+uri = URI(url)
+response = Net::HTTP.get(uri)
+randomusers = JSON.parse(response)
+
+randomusers["results"].each do |data|
+  user = User.new
+  user.name = data["name"]["first"] + " " + data["name"]["last"]
+  user.email = data["email"]
+  user.username = data["login"]["username"]
+  user.password = data["login"]["password"]
+  user.image_url = data["picture"]["large"]
+  if user.save()
+    @allUsers << user
+  end
+end
+```
+
+The `Faker` Gem is used to create post captions, comments and hashtags
+
+```js
+def create_hashtags
+  Faker::Hipster.unique.words(number: 30).each do |word|
+    hashtag = Hashtag.new
+    hashtag.name = "#" + word
+    @allHashtags << hashtag if hashtag.save()
+  end
+end
+```
+
+Random images are chosen for posts from a selection of seed images
 
 ### frontend state
 redux toolkit refactor
 
 ### Functional composition 
 
-#### debounce
-
 #### React functional components 
 
-#### React hooks, use effect
+#### React hooks
+
+useState is used in the following example, Initaly post captions and comments are truncatioed to just 10 words. The user can reveal the full text by calling `showFullText` 
+
+```js
+const [currentWords, setCurrentWords] = useState(words.slice(0, 10));
+const textIsTruncated = words.length != currentWords.length
+
+const showFullText = () => {
+    setCurrentWords(words)
+}
+```
+
+useEffect is used in the following example to load the feed information on the first page load
+```js
+useEffect(() => {
+    dispatch(FeedActions.getFeed({ page: 0 }))
+}, []);
+```
+
+Scrolling on this page will dispatch requests to get the next page of the feed. 
+```js 
+window.onscroll = no_more_posts ? null : debounce(loadMore, 50)
+```
+
+A scroll to the top of the page will only happen when the router location changes
+```js
+useEffect(() => {
+    window.scrollTo(0, 0)
+}, [props.location]);
+```
+
+#### Custom redux middleware
+
+notinstagram uses custom redux middleware `testIfAuthorized` to detect when a session token is invalid. If at any time the backend reports the session is not autorised a new action is fired to reauthenticate the user.
+
+A typical reason why this may happen is with multiple devices, Curemtly notinstagram only suports being logged in from one device at a time. If a new device logs in the session token is reset and any previous session tokens are invalidated.
+
+```js
+const testIfAuthorized = store => next => action => {
+    if (
+        action.payload &&
+        action.payload.response &&
+        action.payload.response.data &&
+        action.payload.response.data.errors &&
+        action.payload.response.data.errors[0] &&
+        action.payload.response.data.errors[0] === "unauthorized not logged in"
+    ) {
+        next(sessionActions.reauthenticate());
+        return
+    }
+    next(action)
+}
+```
+
+#### debounce (Higher-order functions)
+
+The following Higher-order function is used around the site to add debounce to another function. You can see when it is called previous timers are cleared. if `waitTime` is 0 then it executes `func` immediately, otherwise it will run after the `waitTime` has elapsed
+```js
+export function debounce(func, waitTime) {
+    let timeout
+    return () => {
+        const context = this
+        const args = arguments
+
+        clearTimeout(timeout)
+
+        if (waitTime === 0) {
+            func.apply(context, args)
+        }
+        else {
+            timeout = setTimeout(() => {
+                timeout = null
+                func.apply(context, args)
+            }, waitTime)
+        }
+    }
+}
+```
+
+Here it is used on the Home feed to debounce loading of new posts on scroll
+```js
+window.onscroll = no_more_posts ? null : debounce(loadMore, 50)
+```
+
+When the user stops typing a search is proformed 800ms later
+```js
+const inputChanged = debounce(doSearch, 800)
+```
 
 ### Active record N+1 query's
+
+Rails `.includes` is used to eager load `:likes` and `:comments` for a `post`. Eager loading is used throught notinstagram where apropriate to elimitante N+1 querys
+```rails
+posts = Post
+ .includes(:likes, :comments)
+ .where(author_id: author_id)
+ .order(created_at: :desc)
+ .limit(limit).offset(offset)
+```
 
 ### API rest design ????
