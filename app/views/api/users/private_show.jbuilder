@@ -1,1 +1,0 @@
-json.partial! "api/users/private_user", user: @user
