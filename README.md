@@ -22,20 +22,6 @@
 
 Notinstagram is a clone of Instagram's mobile-web UI. This differs from the desktop and native app UI's.
 
-Some of the main features of notinstagram are
-* View feed of post from followed hastags and users
-* Search for users & view random posts
-* Follow users and hashtags
-* Create a new post with a photo, caption and hashtags
-* View activity feed, notifications are created for all actions
-* View your profile and
-* * Chage your avatar photo
-* * Edit your profile change all details and set a bio
-* * Change your password
-* * Log out
-* * View your own and other users posts and followers 
-* Discover new users
-
 To view and compare [notinstagram](http://notinstagram.leesavage.co.uk) and [instagram](https://www.instagram.com/) you must have a recognised mobile User-Agent string. 
 
 For the best experence use:
@@ -44,9 +30,9 @@ For the best experence use:
 
 ### Planning
 
-notinstagram started with a detailed design brief located [here](https://github.com/leesavage09/notinstagram/wiki) This included interactive wireframing with figma see [here](https://www.figma.com/proto/mPN3OAnSB9bZCmVttgZLhc/notinstagram?node-id=7%3A12&scaling=scale-down)
+notinstagram started with a design brief located [here](https://github.com/leesavage09/notinstagram/wiki) This included interactive wireframing with figma see [here](https://www.figma.com/proto/mPN3OAnSB9bZCmVttgZLhc/notinstagram?node-id=7%3A12&scaling=scale-down)
 
-The brief considered databse structure as well as redux state shape and REST api design
+The brief considered database designe, redux state shape and REST api design
 
 ## Structure
 
@@ -54,17 +40,17 @@ The brief considered databse structure as well as redux state shape and REST api
 
 notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/views/static/index.html.erb)
 
-This is hosted on the Heroku free tier. Please alow some time for the first request to process as the server may need to start.
+This is hosted on the Heroku free tier. Please alow some time for the first request to process while to app is loaded.
 
 #### Significatnt Back end Libraries
 
-* [jbuilder](https://github.com/rails/jbuilder) - to format JSON views
-* [bcrypt](https://github.com/codahale/bcrypt-ruby) - for password-hashing
-* [react-rails](https://github.com/reactjs/react-rails) - To help serve a react app
-* [aws-sdk](https://aws.amazon.com/sdk-for-ruby/) - To access to amazon s3 services
-* [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails) - To genorate instances of the models for testing and seeding of the database
-* [faker](https://github.com/faker-ruby/faker) - TO genorate intresting seed data
-* [rspec-rails](https://github.com/rspec/rspec-rails) - All Rails models were developed using TDD
+* [jbuilder](https://github.com/rails/jbuilder) - format JSON views
+* [bcrypt](https://github.com/codahale/bcrypt-ruby) - password-hashing
+* [react-rails](https://github.com/reactjs/react-rails) - help serve a react app
+* [aws-sdk](https://aws.amazon.com/sdk-for-ruby/) - access to amazon s3 services
+* [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails) - genorate model instances for testing and seeding of the database
+* [faker](https://github.com/faker-ruby/faker) - for intresting seed data
+* [rspec-rails](https://github.com/rspec/rspec-rails) - models were developed using TDD
 
 ### Amazon S3
 
@@ -79,7 +65,7 @@ Notinstagram is a single page app built with React. The entry point is [here](ht
 #### Libraries
   
 * [React](https://reactjs.org/)  
-* [redux](https://github.com/reduxjs/react-redux) - Initialy vanilla redux was used
+* [redux](https://github.com/reduxjs/react-redux) - for state managment
 * [reduxjs/toolkit](https://redux-toolkit.js.org/) - after [this](/commit/6af7f80d075f52f82048061e43333232955296f9) commit notinstagram used redux toolkit to standadise best practises and DRY up code
 * [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) - is intentontaly left enabled on the prodection version of notinstagram
 * [redux-thunk](https://github.com/reduxjs/redux-thunk) -  for async redux actions
@@ -89,13 +75,13 @@ Notinstagram is a single page app built with React. The entry point is [here](ht
 
 notinstagram uses SCSS and makes use of [BEM conventions](http://getbem.com/) to create reusable styled compentets 
 
-[style.scss](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/scss/style.scss) is the entry point and shows all SCSS partials used
+[style.scss](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/scss/style.scss) is the entry point and includes SCSS partials
 
 notinstagram makes use of flexbox for layout
 
 ## Features and design chalanges
 
-The following are some of the more intresting designe chalanges and the solutions used to create not instagram...
+The following are some of the more intresting designe chalanges and the solutions used in the creation of not instagram...
 
 ### Authentication bcrypt
 
@@ -148,7 +134,7 @@ The post caption is passed hastags are created and joind with the post through t
 def tag_post(post)
     hashtags = post.caption.scan(/(#\w+)/).flatten.uniq
 
-    hashtags.each do |tag_name|
+  hashtags.each do |tag_name|
     hashtag = Hashtag.find_by(name: tag_name)
 
     if !hashtag
@@ -230,6 +216,8 @@ redux toolkit refactor
 ### Functional composition 
 
 #### React functional components 
+
+notinstagram uses functional React components in prefernece to classes
 
 #### React hooks
 

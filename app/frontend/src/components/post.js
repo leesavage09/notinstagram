@@ -129,10 +129,11 @@ function Likes(props) {
 
 export function PostCaption(props) {
     const author = useSelector(normalizedUsersSelector.getUser(props.post.author_id))
+    const words = replaceHashtagsWithLinks(getWords(props.post.caption))
 
     return (
         <div className="post-feed__caption">
-            <UserText user={author} words={addHashtagLinks(props.post.caption)} />
+            <UserText user={author} words={words} />
         </div>
     )
 }
@@ -142,7 +143,7 @@ function Comments(props) {
     const comments = comment_ids.length > 0 ? useSelector(normalizedCommentsSelector.getComments(comment_ids)) : []
     const commentBodys = []
 
-    comments.slice(comments.length-2, comments.length).forEach((comment) => {
+    comments.slice(comments.length - 2, comments.length).forEach((comment) => {
         const user = useSelector(normalizedUsersSelector.getUser(comment.author_id))
         commentBodys.push(
             <UserText key={comment.id} user={user} words={getWords(comment.body)} />
@@ -172,17 +173,17 @@ function Comments(props) {
 function UserText(props) {
     const words = props.words
 
-    const [showWords, setShowWords] = useState(words.slice(0, 10));
-    const textIsTruncated = words.length != showWords.length
+    const [currentWords, setCurrentWords] = useState(words.slice(0, 10));
+    const textIsTruncated = words.length != currentWords.length
 
     const showFullText = () => {
-        setShowWords(words)
+        setCurrentWords(words)
     }
 
     return (
         <div className="post-feed__comment-body">
             <Link className="dark-link" to={`/profile/?user_id=${props.user.id}`} >{props.user.username} </Link>
-            {showWords}
+            {currentWords}
             {textIsTruncated ? <a className="light-link" onClick={showFullText}  >... more</a> : ""}
         </div>
     )
@@ -192,8 +193,8 @@ function getWords(text) {
     return text.split(' ').map((word) => word + " ")
 }
 
-function addHashtagLinks(text) {
-    const words = getWords(text).map((word,idx) => {
+function replaceHashtagsWithLinks(words) {
+    return words.map((word, idx) => {
         if (word.match(/\B\#\w\w+\b/g)) {
             return (
                 <Link
@@ -207,6 +208,4 @@ function addHashtagLinks(text) {
             return word
         }
     })
-
-    return words
 }

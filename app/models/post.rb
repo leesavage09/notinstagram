@@ -82,7 +82,11 @@ class Post < ApplicationRecord
     end
 
     def get_details_by_author(author_id, limit, offset)
-      posts = Post.includes(:likes, :comments).where(author_id: author_id).order("created_at DESC").limit(limit).offset(offset)
+      posts = Post
+        .includes(:likes, :comments)
+        .where(author_id: author_id)
+        .order(created_at: :desc)
+        .limit(limit).offset(offset)
       number_posts = Post.select(:id).where(author_id: author_id).count
 
       post_ids, post_comments, associated_user_ids = get_associated_details(posts)

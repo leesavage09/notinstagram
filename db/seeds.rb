@@ -18,7 +18,7 @@ def create_users
   url = "https://randomuser.me/api/?results=70&password=upper,lower,7-14&seed=notinsta&inc=name,email,login,picture"
   uri = URI(url)
   response = Net::HTTP.get(uri)
-  jsonSeeds = JSON.parse(response)
+  randomusers = JSON.parse(response)
 
   # create guest account
   user = User.new
@@ -30,7 +30,7 @@ def create_users
     @allUsers << user
   end
 
-  jsonSeeds["results"].each { |data|
+  randomusers["results"].each { |data|
     user = User.new
     user.name = data["name"]["first"] + " " + data["name"]["last"]
     user.email = data["email"]

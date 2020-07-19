@@ -39,8 +39,7 @@ class Api::PostsController < ApplicationController
       post = Post.new
       post.author = logged_in_user
       post.caption = params.require(:caption)
-      hashtags = post.caption.scan(/#(\w+)/).flatten.uniq
-      tag_post(hashtags, post)
+      tag_post(post)
       post.save!
       @post = post
       @s3data = post.image_s3_post_url
@@ -77,9 +76,10 @@ class Api::PostsController < ApplicationController
 
   private
 
-  def tag_post(hashtags, post)
+  def tag_post(post)
+    hashtags = post.caption.scan(/(#\w+)/).flatten.uniq
+
     hashtags.each do |tag_name|
-      tag_name = "#" + tag_name
       hashtag = Hashtag.find_by(name: tag_name)
 
       if !hashtag
