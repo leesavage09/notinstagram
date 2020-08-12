@@ -88,18 +88,28 @@ notinstagram makes use of modern CSS including flexbox. Icons are a combination 
 
 ## Screenshots
 
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram12.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram13.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram14.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram15.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram16.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram17.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram18.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram19.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram110.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram111.png)   
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram112.png)   
+#### The home feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png)
+#### A post page
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png)
+#### Discover people
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png)
+#### Modal dialog to change avatar image
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png)
+#### Log out modal
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png)
+#### Search for users
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png)
+#### Edit a photo and send directly to Amazon S3 bucket
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png)
+#### Edit user account details
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png)
+#### The users activity/notification feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png)
+#### Discover posts
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png)
+#### The home feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png)
 
 # Details
 
