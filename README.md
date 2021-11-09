@@ -19,7 +19,7 @@ For the best experence use:
 * [Back end](/README.md#back-end)
 * [Amazon S3](/README.md#amazon-s3)   
 * [Front End](/README.md#front-end)  
-* [Design](/README.md#styling--design)
+* [Design](/README.md#design)
 
 [Code Examples](/README.md#Code-Examples)   
 * [Authentication bcrypt](/README.md#Authentication-bcrypt)
