@@ -2,9 +2,7 @@
 
 Notinstagram was created as an open-source tech demo to show I can create a fully-featured product built to a known feature and design specification. Notinstagram is a pixel perfect and minimally functional version of Instagram as it was in 2020
 
-Notinstagram is a clone of Instagram's mobile-web UI. This differs from the desktop and native app UI's. To view [notinstagram](https://not--instagram.herokuapp.com/) you must have a recognised mobile device. 
-
-For the best experence use:
+To view [notinstagram](https://not--instagram.herokuapp.com/) you must have a recognised mobile device. For the best experence use:
 * a mobile device
 * a mobile simulator from the browser developer tools [Ctrl + Shift + I]
 
@@ -59,7 +57,7 @@ notinstagrams backend consists of a JSON REST api is built with Ruby on Rails an
 
 ## Amazon S3
 
-Free Amazon S3 buckets are used to host static assets. All images are edited on the client side and sent directly to the amazon s3 bucket using a presigned URL. This massively reduces the load on the back-end, reducing costs.
+Free Amazon S3 buckets are used to host static assets. All images are edited on the client side and sent directly to the amazon s3 bucket using a presigned URL. This massively reduces the load on the backend, reducing costs.
 
 ## Frontend
 
