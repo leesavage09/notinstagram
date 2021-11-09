@@ -1,17 +1,27 @@
 # notinstagram
 
-[What is notinstagram](/README.md#what-is-notinstagram)   
-* [Planning](/README.md#planning)   
+Notinstagram was created as an open-source tech demo to show I can create a fully-featured product built to a known feature and design specification. Notinstagram is a pixel perfect and minimally functional version of Instagram as it was in 2020
+
+Notinstagram is a clone of Instagram's mobile-web UI. This differs from the desktop and native app UI's. To view [notinstagram](https://not--instagram.herokuapp.com/) you must have a recognised mobile device. 
+
+For the best experence use:
+* a mobile device
+* a mobile simulator from the browser developer tools [Ctrl + Shift + I]
+
+#### notinstagram and instagram side by side
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png)
+
+# Index
+  
+[Planning](/README.md#planning)   
 
 [Structure](/README.md#structure)   
-* [Back end](/README.md#back-end)   
+* [Back end](/README.md#back-end)
 * [Amazon S3](/README.md#amazon-s3)   
 * [Front End](/README.md#front-end)  
+* [Design](/README.md#styling--design)
 
-[Styling & Design](/README.md#styling--design)
-* [Screenshots](/README.md#screenshots)
-
-[Details](/README.md#details)   
+[Code Examples](/README.md#Code-Examples)   
 * [Authentication bcrypt](/README.md#Authentication-bcrypt)
 * [Passing of hashtags](/README.md#Passing-of-hashtags)
 * [Seed data](/README.md#seed-data)   
@@ -22,18 +32,8 @@
 * [debounce](/README.md#debounce-Higher-order-functions)
 * [Active record N+1 query's](/README.md#active-record-n1-querys)
 
-# What is notinstagram
+[Screenshots](/README.md#screenshots)
 
-Notinstagram is a clone of Instagram's mobile-web UI. This differs from the desktop and native app UI's.
-
-To view and compare [notinstagram](http://notinstagram.leesavage.co.uk) and [instagram](https://www.instagram.com/) you must have a recognised mobile User-Agent string. 
-
-For the best experence use:
-* a mobile device
-* a mobile simulator from the browser developer tools 
-
-#### notinstagram and instagram side by side
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png)
 
 ## Planning
 
@@ -45,9 +45,7 @@ The brief considered database designe, redux state shape and REST api design
 
 ## Back end
 
-notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database.
-
-This is hosted on the Heroku free tier. Please alow some time for the first request to process while to app is loaded.
+notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. Ruby on Rails was chosen for its Convention over Configuration philosophy and strict (MVC) architectural pattern.
 
 ### Significatnt Back end Libraries
 
@@ -61,13 +59,11 @@ This is hosted on the Heroku free tier. Please alow some time for the first requ
 
 ## Amazon S3
 
-Free Amazon S3 buckets are used to host static assets. 
-
-All image uploads are edited on the client side and sent directly to the amazon s3 bucket using a presigned URL.
+Free Amazon S3 buckets are used to host static assets. All images are edited on the client side and sent directly to the amazon s3 bucket using a presigned URL. This massively reduces the load on the back-end, reducing costs.
 
 ## Front end
 
-Notinstagram is a single page app built with React. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/src/Index.js)
+Notinstagram is a single page app built with React. React code is written entirely in the functional style to create more maintainable code. Redux was chosen for state management to keep changes predictable and traceable. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/src/Index.js)
  
 ### Libraries
   
@@ -78,7 +74,7 @@ Notinstagram is a single page app built with React. The entry point is [here](ht
 * [redux-thunk](https://github.com/reduxjs/redux-thunk) -  for async redux actions
 * [axios](https://www.npmjs.com/package/axios) - to make request to the back end api
 
-# Styling & Design
+## Design
 
 notinstagram uses SCSS and makes use of [BEM conventions](http://getbem.com/) to create reusable styled compentets 
 
@@ -86,32 +82,7 @@ notinstagram uses SCSS and makes use of [BEM conventions](http://getbem.com/) to
 
 notinstagram makes use of modern CSS including flexbox. Icons are a combination of SVG and panel sprites 
 
-## Screenshots
-
-#### The home feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png)
-#### A post page
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png)
-#### Discover people
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png)
-#### Modal dialog to change avatar image
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png)
-#### Log out modal
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png)
-#### Search for users
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png)
-#### Edit a photo and send directly to Amazon S3 bucket
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png)
-#### Edit user account details
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png)
-#### The users activity/notification feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png)
-#### Discover posts
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png)
-#### The home feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png)
-
-# Details
+# Code Examples
 
 The following are some of the more intresting solutions used in the creation of notinstagram...
 
@@ -350,3 +321,29 @@ posts = Post
  .order(created_at: :desc)
  .limit(limit).offset(offset)
 ```
+
+
+## Screenshots
+
+#### The home feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png)
+#### A post page
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png)
+#### Discover people
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png)
+#### Modal dialog to change avatar image
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png)
+#### Log out modal
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png)
+#### Search for users
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png)
+#### Edit a photo and send directly to Amazon S3 bucket
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png)
+#### Edit user account details
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png)
+#### The users activity/notification feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png)
+#### Discover posts
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png)
+#### The home feed
+![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png)
