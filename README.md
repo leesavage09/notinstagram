@@ -16,16 +16,16 @@ For the best experence use:
 [Planning](/README.md#planning)   
 
 [Structure](/README.md#structure)   
-* [Back end](/README.md#back-end)
+* [Backend](/README.md#backend)
 * [Amazon S3](/README.md#amazon-s3)   
-* [Front End](/README.md#front-end)  
+* [Frontend](/README.md#frontend)  
 * [Design](/README.md#design)
 
 [Code Examples](/README.md#Code-Examples)   
 * [Authentication bcrypt](/README.md#Authentication-bcrypt)
 * [Passing of hashtags](/README.md#Passing-of-hashtags)
 * [Seed data](/README.md#seed-data)   
-* [frontend state](/README.md#frontend-state)
+* [Frontend state](/README.md#frontend-state)
 * [Custom redux middleware](/README.md#Custom-redux-middleware)
 * [React functional components](/README.md#react-functional-components)
 * [React hooks](/README.md#react-hooks)
@@ -43,11 +43,11 @@ The brief considered database designe, redux state shape and REST api design
 
 # Structure
 
-## Back end
+## Backend
 
-notinstagrams back end consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. Ruby on Rails was chosen for its Convention over Configuration philosophy and strict (MVC) architectural pattern.
+notinstagrams backend consists of a JSON REST api is built with Ruby on Rails and backed by a PostgreSQL database. Ruby on Rails was chosen for its Convention over Configuration philosophy and strict (MVC) architectural pattern.
 
-### Significatnt Back end Libraries
+### Significatnt Backend Libraries
 
 * [jbuilder](https://github.com/rails/jbuilder) - format JSON views
 * [bcrypt](https://github.com/codahale/bcrypt-ruby) - password-hashing
@@ -61,7 +61,7 @@ notinstagrams back end consists of a JSON REST api is built with Ruby on Rails a
 
 Free Amazon S3 buckets are used to host static assets. All images are edited on the client side and sent directly to the amazon s3 bucket using a presigned URL. This massively reduces the load on the back-end, reducing costs.
 
-## Front end
+## Frontend
 
 Notinstagram is a single page app built with React. React code is written entirely in the functional style to create more maintainable code. Redux was chosen for state management to keep changes predictable and traceable. The entry point is [here](https://github.com/leesavage09/notinstagram/blob/master/app/frontend/src/Index.js)
  
@@ -72,7 +72,7 @@ Notinstagram is a single page app built with React. React code is written entire
 * [reduxjs/toolkit](https://redux-toolkit.js.org/) - after [this](/commit/6af7f80d075f52f82048061e43333232955296f9) commit notinstagram used redux toolkit to standadise best practises and DRY up code
 * [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) - is intentontaly left enabled on the prodection version of notinstagram
 * [redux-thunk](https://github.com/reduxjs/redux-thunk) -  for async redux actions
-* [axios](https://www.npmjs.com/package/axios) - to make request to the back end api
+* [axios](https://www.npmjs.com/package/axios) - to make request to the backend api
 
 ## Design
 
