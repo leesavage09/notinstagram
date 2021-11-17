@@ -6,8 +6,8 @@ To view [notinstagram](https://not--instagram.herokuapp.com/) you must have a re
 * a mobile device
 * a mobile simulator from the browser developer tools [Ctrl + Shift + I]
 
-#### notinstagram and instagram side by side
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png)
+#### notinstagram and the real Instagram side by side
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png" width="600"></a>
 
 # Index
   
@@ -323,25 +323,26 @@ posts = Post
 
 ## Screenshots
 
+
 #### The home feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram1.png" width="300"></a>
 #### A post page
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram2.png" width="300"></a>
 #### Discover people
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram3.png" width="300"></a>
 #### Modal dialog to change avatar image
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram4.png" width="300"></a>
 #### Log out modal
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram5.png" width="300"></a>
 #### Search for users
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram6.png" width="300"></a>
 #### Edit a photo and send directly to Amazon S3 bucket
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram7.png" width="300"></a>
 #### Edit user account details
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram8.png" width="300"></a>
 #### The users activity/notification feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram9.png" width="300"></a>
 #### Discover posts
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram10.png" width="300"></a>
 #### The home feed
-![](https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png)
+<a href="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/notinstagram11.png" width="300"></a>
