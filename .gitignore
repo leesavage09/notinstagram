@@ -31,3 +31,7 @@ yarn-debug.log*
 /.env
 
 /public/seed/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
