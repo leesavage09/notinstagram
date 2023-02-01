@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: <%= ENV['NOTINSTAGRAM_DATABASE'] %>
   username: <%= ENV['NOTINSTAGRAM_DATABASE_USER'] %>
   password: <%= ENV['NOTINSTAGRAM_DATABASE_PASSWORD'] %>
