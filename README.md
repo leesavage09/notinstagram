@@ -2,9 +2,12 @@
 
 Notinstagram was created as an open-source tech demo to show I can create a fully-featured product built to a known feature and design specification. Notinstagram is a pixel perfect and minimally functional version of Instagram as it was in 2020
 
-To view [notinstagram](https://not--instagram.herokuapp.com/) you must have a recognised mobile device. For the best experence use:
-* a mobile device
-* a mobile simulator from the browser developer tools [Ctrl + Shift + I]
+## Demo
+[not--instagram.herokuapp.com](https://not--instagram.herokuapp.com/)\
+**warning**
+If you use Chrome or a browser with fishing protection the site is flagged as a scam. I take this as a complement as it looks identical to the old version of Instagram.
+For example with Chrome you will need to click through 'Details' > ''visit this unsafe site" 
+
 
 #### notinstagram and the real Instagram side by side
 <a href="https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png"><img src="https://github.com/leesavage09/notinstagram/blob/images/assets/comparison.png" width="600"></a>

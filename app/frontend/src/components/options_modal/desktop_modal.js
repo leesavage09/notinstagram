@@ -10,7 +10,7 @@ export default function DesktopModal() {
                 elements={[
                     <ul className="desktop-modal__list" key="1">
                         <li>1. Use a mobile device</li>
-                        <li>2. Open mobile simulator in the browser devtools</li>
+                        <li>2. Open mobile simulator in the browser devtools. <br /><a href="https://developer.chrome.com/docs/devtools/device-mode/">Chrome devtools device-mode</a></li>
                     </ul>
                 ]}
             />
